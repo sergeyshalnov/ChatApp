@@ -1,0 +1,134 @@
+//
+//  ProfileViewController.swift
+//  ChatApp
+//
+//  Created by Sergey Shalnov on 21.09.2018.
+//  Copyright © 2018 Sergey Shalnov. All rights reserved.
+//
+
+import UIKit
+
+class ProfileViewController: UIViewController {
+    
+    // MARK: - Outlets
+    
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var exitButton: UIButton!
+    @IBOutlet weak var profileImageButton: UIButton!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var informationLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    // MARK: - Variables
+    
+    private var username: String? {
+        didSet {
+            let value = username == "" ? nil : username
+            usernameLabel.text = value ?? "Enter your name"
+        }
+    }
+    
+    private var information: String? {
+        didSet {
+            let value = information == "" ? nil : information
+            informationLabel.text = value ?? "Please enter some information about yourself"
+        }
+    }
+    
+    private var image: UIImage? {
+        didSet {
+            profileImageView.image = image ?? UIImage(named: "profileImage")
+        }
+    }
+    
+    
+    // MARK: - Assembly Variables
+    
+    private var presentationAssembly: IPresentationAssembly?
+    private var profileStorageService: IProfileStorageService?
+    
+    
+    // MARK: - ViewController LifeCycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setup()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loadProfile()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    
+        adaptiveLayout()
+    }
+    
+    
+    // MARK: - Setup Assembly
+    
+    func setupAssembly(presentationAssembly: IPresentationAssembly, profileStorageService: IProfileStorageService) {
+        self.presentationAssembly = presentationAssembly
+        self.profileStorageService = profileStorageService
+    }
+    
+    
+    // MARK: - Setup interface
+    
+    private func setup() {
+        editButton.layer.cornerRadius = 10
+        editButton.layer.borderWidth = 1
+        
+        exitButton.layer.cornerRadius = 10
+        exitButton.layer.borderWidth = 1
+        
+        activityIndicator.hidesWhenStopped = true
+    }
+    
+    
+    // MARK: - Load profile information
+    
+    func loadProfile() {
+        activityIndicator.startAnimating()
+  
+        profileStorageService?.load { [weak self] profile in
+            DispatchQueue.main.async {
+                if let profile = profile {
+                    self?.username = profile.username
+                    self?.information = profile.information
+                    self?.image = profile.image
+                    
+                    self?.activityIndicator.stopAnimating()
+                }
+            }
+        }
+    }
+    
+    
+    // MARK: - Adaptive layout
+    
+    private func adaptiveLayout() {
+        let buttonWidth = profileImageButton.bounds.size.width
+    
+        profileImageView.layer.cornerRadius = buttonWidth / 2
+        profileImageView.layer.masksToBounds = true
+    }
+    
+    
+    // MARK: - Button functions
+    
+    @IBAction func editProfileTouchButton(_ sender: Any) {
+        guard let controller = presentationAssembly?.editProfileViewController() else { return }
+        self.present(controller, animated: false)
+    }
+    
+    @IBAction func exitProfileTouchButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+

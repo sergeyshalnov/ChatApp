@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="E6r-aP-weC">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Conversation View Controller-->
+        <scene sceneID="T33-nl-naT">
+            <objects>
+                <viewController id="E6r-aP-weC" customClass="ConversationViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TD3-dE-QJn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6oU-xF-Jbp">
+                                <rect key="frame" x="0.0" y="20" width="375" height="597"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KA6-Z4-VZT">
+                                <rect key="frame" x="20" y="627" width="265" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="CHANGE:" destination="YOr-U5-ufg" eventType="editingChanged" id="wBD-T0-fSg"/>
+                                    <action selector="changeEDIT:" destination="E6r-aP-weC" eventType="editingChanged" id="ZlO-Ma-b4U"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zba-HJ-anx">
+                                <rect key="frame" x="305" y="627" width="50" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="60" id="c2y-GN-WIy"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="quS-Zu-fST"/>
+                                </constraints>
+                                <state key="normal" title="Send"/>
+                                <connections>
+                                    <action selector="sendMessageButtonTouch:" destination="E6r-aP-weC" eventType="touchUpInside" id="Qgg-Rd-A1v"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5Cf-Ph-VnM" firstAttribute="trailing" secondItem="zba-HJ-anx" secondAttribute="trailing" constant="20" id="EUe-VW-GsR"/>
+                            <constraint firstItem="KA6-Z4-VZT" firstAttribute="top" secondItem="6oU-xF-Jbp" secondAttribute="bottom" constant="10" id="KqZ-5A-eez"/>
+                            <constraint firstItem="zba-HJ-anx" firstAttribute="centerY" secondItem="KA6-Z4-VZT" secondAttribute="centerY" id="LpL-iu-aNq"/>
+                            <constraint firstItem="KA6-Z4-VZT" firstAttribute="leading" secondItem="5Cf-Ph-VnM" secondAttribute="leading" constant="20" id="Rlc-X2-O0q"/>
+                            <constraint firstItem="6oU-xF-Jbp" firstAttribute="leading" secondItem="5Cf-Ph-VnM" secondAttribute="leading" id="Vv1-Ze-8XE"/>
+                            <constraint firstItem="zba-HJ-anx" firstAttribute="leading" secondItem="KA6-Z4-VZT" secondAttribute="trailing" constant="20" id="XS0-Rp-nrf"/>
+                            <constraint firstItem="6oU-xF-Jbp" firstAttribute="top" secondItem="5Cf-Ph-VnM" secondAttribute="top" id="Z7b-7l-0C2"/>
+                            <constraint firstItem="5Cf-Ph-VnM" firstAttribute="bottom" secondItem="KA6-Z4-VZT" secondAttribute="bottom" constant="10" id="ZFD-ld-kIn"/>
+                            <constraint firstItem="5Cf-Ph-VnM" firstAttribute="trailing" secondItem="6oU-xF-Jbp" secondAttribute="trailing" id="yO2-ng-YCY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="5Cf-Ph-VnM"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="poE-7w-ipr"/>
+                    <connections>
+                        <outlet property="conversationTableView" destination="6oU-xF-Jbp" id="nKL-Tb-WH9"/>
+                        <outlet property="messageTextField" destination="KA6-Z4-VZT" id="hqd-cF-hHp"/>
+                        <outlet property="sendButton" destination="zba-HJ-anx" id="n4S-nE-azR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D6d-sw-p2Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="YOr-U5-ufg" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-119.2" y="81.409295352323838"/>
+        </scene>
+    </scenes>
+</document>
