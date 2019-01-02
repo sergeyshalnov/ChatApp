@@ -18,7 +18,6 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var profileImageButton: UIButton!
-    
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -82,8 +81,26 @@ class EditProfileViewController: UIViewController {
     
     // MARK: - Assembly variables
     
-    private var presentationAssembly: IPresentationAssembly?
-    private var profileStorageService: IProfileStorageService?
+    private var presentationAssembly: IPresentationAssembly
+    private var profileStorageService: IProfileStorageService
+    
+    
+    // MARK: - Init
+    
+    init(presentationAssembly: IPresentationAssembly, profileStorageService: IProfileStorageService) {
+        self.presentationAssembly = presentationAssembly
+        self.profileStorageService = profileStorageService
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
     
     
     // MARK: - Lifecycle
@@ -110,7 +127,7 @@ class EditProfileViewController: UIViewController {
         setupLayout()
         setupTextEdit()
         
-        profileStorageService?.load { [weak self] profile in
+        profileStorageService.load { [weak self] profile in
             DispatchQueue.main.async {
                 self?.username = profile?.username
                 self?.information = profile?.information
@@ -155,6 +172,7 @@ class EditProfileViewController: UIViewController {
     
     // MARK: - Buttons functions
     
+   
     @IBAction func backButtonTouch(_ sender: Any) {
         dismiss(animated: false, completion: nil)
     }
@@ -194,7 +212,7 @@ class EditProfileViewController: UIViewController {
         activityIndicator.startAnimating()
         changeButtonState(enable: false, all: true)
         
-        profileStorageService?.save(profile: profile) { [weak self] isSave in
+        profileStorageService.save(profile: profile) { [weak self] isSave in
             DispatchQueue.main.async {
                 self?.activityIndicator.stopAnimating()
                 if isSave {
@@ -209,8 +227,6 @@ class EditProfileViewController: UIViewController {
                     
                     let alert = Alert.controller(type: .saveDone)
                     self?.present(alert, animated: true, completion: nil)
-                    
-                    print("Profile saved successfully")
                 } else {
                     guard let alert = self?.reSaveProfileAlertController() else { return }
                     self?.present(alert, animated: true, completion: nil)
@@ -291,7 +307,7 @@ class EditProfileViewController: UIViewController {
     }
     
     private func openPixabayPhotoLibrary() {
-        guard let controller = presentationAssembly?.imagesViewController(imageDelegate: self) else { return }
+        let controller = presentationAssembly.imagesViewController(imageDelegate: self) 
         self.present(controller, animated: true, completion: nil)
     }
 

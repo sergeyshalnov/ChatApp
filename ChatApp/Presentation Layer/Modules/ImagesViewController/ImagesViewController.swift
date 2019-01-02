@@ -15,6 +15,7 @@ class ImagesViewController: UIViewController {
     @IBOutlet weak var imagesCollectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    
     // MARK: - Variables
     
     private var cellsCount: Int = 0 {
@@ -23,11 +24,30 @@ class ImagesViewController: UIViewController {
         }
     }
     
-    // MARK: Services
+    // MARK: Assembly variables
     
-    private var presentationAssembly: IPresentationAssembly?
-    private var pixabayService: IImageManager?
-    private var imageDelegate: ImageDelegate?
+    private var presentationAssembly: IPresentationAssembly
+    private var pixabayService: IImageManager
+    private var imageDelegate: ImageDelegate
+    
+    
+    // MARK: - Init
+    
+    init(presentationAssembly: IPresentationAssembly, pixabayService: IImageManager, imageDelegate: ImageDelegate) {
+        self.presentationAssembly = presentationAssembly
+        self.pixabayService = pixabayService
+        self.imageDelegate = imageDelegate
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
     
     
     // MARK: - ViewController Lifecycle
@@ -59,7 +79,7 @@ class ImagesViewController: UIViewController {
         imagesCollectionView.dataSource = self
         
         DispatchQueue.global().async { [weak self] in
-            self?.pixabayService?.performRequest { (itemsCount) in
+            self?.pixabayService.performRequest { (itemsCount) in
                 DispatchQueue.main.async {
                     self?.cellsCount = itemsCount
                     self?.activityIndicator.stopAnimating()
@@ -80,7 +100,7 @@ extension ImagesViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomImageCell", for: indexPath) as? ImageCell else { fatalError() }
         cell.customImageView.frame = cell.bounds
         
-        if let url = pixabayService?.webFormat(index: indexPath.row) {
+        if let url = pixabayService.webFormat(index: indexPath.row) {
             cell.customImageView.pixabayLoader(url: url)
         }
         
@@ -111,10 +131,10 @@ extension ImagesViewController: UICollectionViewDelegateFlowLayout {
 extension ImagesViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let url = pixabayService?.webFormat(index: indexPath.row) else { return }
-        pixabayService?.load(url: url) { (image) in
+        guard let url = pixabayService.webFormat(index: indexPath.row) else { return }
+        pixabayService.load(url: url) { (image) in
             DispatchQueue.main.async { [weak self] in
-                self?.imageDelegate?.setImage(image: image)
+                self?.imageDelegate.setImage(image: image)
                 self?.dismiss(animated: true, completion: nil)
             }
         }

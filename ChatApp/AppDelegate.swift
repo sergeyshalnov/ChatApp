@@ -25,11 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = controller
         window?.makeKeyAndVisible()
         
+        coreData.terminate()
+        
         return true
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        coreData.terminate()
+        // Application will terminate
     }
 }
 

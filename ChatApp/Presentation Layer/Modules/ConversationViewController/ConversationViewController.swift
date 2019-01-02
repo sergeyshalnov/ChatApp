@@ -15,6 +15,7 @@ class ConversationViewController: UIViewController {
     
     @IBOutlet weak var conversationTableView: UITableView!
     @IBOutlet weak var messageTextField: UITextField!
+  
     @IBOutlet weak var sendButton: UIButton!
     
     // MARK: - Variables
@@ -32,16 +33,41 @@ class ConversationViewController: UIViewController {
     
     var conversationListDelegate: ConversationListDelegate?
     
-    // MARK: - messageFRC
+    // MARK: - Current conversation id
     
-    var conversationId: String?
+    var currentConversationId: String?
     
-    ////////////
+    // MARK: - Services & Assembly
     
-    private var presentationAssembly: IPresentationAssembly?
-    private var communicationStorageService: ICommunicationStorageService?
-    private var messageFetchResultsController: NSFetchedResultsController<Message>?
+    private var presentationAssembly: IPresentationAssembly
+    private var communicationStorageService: ICommunicationStorageService
+    private var messageFetchResultsController: NSFetchedResultsController<Message>
 
+    
+    // MARK: - Init
+    
+    init(title: String?, currentConversation: String, conversationListDelegate: ConversationListDelegate,presentationAssembly: IPresentationAssembly, communicationStorageService: ICommunicationStorageService, messageFetchResultsController: NSFetchedResultsController<Message>) {
+        
+        self.currentConversationId = currentConversation
+        self.conversationListDelegate = conversationListDelegate
+        
+        self.presentationAssembly = presentationAssembly
+        self.communicationStorageService = communicationStorageService
+        self.messageFetchResultsController = messageFetchResultsController
+        
+        super.init(nibName: nil, bundle: nil)
+        
+        self.navigationItem.title = title
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
     
     // MARK: - Lifecycle
     
@@ -49,8 +75,6 @@ class ConversationViewController: UIViewController {
         super.viewDidLoad()
         
         setup()
-        
-        changeButtonStatus(flag: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,16 +92,6 @@ class ConversationViewController: UIViewController {
         messageTextField.layer.cornerRadius = messageTextField.bounds.height / 2
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        UIView.animate(withDuration: 1) {
-            self.navigationItem.titleView?.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-        }
-        
-        
-    }
-    
     
     // MARK: - Setup Assembly
     
@@ -88,9 +102,33 @@ class ConversationViewController: UIViewController {
     }
     
     
-    // MARK: - Private functions
+    // MARK: - Private setup functions
     
     private func setup() {
+        setupNavigationBar()
+        setupSendButton()
+        setupTableView()
+        setupFetchResultsController()
+        
+        changeButtonStatus(flag: false)
+    }
+    
+    private func setupFetchResultsController() {
+        messageFetchResultsController.delegate = self
+        
+        do {
+            try messageFetchResultsController.performFetch()
+        } catch {
+            print("Fetch fail")
+        }
+    }
+    
+    private func setupSendButton() {
+        sendButton.backgroundColor = self.view.tintColor
+        sendButton.setTitleColor(UIColor.white, for: .normal)
+    }
+    
+    private func setupTableView() {
         conversationTableView.register(UINib(nibName: incomingID, bundle: nil), forCellReuseIdentifier: incomingID)
         conversationTableView.register(UINib(nibName: outgoingID, bundle: nil), forCellReuseIdentifier: outgoingID)
         
@@ -102,47 +140,28 @@ class ConversationViewController: UIViewController {
         conversationTableView.estimatedRowHeight = 60
         
         conversationTableView.allowsSelection = false
-        
-        sendButton.backgroundColor = self.view.tintColor
-        sendButton.setTitleColor(UIColor.white, for: .normal)
-        
-        messageFetchResultsController?.delegate = self
-        
-        do {
-            try messageFetchResultsController?.performFetch()
-        } catch {
-            print("Fetch fail")
-        }
     }
+    
+    private func setupNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    
+    
     
     // MARK: - Button Status Animation
     
     private func changeButtonStatus(flag: Bool) {
-        sendButton.isEnabled = flag && online
-        
-        let colorAnimation: () -> Void = {
-            self.sendButton.backgroundColor = flag && self.online ? self.view.tintColor : UIColor.red
-        }
-        
-        UIView.transition(with: sendButton, duration: 0.5, options: .transitionCrossDissolve, animations: colorAnimation)
-        UIView.animate(withDuration: 0.5) {
-            self.sendButton.transform = flag && self.online ? .identity : CGAffineTransform(scaleX: 1.15, y: 1.15)
-        }
-    }
-    
-    // MARK: - User Status Animation
-    
-    private func changeUserStatus(online: Bool) {
-        guard let label = self.navigationItem.titleView as? UILabel else { return }
-        
-        UIView.transition(with: label, duration: 1, options: .transitionCrossDissolve, animations: {
-            label.textColor = online ? UIColor.greenPantone : UIColor.black
-        }, completion: nil)
-
-        UIView.animate(withDuration: 1) {
-            label.transform = online ? CGAffineTransform(scaleX: 1.1, y: 1.1) : .identity
-        }
-        
+//        sendButton.isEnabled = flag && online
+//
+//        let colorAnimation: () -> Void = {
+//            self.sendButton.backgroundColor = flag && self.online ? self.view.tintColor : UIColor.red
+//        }
+//
+//        UIView.transition(with: sendButton, duration: 0.5, options: .transitionCrossDissolve, animations: colorAnimation)
+//        UIView.animate(withDuration: 0.5) {
+//            self.sendButton.transform = flag && self.online ? .identity : CGAffineTransform(scaleX: 1.15, y: 1.15)
+//        }
     }
     
     
@@ -150,13 +169,13 @@ class ConversationViewController: UIViewController {
 
     @IBAction func sendMessageButtonTouch(_ sender: Any) {
         guard let text = messageTextField.text else { return }
-        guard let conversationId = conversationId else { return }
+        guard let currentConversationId = currentConversationId else { return }
         guard let peer = peer else { return }
         let date = NSDate()
         let id = Generator.id()
 
-        let message = MessageData(messageId: id, conversationId: conversationId, text: text, date: date, incoming: false)
-        communicationStorageService?.add(message: message)
+        let message = MessageData(messageId: id, conversationId: currentConversationId, text: text, date: date, incoming: false)
+        communicationStorageService.add(message: message)
         
         conversationListDelegate?.conversationList(sentMessage: message, toPeer: peer)
     }
@@ -190,7 +209,6 @@ extension ConversationViewController: ConversationDelegate {
         if self.peer?.identifier == peer.identifier {
             online = false
             changeButtonStatus(flag: false)
-            changeUserStatus(online: false)
         }
     }
     
@@ -202,14 +220,14 @@ extension ConversationViewController: UITableViewDataSource {
     // MARK: - TableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = messageFetchResultsController?.sections else { return 0 }
+        guard let sections = messageFetchResultsController.sections else { return 0 }
         
         let sectionInfo = sections[section]
         return sectionInfo.numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let message = messageFetchResultsController?.object(at: indexPath) else { fatalError() }
+        let message = messageFetchResultsController.object(at: indexPath)
         let incoming = message.incoming
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: incoming ? incomingID : outgoingID, for: indexPath) as? ConversationCell else {

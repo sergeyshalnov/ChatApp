@@ -45,11 +45,29 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Assembly Variables
     
-    private var presentationAssembly: IPresentationAssembly?
-    private var profileStorageService: IProfileStorageService?
+    private var presentationAssembly: IPresentationAssembly
+    private var profileStorageService: IProfileStorageService
     
     
-    // MARK: - ViewController LifeCycle
+    // MARK: - Init
+    
+    init(presentationAssembly: IPresentationAssembly, profileStorageService: IProfileStorageService) {
+        self.presentationAssembly = presentationAssembly
+        self.profileStorageService = profileStorageService
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    
+    // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,12 +109,14 @@ class ProfileViewController: UIViewController {
     }
     
     
+    
+    
     // MARK: - Load profile information
     
     func loadProfile() {
         activityIndicator.startAnimating()
   
-        profileStorageService?.load { [weak self] profile in
+        profileStorageService.load { [weak self] profile in
             DispatchQueue.main.async {
                 if let profile = profile {
                     self?.username = profile.username
@@ -122,12 +142,12 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Button functions
     
-    @IBAction func editProfileTouchButton(_ sender: Any) {
-        guard let controller = presentationAssembly?.editProfileViewController() else { return }
+    @IBAction func editProfileButtonTouch(_ sender: Any) {
+        let controller = presentationAssembly.editProfileViewController()
         self.present(controller, animated: false)
     }
     
-    @IBAction func exitProfileTouchButton(_ sender: Any) {
+    @IBAction func exitProfileButtonTouch(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
 }
