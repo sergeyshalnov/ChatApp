@@ -38,7 +38,11 @@ class ProfileViewController: UIViewController {
     
     private var image: UIImage? {
         didSet {
-            profileImageView.image = image ?? UIImage(named: "profileImage")
+            UIView.transition(with: self.profileImageView, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.profileImageView.image = self.image ?? UIImage(named: "profileImage")
+            }, completion: nil)
+            
+            // profileImageView.image = image ?? UIImage(named: "profileImage")
         }
     }
     
@@ -143,7 +147,7 @@ class ProfileViewController: UIViewController {
     // MARK: - Button functions
     
     @IBAction func editProfileButtonTouch(_ sender: Any) {
-        let controller = presentationAssembly.editProfileViewController()
+        let controller = presentationAssembly.editProfileViewController(temporaryProfileImage: self.image)
         self.present(controller, animated: false)
     }
     

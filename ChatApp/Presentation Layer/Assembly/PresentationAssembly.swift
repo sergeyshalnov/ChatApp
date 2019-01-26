@@ -16,7 +16,7 @@ protocol IPresentationAssembly {
     
     func profileViewController() -> ProfileViewController
     
-    func editProfileViewController() -> EditProfileViewController
+    func editProfileViewController(temporaryProfileImage: UIImage?) -> EditProfileViewController
     
     func imagesViewController(imageDelegate: ImageDelegate) -> ImagesViewController 
     
@@ -55,8 +55,8 @@ class PresentationAssembly: IPresentationAssembly {
         return controller
     }
     
-    func editProfileViewController() -> EditProfileViewController {
-        let controller = EditProfileViewController(presentationAssembly: self, profileStorageService: serviceAssembly.profileStorageService())
+    func editProfileViewController(temporaryProfileImage: UIImage?) -> EditProfileViewController {
+        let controller = EditProfileViewController(presentationAssembly: self, profileStorageService: serviceAssembly.profileStorageService(), temporaryProfileImage: temporaryProfileImage)
         
         return controller
     }

@@ -57,6 +57,11 @@ class EditProfileViewController: UIViewController {
         }
     }
     
+    // MARK: - Temporary profile image
+    
+    // Use this variable for better segue
+    var temporaryProfileImage: UIImage?
+    
     
     // MARK: - Calculated variables
     
@@ -87,9 +92,10 @@ class EditProfileViewController: UIViewController {
     
     // MARK: - Init
     
-    init(presentationAssembly: IPresentationAssembly, profileStorageService: IProfileStorageService) {
+    init(presentationAssembly: IPresentationAssembly, profileStorageService: IProfileStorageService, temporaryProfileImage: UIImage?) {
         self.presentationAssembly = presentationAssembly
         self.profileStorageService = profileStorageService
+        self.temporaryProfileImage = temporaryProfileImage
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -131,9 +137,14 @@ class EditProfileViewController: UIViewController {
             DispatchQueue.main.async {
                 self?.username = profile?.username
                 self?.information = profile?.information
-                self?.image = profile?.image
+                
+                if self?.image == nil {
+                    self?.image = profile?.image
+                }
             }
         }
+        
+        self.image = self.temporaryProfileImage
         
         changeButtonState(enable: isChange, all: false)
         activityIndicator.hidesWhenStopped = true
@@ -343,6 +354,7 @@ extension EditProfileViewController: ImageDelegate {
     
     func setImage(image: UIImage?) {
         profileImageView.image = image
+        changeButtonState(enable: isChange, all: false)
     }
     
 }

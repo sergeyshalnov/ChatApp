@@ -67,7 +67,7 @@
                     <rect key="frame" x="20" y="420.5" width="335" height="21"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
                             <color key="value" red="0.67843604089999998" green="0.67842304710000001" blue="0.67843186860000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -87,7 +87,7 @@
                     <rect key="frame" x="20" y="477" width="335" height="116"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                 </textView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="stW-W2-MKb">
                     <rect key="frame" x="275" y="295" width="80" height="80"/>
