@@ -136,7 +136,7 @@ class ConversationViewController: UIViewController {
         conversationTableView.dataSource = self
         conversationTableView.delegate = self
         
-        conversationTableView.rowHeight = UITableViewAutomaticDimension
+        conversationTableView.rowHeight = UITableView.automaticDimension
         conversationTableView.estimatedRowHeight = 60
         
         conversationTableView.allowsSelection = false
@@ -186,14 +186,6 @@ class ConversationViewController: UIViewController {
         changeButtonStatus(flag: messageTextField.text != "")
     }
     
-}
-
-extension ConversationViewController: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        print(gestureRecognizer.description)
-        return true
-    }
 }
 
 

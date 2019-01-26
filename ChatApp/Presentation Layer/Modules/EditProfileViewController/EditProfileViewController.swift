@@ -363,9 +363,8 @@ extension EditProfileViewController: UITextViewDelegate {
 
 extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let pickedImage = (info[UIImagePickerControllerEditedImage] ?? info[UIImagePickerControllerOriginalImage]) as? UIImage {
-            
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = (info[.editedImage] ?? info[.originalImage]) as? UIImage {
             profileImageView.image = pickedImage
             changeButtonState(enable: isChange, all: false)
         } else {

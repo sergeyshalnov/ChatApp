@@ -40,6 +40,9 @@
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="BMm-G7-XY3"/>
                     </constraints>
                     <state key="normal" title="Send"/>
+                    <connections>
+                        <action selector="sendMessageButtonTouch:" destination="-1" eventType="touchUpInside" id="tmb-aY-muN"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -42,7 +42,7 @@ extension ImageManager: IImageSaver {
         let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let url = dir.appendingPathComponent(filename)
         
-        if let data = UIImagePNGRepresentation(image) {
+        if let data = image.pngData() {
             do {
                 try data.write(to: url)
             } catch { return false }

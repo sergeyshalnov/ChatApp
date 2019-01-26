@@ -17,8 +17,8 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     let cornerRaidus: CGFloat = 15.0
     var edgeInsets: UIEdgeInsets {
         get {
-            return UIEdgeInsetsMake(cornerRaidus / 2, cornerRaidus / 2,
-                                    cornerRaidus / 2, cornerRaidus / 2)
+            return UIEdgeInsets.init(top: cornerRaidus / 2, left: cornerRaidus / 2,
+                                    bottom: cornerRaidus / 2, right: cornerRaidus / 2)
         }
     }
     

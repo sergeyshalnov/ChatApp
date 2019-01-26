@@ -76,12 +76,6 @@ class ConversationsListViewController: UIViewController {
         
         currentPeerConversation = nil
         conversationDelegate = nil
-        
-        profileStorageService.load { [weak self] profile in
-            DispatchQueue.main.async {
-            self?.navigationItem.title = profile?.username ?? "Chat"
-            }
-        }
     }
     
     
@@ -94,7 +88,6 @@ class ConversationsListViewController: UIViewController {
         self.communicationStorageService = communicationStorageService
         self.profileStorageService = profileStorageService
         self.conversationFetchResultsController = conversationFetchResultsController
-        
     }
     
     
@@ -118,7 +111,7 @@ class ConversationsListViewController: UIViewController {
         do {
             try conversationFetchResultsController.performFetch()
         } catch {
-            print("Error while setup FetchResults controller")
+            print("Error while setup FetchResultsController")
             return
         }
     }
@@ -133,15 +126,18 @@ class ConversationsListViewController: UIViewController {
     
     private func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.isTranslucent = true
         
         let searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
+        navigationItem.title = "Chats"
         
         setupProfileButton()
     }
     
     private func setupProfileButton() {
         let profileButton = UIButton(type: .system)
+        
         profileButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         profileButton.setImage(UIImage(named: "Contact")?.withRenderingMode(.alwaysOriginal), for: .normal)
         profileButton.addTarget(self, action: #selector(profileButtonTouch), for: .touchUpInside)
@@ -281,6 +277,8 @@ extension ConversationsListViewController: CommunicationServiceDelegate {
             communicationStorageService.delete(conversationId: user.conversationId)
             temporaryUserStorage.delete(conversationId: user.conversationId)
             conversationDelegate?.conversation(didLostPeer: peer)
+            
+            tableView.reloadData()
         }
         
     }
@@ -352,7 +350,6 @@ extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
                     at indexPath: IndexPath?,
                     for type: NSFetchedResultsChangeType,
                     newIndexPath: IndexPath?) {
-        
         
         if let indexPath = indexPath {
             
