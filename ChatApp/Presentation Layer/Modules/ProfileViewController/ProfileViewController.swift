@@ -38,11 +38,13 @@ class ProfileViewController: UIViewController {
     
     private var image: UIImage? {
         didSet {
-            UIView.transition(with: self.profileImageView, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                self.profileImageView.image = self.image ?? UIImage(named: "profileImage")
-            }, completion: nil)
-            
-            // profileImageView.image = image ?? UIImage(named: "profileImage")
+            if oldValue == nil {
+                self.profileImageView.image = self.image
+            } else {
+                UIView.transition(with: self.profileImageView, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                    self.profileImageView.image = self.image ?? UIImage(named: "profileImage")
+                }, completion: nil)
+            }
         }
     }
     

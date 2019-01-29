@@ -116,6 +116,10 @@ class EditProfileViewController: UIViewController {
         
         setup()
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 
     
     // MARK: - Setup Assembly
@@ -132,22 +136,8 @@ class EditProfileViewController: UIViewController {
         setupButtons()
         setupLayout()
         setupTextEdit()
-        
-        profileStorageService.load { [weak self] profile in
-            DispatchQueue.main.async {
-                self?.username = profile?.username
-                self?.information = profile?.information
-                
-                if self?.image == nil {
-                    self?.image = profile?.image
-                }
-            }
-        }
-        
-        self.image = self.temporaryProfileImage
-        
-        changeButtonState(enable: isChange, all: false)
-        activityIndicator.hidesWhenStopped = true
+        setupProfileInformation()
+        setupKeyboardAppearance()
     }
     
     private func setupTextEdit() {
@@ -165,6 +155,8 @@ class EditProfileViewController: UIViewController {
         saveButton.layer.borderWidth = 1
         
         profileImageButton.backgroundColor = UIColor(red:0.25, green:0.47, blue:0.94, alpha:1.0)
+        
+        changeButtonState(enable: isChange, all: false)
     }
     
     private func setupLayout() {
@@ -178,8 +170,46 @@ class EditProfileViewController: UIViewController {
         
         profileImageView.layer.cornerRadius = buttonWidth / 2
         profileImageView.layer.masksToBounds = true
+        
+        activityIndicator.hidesWhenStopped = true
     }
     
+    private func setupProfileInformation() {
+        profileStorageService.load { [weak self] profile in
+            DispatchQueue.main.async {
+                self?.username = profile?.username
+                self?.information = profile?.information
+                
+                if self?.image == nil {
+                    self?.image = profile?.image
+                }
+            }
+        }
+        
+        self.image = self.temporaryProfileImage
+    }
+    
+    
+    // MARK: - Setup Keyboard Appearance
+    
+    private func setupKeyboardAppearance() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
     
     // MARK: - Buttons functions
     

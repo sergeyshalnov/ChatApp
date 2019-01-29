@@ -13,8 +13,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConversationViewController" customModule="ChatApp" customModuleProvider="target">
             <connections>
                 <outlet property="conversationTableView" destination="YNx-Vt-LTX" id="ubP-xR-xm8"/>
-                <outlet property="messageTextField" destination="FeS-4s-SzS" id="qUX-XG-dVv"/>
-                <outlet property="sendButton" destination="mjR-gR-BzA" id="lvu-mh-ugd"/>
                 <outlet property="view" destination="GoE-08-3yi" id="EwC-qg-Ecd"/>
             </connections>
         </placeholder>
@@ -23,39 +21,17 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YNx-Vt-LTX">
-                    <rect key="frame" x="0.0" y="20" width="375" height="597"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YNx-Vt-LTX">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
-                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FeS-4s-SzS">
-                    <rect key="frame" x="20" y="627" width="265" height="30"/>
-                    <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mjR-gR-BzA">
-                    <rect key="frame" x="305" y="627" width="50" height="30"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="60" id="9eF-Pa-fbW"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="BMm-G7-XY3"/>
-                    </constraints>
-                    <state key="normal" title="Send"/>
-                    <connections>
-                        <action selector="sendMessageButtonTouch:" destination="-1" eventType="touchUpInside" id="tmb-aY-muN"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="mjR-gR-BzA" firstAttribute="centerY" secondItem="FeS-4s-SzS" secondAttribute="centerY" id="bLq-J5-j3I"/>
+                <constraint firstItem="H01-Iv-GO1" firstAttribute="bottom" secondItem="YNx-Vt-LTX" secondAttribute="bottom" id="PML-CZ-JIV"/>
                 <constraint firstItem="H01-Iv-GO1" firstAttribute="trailing" secondItem="YNx-Vt-LTX" secondAttribute="trailing" id="d6h-BQ-TGW"/>
-                <constraint firstItem="H01-Iv-GO1" firstAttribute="bottom" secondItem="FeS-4s-SzS" secondAttribute="bottom" constant="10" id="fMl-1p-OxN"/>
                 <constraint firstItem="YNx-Vt-LTX" firstAttribute="leading" secondItem="H01-Iv-GO1" secondAttribute="leading" id="g99-OY-ZvE"/>
-                <constraint firstItem="FeS-4s-SzS" firstAttribute="top" secondItem="YNx-Vt-LTX" secondAttribute="bottom" constant="10" id="jpp-J8-JT7"/>
-                <constraint firstItem="mjR-gR-BzA" firstAttribute="leading" secondItem="FeS-4s-SzS" secondAttribute="trailing" constant="20" id="qpL-On-RvD"/>
-                <constraint firstItem="FeS-4s-SzS" firstAttribute="leading" secondItem="H01-Iv-GO1" secondAttribute="leading" constant="20" id="uX0-bw-e3w"/>
                 <constraint firstItem="YNx-Vt-LTX" firstAttribute="top" secondItem="H01-Iv-GO1" secondAttribute="top" id="vUt-I4-Fqy"/>
-                <constraint firstItem="H01-Iv-GO1" firstAttribute="trailing" secondItem="mjR-gR-BzA" secondAttribute="trailing" constant="20" id="w6f-AH-0Yl"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="H01-Iv-GO1"/>
         </view>
