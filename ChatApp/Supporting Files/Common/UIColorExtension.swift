@@ -13,7 +13,7 @@ import UIKit
 extension UIColor {
     static var online: UIColor {
         get {
-            return UIColor(red:0.99, green:0.96, blue:0.84, alpha:1.0)
+            return UIColor(red:0.81, green:0.89, blue:1.00, alpha:0.3)
         }
     }
     static var greyBubble: UIColor {

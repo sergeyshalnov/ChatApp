@@ -14,8 +14,6 @@ class ConversationViewController: UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var conversationTableView: UITableView!
-    @IBOutlet weak var messageTextField: UITextField!
-    @IBOutlet weak var sendButton: UIButton!
     
     // MARK: - Variables
     
@@ -32,16 +30,103 @@ class ConversationViewController: UIViewController {
     
     var conversationListDelegate: ConversationListDelegate?
     
-    // MARK: - messageFRC
+    // MARK: - Current conversation id
     
-    var conversationId: String?
+    var currentConversationId: String?
     
-    ////////////
+    // MARK: - Services & Assembly
     
-    private var presentationAssembly: IPresentationAssembly?
-    private var communicationStorageService: ICommunicationStorageService?
-    private var messageFetchResultsController: NSFetchedResultsController<Message>?
+    private var presentationAssembly: IPresentationAssembly
+    private var communicationStorageService: ICommunicationStorageService
+    private var messageFetchResultsController: NSFetchedResultsController<Message>
+    
+    // MARK: - Message input views
+    
+    let messageContainerView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 150, width: 154, height: 54))
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.white
+        
+        let heightConstraint = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 54)
+        
+        view.addConstraint(heightConstraint)
+        
+        return view
+    }()
+    
+    let messageView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 150, width: 44, height: 144))
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
+        view.layer.borderWidth = 0.7
+        view.layer.borderColor = UIColor.greyBubble.cgColor
+        
+        let heightConstraint = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 44)
+        
+        view.addConstraint(heightConstraint)
+        
+        return view
+    }()
+    
+    let messageButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 34, height: 34))
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = UIColor.lightGray
+        button.setTitle("S", for: .normal)
+        button.isEnabled = true
+        
+        let widthButtonConstraint = NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 34)
+        let heightButtonConstraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 34)
+        
+        button.addConstraints([widthButtonConstraint, heightButtonConstraint])
+        
+        button.addTarget(self, action: #selector(sendMessageButtonTouchUpInside), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    let messageField: UITextField = {
+        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 34, height: 34))
+        
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Message..."
+        textField.addTarget(self, action: #selector(messageFieldChanged), for: .editingChanged)
+        
+        return textField
+    }()
+    
+    // MARK: - Message input constraints
+    
+    lazy var messageInputBottomConstraint = NSLayoutConstraint(item: messageContainerView, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottomMargin, multiplier: 1, constant: 0)
 
+    
+    // MARK: - Init
+    
+    init(title: String?, currentConversation: String, conversationListDelegate: ConversationListDelegate,presentationAssembly: IPresentationAssembly, communicationStorageService: ICommunicationStorageService, messageFetchResultsController: NSFetchedResultsController<Message>) {
+        
+        self.currentConversationId = currentConversation
+        self.conversationListDelegate = conversationListDelegate
+        
+        self.presentationAssembly = presentationAssembly
+        self.communicationStorageService = communicationStorageService
+        self.messageFetchResultsController = messageFetchResultsController
+        
+        super.init(nibName: nil, bundle: nil)
+        
+        self.navigationItem.title = title
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
     
     // MARK: - Lifecycle
     
@@ -49,8 +134,6 @@ class ConversationViewController: UIViewController {
         super.viewDidLoad()
         
         setup()
-        
-        changeButtonStatus(flag: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,22 +143,8 @@ class ConversationViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        sendButton.layer.cornerRadius = sendButton.bounds.height / 2
-        
-        messageTextField.clipsToBounds = true
-        messageTextField.layer.borderWidth = 0.5
-        messageTextField.layer.borderColor = UIColor.greyBubble.cgColor
-        messageTextField.layer.cornerRadius = messageTextField.bounds.height / 2
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        UIView.animate(withDuration: 1) {
-            self.navigationItem.titleView?.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-        }
-        
-        
+        messageButton.layer.cornerRadius = messageButton.bounds.height / 2
+        messageView.layer.cornerRadius = messageView.bounds.height / 2
     }
     
     
@@ -88,9 +157,33 @@ class ConversationViewController: UIViewController {
     }
     
     
-    // MARK: - Private functions
+    // MARK: - Private setup functions
     
     private func setup() {
+        setupNavigationBar()
+        setupSendButton()
+        setupTableView()
+        setupFetchResultsController()
+        
+        setupMessageInputView()
+        setupKeyboardAppearance()
+    }
+    
+    private func setupFetchResultsController() {
+        messageFetchResultsController.delegate = self
+        
+        do {
+            try messageFetchResultsController.performFetch()
+        } catch {
+            print("Fetch fail")
+        }
+    }
+    
+    private func setupSendButton() {
+        changeButtonStatus(flag: false)
+    }
+    
+    private func setupTableView() {
         conversationTableView.register(UINib(nibName: incomingID, bundle: nil), forCellReuseIdentifier: incomingID)
         conversationTableView.register(UINib(nibName: outgoingID, bundle: nil), forCellReuseIdentifier: outgoingID)
         
@@ -98,83 +191,106 @@ class ConversationViewController: UIViewController {
         conversationTableView.dataSource = self
         conversationTableView.delegate = self
         
-        conversationTableView.rowHeight = UITableViewAutomaticDimension
+        conversationTableView.rowHeight = UITableView.automaticDimension
         conversationTableView.estimatedRowHeight = 60
         
         conversationTableView.allowsSelection = false
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    
+    private func setupMessageInputView() {
+        messageField.delegate = self
         
-        sendButton.backgroundColor = self.view.tintColor
-        sendButton.setTitleColor(UIColor.white, for: .normal)
+        messageView.addSubview(messageField)
+        messageView.addSubview(messageButton)
+        messageContainerView.addSubview(messageView)
         
-        messageFetchResultsController?.delegate = self
+        view.addSubview(messageContainerView)
         
-        do {
-            try messageFetchResultsController?.performFetch()
-        } catch {
-            print("Fetch fail")
+        let leadingConstraint = NSLayoutConstraint(item: messageView, attribute: .leading, relatedBy: .equal, toItem: messageContainerView, attribute: .leading, multiplier: 1, constant: 15)
+        let trailingConstraint = NSLayoutConstraint(item: messageView, attribute: .trailing, relatedBy: .equal, toItem: messageContainerView, attribute: .trailing, multiplier: 1, constant: -15)
+        let bottomConstraint = NSLayoutConstraint(item: messageView, attribute: .bottom, relatedBy: .equal, toItem: messageContainerView, attribute: .bottom, multiplier: 1, constant: -10)
+        
+        view.addConstraints([leadingConstraint, trailingConstraint, bottomConstraint])
+        
+        let leadingContainerConstraint = NSLayoutConstraint(item: messageContainerView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0)
+        let trailingContainerConstraint = NSLayoutConstraint(item: messageContainerView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0)
+        
+        view.addConstraints([messageInputBottomConstraint, leadingContainerConstraint, trailingContainerConstraint])
+        
+        let leadingFieldConstraint = NSLayoutConstraint(item: messageField, attribute: .leading, relatedBy: .equal, toItem: messageView, attribute: .leading, multiplier: 1, constant: 15)
+        let trailingFieldConstraint = NSLayoutConstraint(item: messageField, attribute: .trailing, relatedBy: .equal, toItem: messageButton, attribute: .leading, multiplier: 1, constant: -5)
+        let trailingButtonConstraint = NSLayoutConstraint(item: messageButton, attribute: .trailing, relatedBy: .equal, toItem: messageView, attribute: .trailing, multiplier: 1, constant: -5)
+        let verticalFieldConstraint = NSLayoutConstraint(item: messageField, attribute: .centerY, relatedBy: .equal, toItem: messageView, attribute: .centerY, multiplier: 1, constant: 0)
+        let verticalButtonConstraint = NSLayoutConstraint(item: messageButton, attribute: .centerY, relatedBy: .equal, toItem: messageView, attribute: .centerY, multiplier: 1, constant: 0)
+        let heightFieldConstraint = NSLayoutConstraint(item: messageField, attribute: .height, relatedBy: .equal, toItem: messageView, attribute: .height, multiplier: 1, constant: 0)
+        
+        messageView.addConstraints([leadingFieldConstraint, trailingFieldConstraint, trailingButtonConstraint, verticalFieldConstraint, verticalButtonConstraint, heightFieldConstraint])
+    }
+    
+    
+    // MARK: - Setup Keyboard Appearance
+    
+    private func setupKeyboardAppearance() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            UIView.animate(withDuration: 0.5) {
+                self.messageInputBottomConstraint.constant = -keyboardSize.height
+                self.view.layoutIfNeeded()
+            }
+            
         }
     }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        messageInputBottomConstraint.constant = 0
+        view.layoutIfNeeded()
+    }
+    
     
     // MARK: - Button Status Animation
     
     private func changeButtonStatus(flag: Bool) {
-        sendButton.isEnabled = flag && online
+        messageButton.isEnabled = flag && online
         
-        let colorAnimation: () -> Void = {
-            self.sendButton.backgroundColor = flag && self.online ? self.view.tintColor : UIColor.red
-        }
-        
-        UIView.transition(with: sendButton, duration: 0.5, options: .transitionCrossDissolve, animations: colorAnimation)
-        UIView.animate(withDuration: 0.5) {
-            self.sendButton.transform = flag && self.online ? .identity : CGAffineTransform(scaleX: 1.15, y: 1.15)
-        }
+        UIView.transition(with: messageButton, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.messageButton.backgroundColor = flag && self.online ? self.view.tintColor : UIColor.lightGray
+        })
     }
-    
-    // MARK: - User Status Animation
-    
-    private func changeUserStatus(online: Bool) {
-        guard let label = self.navigationItem.titleView as? UILabel else { return }
-        
-        UIView.transition(with: label, duration: 1, options: .transitionCrossDissolve, animations: {
-            label.textColor = online ? UIColor.greenPantone : UIColor.black
-        }, completion: nil)
 
-        UIView.animate(withDuration: 1) {
-            label.transform = online ? CGAffineTransform(scaleX: 1.1, y: 1.1) : .identity
-        }
-        
-    }
-    
     
     // MARK: - Button functions
-
-    @IBAction func sendMessageButtonTouch(_ sender: Any) {
-        guard let text = messageTextField.text else { return }
-        guard let conversationId = conversationId else { return }
+    
+    @objc func sendMessageButtonTouchUpInside() {
+        guard let text = messageField.text else { return }
+        guard let currentConversationId = currentConversationId else { return }
         guard let peer = peer else { return }
         let date = NSDate()
         let id = Generator.id()
-
-        let message = MessageData(messageId: id, conversationId: conversationId, text: text, date: date, incoming: false)
-        communicationStorageService?.add(message: message)
+        
+        let message = MessageData(messageId: id, conversationId: currentConversationId, text: text, date: date, incoming: false)
+        communicationStorageService.add(message: message)
         
         conversationListDelegate?.conversationList(sentMessage: message, toPeer: peer)
+        
+        messageField.text = ""
     }
     
     // MARK: - TextFiled Change
     
-    @IBAction func changeEDIT(_ sender: Any) {
-        changeButtonStatus(flag: messageTextField.text != "")
+    @objc func messageFieldChanged() {
+        changeButtonStatus(flag: messageField.text != "")
     }
     
-}
-
-extension ConversationViewController: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        print(gestureRecognizer.description)
-        return true
-    }
 }
 
 
@@ -190,7 +306,6 @@ extension ConversationViewController: ConversationDelegate {
         if self.peer?.identifier == peer.identifier {
             online = false
             changeButtonStatus(flag: false)
-            changeUserStatus(online: false)
         }
     }
     
@@ -202,14 +317,14 @@ extension ConversationViewController: UITableViewDataSource {
     // MARK: - TableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = messageFetchResultsController?.sections else { return 0 }
+        guard let sections = messageFetchResultsController.sections else { return 0 }
         
         let sectionInfo = sections[section]
         return sectionInfo.numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let message = messageFetchResultsController?.object(at: indexPath) else { fatalError() }
+        let message = messageFetchResultsController.object(at: indexPath)
         let incoming = message.incoming
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: incoming ? incomingID : outgoingID, for: indexPath) as? ConversationCell else {
@@ -223,16 +338,19 @@ extension ConversationViewController: UITableViewDataSource {
     }
 }
 
+
+// MARK: - UITextFieldDelegate
+
 extension ConversationViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if messageTextField.text == "" {
-            changeButtonStatus(flag: false)
-        }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
     
 }
 
-// MARK: - TableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension ConversationViewController: UITableViewDelegate {
     

@@ -18,7 +18,6 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var profileImageButton: UIButton!
-    
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -58,6 +57,11 @@ class EditProfileViewController: UIViewController {
         }
     }
     
+    // MARK: - Temporary profile image
+    
+    // Use this variable for better segue
+    var temporaryProfileImage: UIImage?
+    
     
     // MARK: - Calculated variables
     
@@ -82,8 +86,27 @@ class EditProfileViewController: UIViewController {
     
     // MARK: - Assembly variables
     
-    private var presentationAssembly: IPresentationAssembly?
-    private var profileStorageService: IProfileStorageService?
+    private var presentationAssembly: IPresentationAssembly
+    private var profileStorageService: IProfileStorageService
+    
+    
+    // MARK: - Init
+    
+    init(presentationAssembly: IPresentationAssembly, profileStorageService: IProfileStorageService, temporaryProfileImage: UIImage?) {
+        self.presentationAssembly = presentationAssembly
+        self.profileStorageService = profileStorageService
+        self.temporaryProfileImage = temporaryProfileImage
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
     
     
     // MARK: - Lifecycle
@@ -92,6 +115,10 @@ class EditProfileViewController: UIViewController {
         super.viewDidLoad()
         
         setup()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 
     
@@ -109,17 +136,8 @@ class EditProfileViewController: UIViewController {
         setupButtons()
         setupLayout()
         setupTextEdit()
-        
-        profileStorageService?.load { [weak self] profile in
-            DispatchQueue.main.async {
-                self?.username = profile?.username
-                self?.information = profile?.information
-                self?.image = profile?.image
-            }
-        }
-        
-        changeButtonState(enable: isChange, all: false)
-        activityIndicator.hidesWhenStopped = true
+        setupProfileInformation()
+        setupKeyboardAppearance()
     }
     
     private func setupTextEdit() {
@@ -137,6 +155,8 @@ class EditProfileViewController: UIViewController {
         saveButton.layer.borderWidth = 1
         
         profileImageButton.backgroundColor = UIColor(red:0.25, green:0.47, blue:0.94, alpha:1.0)
+        
+        changeButtonState(enable: isChange, all: false)
     }
     
     private func setupLayout() {
@@ -150,11 +170,50 @@ class EditProfileViewController: UIViewController {
         
         profileImageView.layer.cornerRadius = buttonWidth / 2
         profileImageView.layer.masksToBounds = true
+        
+        activityIndicator.hidesWhenStopped = true
+    }
+    
+    private func setupProfileInformation() {
+        profileStorageService.load { [weak self] profile in
+            DispatchQueue.main.async {
+                self?.username = profile?.username
+                self?.information = profile?.information
+                
+                if self?.image == nil {
+                    self?.image = profile?.image
+                }
+            }
+        }
+        
+        self.image = self.temporaryProfileImage
     }
     
     
+    // MARK: - Setup Keyboard Appearance
+    
+    private func setupKeyboardAppearance() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
     // MARK: - Buttons functions
     
+   
     @IBAction func backButtonTouch(_ sender: Any) {
         dismiss(animated: false, completion: nil)
     }
@@ -194,7 +253,7 @@ class EditProfileViewController: UIViewController {
         activityIndicator.startAnimating()
         changeButtonState(enable: false, all: true)
         
-        profileStorageService?.save(profile: profile) { [weak self] isSave in
+        profileStorageService.save(profile: profile) { [weak self] isSave in
             DispatchQueue.main.async {
                 self?.activityIndicator.stopAnimating()
                 if isSave {
@@ -209,8 +268,6 @@ class EditProfileViewController: UIViewController {
                     
                     let alert = Alert.controller(type: .saveDone)
                     self?.present(alert, animated: true, completion: nil)
-                    
-                    print("Profile saved successfully")
                 } else {
                     guard let alert = self?.reSaveProfileAlertController() else { return }
                     self?.present(alert, animated: true, completion: nil)
@@ -291,7 +348,7 @@ class EditProfileViewController: UIViewController {
     }
     
     private func openPixabayPhotoLibrary() {
-        guard let controller = presentationAssembly?.imagesViewController(imageDelegate: self) else { return }
+        let controller = presentationAssembly.imagesViewController(imageDelegate: self) 
         self.present(controller, animated: true, completion: nil)
     }
 
@@ -327,6 +384,7 @@ extension EditProfileViewController: ImageDelegate {
     
     func setImage(image: UIImage?) {
         profileImageView.image = image
+        changeButtonState(enable: isChange, all: false)
     }
     
 }
@@ -347,9 +405,8 @@ extension EditProfileViewController: UITextViewDelegate {
 
 extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let pickedImage = (info[UIImagePickerControllerEditedImage] ?? info[UIImagePickerControllerOriginalImage]) as? UIImage {
-            
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = (info[.editedImage] ?? info[.originalImage]) as? UIImage {
             profileImageView.image = pickedImage
             changeButtonState(enable: isChange, all: false)
         } else {
