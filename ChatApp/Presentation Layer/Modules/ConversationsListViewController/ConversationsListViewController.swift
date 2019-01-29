@@ -17,7 +17,6 @@ class ConversationsListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    
     // MARK: - Variables
     
     private let sections: [String] = ["Online", "History"]
@@ -31,14 +30,38 @@ class ConversationsListViewController: UIViewController {
     
     // MARK: - Assembly variables
 
-    private var presentationAssembly: IPresentationAssembly?
-    private var communicationService: ICommunicationService?
-    private var communicationStorageService: ICommunicationStorageService?
-    private var profileStorageService: IProfileStorageService?
-    private var conversationFetchResultsController: NSFetchedResultsController<Conversation>?
+    private var presentationAssembly: IPresentationAssembly
+    private var communicationService: ICommunicationService
+    private var communicationStorageService: ICommunicationStorageService
+    private var profileStorageService: IProfileStorageService
+    private var conversationFetchResultsController: NSFetchedResultsController<Conversation>
     
-    private var temporaryUserStorage: ITemporaryUserStorage = TemporaryUserStorage()
+    // MARK: Temporary user storage
+    
+    private lazy var temporaryUserStorage: ITemporaryUserStorage = TemporaryUserStorage()
 
+    
+    // MARK: - Init
+    
+    init(presentationAssembly:IPresentationAssembly, communicationService: ICommunicationService, communicationStorageService: ICommunicationStorageService, profileStorageService: IProfileStorageService, conversationFetchResultsController: NSFetchedResultsController<Conversation>) {
+        
+        self.presentationAssembly = presentationAssembly
+        self.communicationService = communicationService
+        self.communicationStorageService = communicationStorageService
+        self.profileStorageService = profileStorageService
+        self.conversationFetchResultsController = conversationFetchResultsController
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
     
     // MARK: - Lifecycle
    
@@ -53,12 +76,6 @@ class ConversationsListViewController: UIViewController {
         
         currentPeerConversation = nil
         conversationDelegate = nil
-        
-        profileStorageService?.load { [weak self] profile in
-            DispatchQueue.main.async {
-            self?.navigationItem.title = profile?.username ?? "Chat"
-            }
-        }
     }
     
     
@@ -71,7 +88,6 @@ class ConversationsListViewController: UIViewController {
         self.communicationStorageService = communicationStorageService
         self.profileStorageService = profileStorageService
         self.conversationFetchResultsController = conversationFetchResultsController
-        
     }
     
     
@@ -79,15 +95,23 @@ class ConversationsListViewController: UIViewController {
     
     private func setup() {
         setupTableView()
+        setupCommunicationService()
+        setupFetchResultsController()
+        setupNavigationBar()
+    }
+    
+    private func setupCommunicationService() {
+        communicationService.delegate = self
+        communicationService.start()
+    }
+    
+    private func setupFetchResultsController() {
+        conversationFetchResultsController.delegate = self
         
-        communicationService?.delegate = self
-        communicationService?.start()
-        
-        conversationFetchResultsController?.delegate = self
         do {
-            try conversationFetchResultsController?.performFetch()
+            try conversationFetchResultsController.performFetch()
         } catch {
-            print("Error while setup FetchResults controller")
+            print("Error while setup FetchResultsController")
             return
         }
     }
@@ -100,11 +124,35 @@ class ConversationsListViewController: UIViewController {
         tableView.delegate = self
     }
     
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.isTranslucent = true
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController = searchController
+        navigationItem.title = "Chats"
+        
+        setupProfileButton()
+    }
+    
+    private func setupProfileButton() {
+        let profileButton = UIButton(type: .system)
+        
+        profileButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        profileButton.setImage(UIImage(named: "Contact")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        profileButton.addTarget(self, action: #selector(profileButtonTouch), for: .touchUpInside)
+        
+        profileButton.imageView?.contentMode = .scaleAspectFit
+        profileButton.contentHorizontalAlignment = .right
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: profileButton)
+    }
+    
     
     // MARK: - Profile button
     
-    @IBAction func editProfileInfoButtonTouch(_ sender: Any) {
-        guard let viewController = presentationAssembly?.profileViewController() else { return }
+    @objc func profileButtonTouch() {
+        let viewController = presentationAssembly.profileViewController()
         self.present(viewController, animated: true, completion: nil)
     }
 }
@@ -116,12 +164,12 @@ class ConversationsListViewController: UIViewController {
 extension ConversationsListViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let sections = conversationFetchResultsController?.sections else { return 0 }
+        guard let sections = conversationFetchResultsController.sections else { return 0 }
         return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = conversationFetchResultsController?.sections else {
+        guard let sections = conversationFetchResultsController.sections else {
             fatalError("No sections in fetchedResultsController")
         }
         
@@ -142,7 +190,7 @@ extension ConversationsListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        guard let conversation = conversationFetchResultsController?.object(at: indexPath) else { fatalError() }
+        let conversation = conversationFetchResultsController.object(at: indexPath)
         let user = conversation.user
         
         if let online = user?.online {
@@ -177,20 +225,20 @@ extension ConversationsListViewController: UITableViewDelegate {
         let peer = Peer(identifier: user.peer, name: user.peer.displayName)
         
         if user.isConfirmed {
-            guard let conversationViewController = presentationAssembly?.conversationViewController(title: cell.name, conversationId: user.conversationId, conversationListDelegate: self) else { return }
+            let conversationViewController = presentationAssembly.conversationViewController(title: cell.name, conversationId: user.conversationId, conversationListDelegate: self)
             
             conversationDelegate = conversationViewController
             conversationDelegate?.conversation(didSelectPeer: peer)
             currentPeerConversation = peer
             
             let conversation = ConversationData(conversationId: user.conversationId)
-            communicationStorageService?.edit(conversation: conversation)
+            communicationStorageService.edit(conversation: conversation)
             
             navigationController?.pushViewController(conversationViewController, animated: true)
                     
             tableView.reloadData()
         } else {
-            communicationService?.invite(nil, to: peer)
+            communicationService.invite(nil, to: peer)
         }
     }
 }
@@ -204,7 +252,7 @@ extension ConversationsListViewController: ConversationListDelegate {
     // MARK: - Protocol functions
     
     func conversationList(sentMessage message: MessageData, toPeer peer: Peer) {
-        communicationService?.send(message, to: peer)
+        communicationService.send(message, to: peer)
     }
 }
 
@@ -217,7 +265,7 @@ extension ConversationsListViewController: CommunicationServiceDelegate {
     func communicationService(_ communicationService: ICommunicationService, didFoundPeer peer: Peer) {
         let user = UserData(username: peer.name)
         
-        communicationStorageService?.add(user: user) { [weak self] conversationId in
+        communicationStorageService.add(user: user) { [weak self] conversationId in
             guard let id = conversationId else { return }
             let user = TemporaryUser(conversationId: id, peer: peer.identifier)
             self?.temporaryUserStorage.add(user: user)
@@ -226,10 +274,11 @@ extension ConversationsListViewController: CommunicationServiceDelegate {
     
     func communicationService(_ communicationService: ICommunicationService, didLostPeer peer: Peer) {
         if let user = temporaryUserStorage.find(peer: peer.identifier) {
-            communicationStorageService?.delete(conversationId: user.conversationId)
+            communicationStorageService.delete(conversationId: user.conversationId)
             temporaryUserStorage.delete(conversationId: user.conversationId)
             conversationDelegate?.conversation(didLostPeer: peer)
-            print("lost peer \(peer.name)")
+            
+            tableView.reloadData()
         }
         
     }
@@ -275,11 +324,11 @@ extension ConversationsListViewController: CommunicationServiceDelegate {
                                   date: message.date,
                                   incoming: message.incoming)
         
-        communicationStorageService?.add(message: message)
+        communicationStorageService.add(message: message)
         
         if user.peer != currentPeerConversation?.identifier {
             let conversation = ConversationData(conversationId: user.conversationId, wasUnreadMessages: true)
-            communicationStorageService?.edit(conversation: conversation)
+            communicationStorageService.edit(conversation: conversation)
         }
         
         print("Receive message from \(peer.identifier.displayName): \(message.text)")
@@ -301,7 +350,6 @@ extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
                     at indexPath: IndexPath?,
                     for type: NSFetchedResultsChangeType,
                     newIndexPath: IndexPath?) {
-        
         
         if let indexPath = indexPath {
             

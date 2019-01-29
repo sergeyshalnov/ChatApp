@@ -32,7 +32,7 @@ class CommunicationService: NSObject, ICommunicationService {
         self.discoveryInfo = ["userName": username]
         
         self.peer = MCPeerID(displayName: username)
-        self.session = MCSession(peer: self.peer)
+        self.session = MCSession(peer: self.peer, securityIdentity: nil, encryptionPreference: .none)
         self.browser = MCNearbyServiceBrowser(peer: self.peer, serviceType: serviceType)
         self.advertiser = MCNearbyServiceAdvertiser(peer: peer, discoveryInfo: discoveryInfo, serviceType: serviceType)
         

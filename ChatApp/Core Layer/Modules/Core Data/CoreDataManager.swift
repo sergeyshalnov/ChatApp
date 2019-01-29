@@ -53,7 +53,7 @@ class CoreDataManager: ICoreDataManager, ICommunicationStorage {
         let delete = NSBatchDeleteRequest(fetchRequest: request)
         let context = CoreDataManager.container.viewContext
         
-        context.performAndWait {
+        context.perform {
             do {
                 try context.execute(delete)
                 try context.save()

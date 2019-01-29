@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="ChatApp" customModuleProvider="target">
+            <connections>
+                <outlet property="activityIndicator" destination="TW6-r1-v53" id="bI4-NZ-e0W"/>
+                <outlet property="editButton" destination="o2p-tT-TkK" id="mQk-4h-ccL"/>
+                <outlet property="exitButton" destination="gha-Gn-r2X" id="Bgs-63-OF2"/>
+                <outlet property="informationLabel" destination="ykK-5f-NJy" id="oSl-jW-B1G"/>
+                <outlet property="profileImageButton" destination="Hf0-AG-D1Y" id="Gk3-Fh-Dcb"/>
+                <outlet property="profileImageView" destination="NNC-uS-UDh" id="hTt-TK-Gdx"/>
+                <outlet property="usernameLabel" destination="UWH-UR-yPS" id="HAD-tQ-ULJ"/>
+                <outlet property="view" destination="Cuz-Xs-A0p" id="k6p-wX-z7O"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Cuz-Xs-A0p">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileImage" translatesAutoresizingMaskIntoConstraints="NO" id="NNC-uS-UDh">
+                    <rect key="frame" x="20" y="40" width="335" height="335"/>
+                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="NNC-uS-UDh" secondAttribute="height" multiplier="1:1" id="tlc-5M-bNE"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2p-tT-TkK">
+                    <rect key="frame" x="20" y="613" width="162.5" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="b3X-CG-dpk"/>
+                    </constraints>
+                    <state key="normal" title="Edit">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </state>
+                    <connections>
+                        <action selector="editProfileButtonTouch:" destination="-1" eventType="touchUpInside" id="ksa-ra-vs4"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Sergey Shalnov" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWH-UR-yPS">
+                    <rect key="frame" x="20" y="395" width="335" height="29"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" text="Junior iOS Developer" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykK-5f-NJy">
+                    <rect key="frame" x="20" y="434" width="335" height="20.5"/>
+                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hf0-AG-D1Y">
+                    <rect key="frame" x="275" y="295" width="80" height="80"/>
+                    <color key="backgroundColor" red="0.24482423070000001" green="0.4661307931" blue="0.94221490620000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="80" id="GbF-Uc-VDD"/>
+                        <constraint firstAttribute="width" secondItem="Hf0-AG-D1Y" secondAttribute="height" multiplier="1:1" id="bzN-2f-ean"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="80" id="fYM-Mg-HSJ"/>
+                    </constraints>
+                    <state key="normal" image="imageButton"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gha-Gn-r2X">
+                    <rect key="frame" x="192.5" y="613" width="162.5" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="afR-Ds-BZD"/>
+                    </constraints>
+                    <state key="normal" title="Done">
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </state>
+                    <connections>
+                        <action selector="exitProfileButtonTouch:" destination="-1" eventType="touchUpInside" id="EKj-1s-ZC7"/>
+                    </connections>
+                </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="TW6-r1-v53">
+                    <rect key="frame" x="169" y="189" width="37" height="37"/>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="o2p-tT-TkK" firstAttribute="width" secondItem="gha-Gn-r2X" secondAttribute="width" id="1CM-EK-My8"/>
+                <constraint firstItem="UWH-UR-yPS" firstAttribute="top" secondItem="Hf0-AG-D1Y" secondAttribute="bottom" constant="20" id="2lw-SA-h4C"/>
+                <constraint firstItem="qUY-yZ-8wW" firstAttribute="bottom" secondItem="gha-Gn-r2X" secondAttribute="bottom" constant="10" id="CKK-mQ-Cx2"/>
+                <constraint firstItem="qUY-yZ-8wW" firstAttribute="trailing" secondItem="gha-Gn-r2X" secondAttribute="trailing" constant="20" id="FUy-Ms-VyQ"/>
+                <constraint firstItem="qUY-yZ-8wW" firstAttribute="trailing" secondItem="NNC-uS-UDh" secondAttribute="trailing" constant="20" id="IIY-7a-AFX"/>
+                <constraint firstItem="UWH-UR-yPS" firstAttribute="leading" secondItem="qUY-yZ-8wW" secondAttribute="leading" constant="20" id="Izf-Vf-lnm"/>
+                <constraint firstItem="qUY-yZ-8wW" firstAttribute="bottom" secondItem="o2p-tT-TkK" secondAttribute="bottom" constant="10" id="KHk-db-5Sx"/>
+                <constraint firstItem="ykK-5f-NJy" firstAttribute="top" secondItem="UWH-UR-yPS" secondAttribute="bottom" constant="10" id="NZz-a9-abd"/>
+                <constraint firstItem="qUY-yZ-8wW" firstAttribute="trailing" secondItem="UWH-UR-yPS" secondAttribute="trailing" constant="20" id="OWh-P5-muO"/>
+                <constraint firstItem="TW6-r1-v53" firstAttribute="centerY" secondItem="NNC-uS-UDh" secondAttribute="centerY" id="PZB-ai-Yys"/>
+                <constraint firstItem="TW6-r1-v53" firstAttribute="centerX" secondItem="NNC-uS-UDh" secondAttribute="centerX" id="Z8Z-PL-ZqP"/>
+                <constraint firstItem="o2p-tT-TkK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ykK-5f-NJy" secondAttribute="bottom" constant="20" id="aUs-Ep-cj3"/>
+                <constraint firstItem="UWH-UR-yPS" firstAttribute="top" secondItem="NNC-uS-UDh" secondAttribute="bottom" constant="20" id="dII-40-m1U"/>
+                <constraint firstItem="qUY-yZ-8wW" firstAttribute="trailing" secondItem="ykK-5f-NJy" secondAttribute="trailing" constant="20" id="e7D-a2-zw1"/>
+                <constraint firstItem="gha-Gn-r2X" firstAttribute="leading" secondItem="o2p-tT-TkK" secondAttribute="trailing" constant="10" id="hRD-Jq-exa"/>
+                <constraint firstItem="o2p-tT-TkK" firstAttribute="leading" secondItem="qUY-yZ-8wW" secondAttribute="leading" constant="20" id="jro-lZ-01U"/>
+                <constraint firstItem="qUY-yZ-8wW" firstAttribute="trailing" secondItem="Hf0-AG-D1Y" secondAttribute="trailing" constant="20" id="qwh-5z-rVB"/>
+                <constraint firstItem="ykK-5f-NJy" firstAttribute="leading" secondItem="qUY-yZ-8wW" secondAttribute="leading" constant="20" id="ueb-4v-27N"/>
+                <constraint firstItem="NNC-uS-UDh" firstAttribute="top" secondItem="qUY-yZ-8wW" secondAttribute="top" constant="20" id="vGA-oj-8RG"/>
+                <constraint firstItem="NNC-uS-UDh" firstAttribute="leading" secondItem="qUY-yZ-8wW" secondAttribute="leading" constant="20" id="xqE-ci-fep"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="qUY-yZ-8wW"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="imageButton" width="256" height="256"/>
+        <image name="profileImage" width="600" height="600"/>
+    </resources>
+</document>

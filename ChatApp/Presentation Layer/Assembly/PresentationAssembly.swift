@@ -16,7 +16,7 @@ protocol IPresentationAssembly {
     
     func profileViewController() -> ProfileViewController
     
-    func editProfileViewController() -> EditProfileViewController
+    func editProfileViewController(temporaryProfileImage: UIImage?) -> EditProfileViewController
     
     func imagesViewController(imageDelegate: ImageDelegate) -> ImagesViewController 
     
@@ -31,75 +31,38 @@ class PresentationAssembly: IPresentationAssembly {
     }
     
     func conversationsListViewController() -> UINavigationController {
-        let storyboard = UIStoryboard(name: "ConversationsListViewController", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "NavigationController")
-        
-        guard let navigator = controller as? UINavigationController else { fatalError() }
-        guard let vc = navigator.viewControllers.first as? ConversationsListViewController else { fatalError() }
-        
         let coreData: ICoreDataManager = CoreDataManager()
+        let navigator = UINavigationController()
+        let controller = ConversationsListViewController(presentationAssembly: self, communicationService: serviceAssembly.communicationService(username: "Sergey Shalnov"), communicationStorageService: serviceAssembly.communicationStorageService(), profileStorageService: serviceAssembly.profileStorageService(), conversationFetchResultsController: coreData.conversationFetchResultsController())
         
-        vc.setupAssembly(presentationAssembly: self,
-                         communicationService: serviceAssembly.communicationService(username: "Sergey Shalnov"),
-                         communicationStorageService: serviceAssembly.communicationStorageService(),
-                         profileStorageService: serviceAssembly.profileStorageService(),
-                         conversationFetchResultsController: coreData.conversationFetchResultsController())
+        navigator.viewControllers = [controller]
         
         return navigator
     }
     
     func conversationViewController(title: String?, conversationId: String, conversationListDelegate: ConversationListDelegate) -> ConversationViewController {
-        let controller = UIStoryboard(name: "ConversationViewController", bundle:nil).instantiateInitialViewController()
-        guard let conversation = controller as? ConversationViewController else { fatalError() }
-        
-        
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 150, height: 44))
-        label.text = title
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textColor = UIColor.greenPantone
-        label.textAlignment = .center
-        
-        conversation.navigationItem.titleView = label
-        
-        conversation.conversationId = conversationId
-        conversation.conversationListDelegate = conversationListDelegate
-        
+
         let coreData: ICoreDataManager = CoreDataManager()
         
-        conversation.setupAssembly(presentationAssembly: self,
-                                   communicationStorageService: serviceAssembly.communicationStorageService(),
-                                   messageFetchResultsController: coreData.messageFetchResultsController(conversationId: conversationId))
-        
-        return conversation
+        let controller = ConversationViewController(title: title, currentConversation: conversationId, conversationListDelegate: conversationListDelegate, presentationAssembly: self, communicationStorageService: serviceAssembly.communicationStorageService(), messageFetchResultsController: coreData.messageFetchResultsController(conversationId: conversationId))
+    
+        return controller
     }
     
     func profileViewController() -> ProfileViewController {
-        let storyboard = UIStoryboard(name: "ProfileViewController", bundle: nil)
-        guard let controller = storyboard.instantiateInitialViewController() as? ProfileViewController else { fatalError() }
-        
-        controller.setupAssembly(presentationAssembly: self,
-                                 profileStorageService: serviceAssembly.profileStorageService())
+        let controller = ProfileViewController(presentationAssembly: self, profileStorageService: serviceAssembly.profileStorageService())
         
         return controller
     }
     
-    func editProfileViewController() -> EditProfileViewController {
-        let storyboard = UIStoryboard(name: "EditProfileViewController", bundle: nil)
-        guard let controller = storyboard.instantiateInitialViewController() as? EditProfileViewController else { fatalError() }
-        
-        controller.setupAssembly(presentationAssembly: self,
-                                 profileStorageService: serviceAssembly.profileStorageService())
+    func editProfileViewController(temporaryProfileImage: UIImage?) -> EditProfileViewController {
+        let controller = EditProfileViewController(presentationAssembly: self, profileStorageService: serviceAssembly.profileStorageService(), temporaryProfileImage: temporaryProfileImage)
         
         return controller
     }
     
     func imagesViewController(imageDelegate: ImageDelegate) -> ImagesViewController {
-        let storyboard = UIStoryboard(name: "ImagesViewController", bundle:nil)
-        guard let controller = storyboard.instantiateInitialViewController() as? ImagesViewController else { fatalError() }
-        
-        controller.setupAssembly(presentationAssembly: self,
-                                 pixabayService: serviceAssembly.pixabayService(),
-                                 imageDelegate: imageDelegate)
+        let controller = ImagesViewController(presentationAssembly: self, pixabayService: serviceAssembly.pixabayService(), imageDelegate: imageDelegate)
         
         return controller
     }
