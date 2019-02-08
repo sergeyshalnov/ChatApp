@@ -1,0 +1,2 @@
+# ChatApp
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/20ca3bf3d3da49b8ba253557289d0207)](https://app.codacy.com/app/sergeyshalnov/ChatApp?utm_source=github.com&utm_medium=referral&utm_content=sergeyshalnov/ChatApp&utm_campaign=Badge_Grade_Dashboard)
