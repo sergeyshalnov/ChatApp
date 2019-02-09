@@ -11,7 +11,7 @@ import Foundation
 
 protocol ICommunicationStorageService {
     
-    func add(user: UserData, completion: @escaping (String?) -> ())
+    func add(user: UserData, completion: @escaping (String?) -> Void)
     func add(message: MessageData)
     
     func edit(conversation: ConversationData)
@@ -27,7 +27,7 @@ class CommunicationStorageService: ICommunicationStorageService {
         self.coreDataStorageManager = coreDataStorageManager
     }
     
-    func add(user: UserData, completion: @escaping (String?) -> ()) {
+    func add(user: UserData, completion: @escaping (String?) -> Void) {
         coreDataStorageManager.add(user: user, completion: completion)
     }
     

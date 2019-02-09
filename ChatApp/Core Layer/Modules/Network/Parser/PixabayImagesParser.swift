@@ -23,7 +23,7 @@ struct PixabayImage: Codable {
 
 class PixabayImagesParser: IParser {
     typealias Model = [PixabayImage]
-    
+
     func parse(data: Data) -> [PixabayImage]? {
         do {
             let pixabay = try JSONDecoder().decode(PixabayApiModel.self, from: data)

@@ -43,19 +43,19 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
             messageBubble.layer.cornerRadius = cornerRaidus
             messageBubble.sizeToFit()
             
-            addConstraints(constraintsConfigure())
+            setupConstraints()
         }
     }
     
     
     // MARK: - Private functions
     
-    private func constraintsConfigure() -> [NSLayoutConstraint] {
-        let minWidth = frame.width * 3/4 - 5
+    private func setupConstraints() { 
+        let maxWidth = frame.width * 3/4 - 5
+        let minWidth = cornerRaidus * 2 + 5
         
-        let widthConstraint: NSLayoutConstraint = NSLayoutConstraint(item: messageBubble, attribute: .width, relatedBy: .lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: minWidth)
-        
-        return [widthConstraint]
+        messageBubble.widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth).isActive = true
+        messageBubble.widthAnchor.constraint(greaterThanOrEqualToConstant: minWidth).isActive = true
     }
     
     

@@ -20,7 +20,7 @@ class RequestLoader: NSObject, IRequestLoader {
             return
         }
         
-        task = session.dataTask(with: url) { (data, response, error) in
+        task = session.dataTask(with: url) { (data, _, error) in
             completion(error != nil ? nil : data)
         }
 

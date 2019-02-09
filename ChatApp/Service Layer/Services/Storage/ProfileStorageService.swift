@@ -11,7 +11,7 @@ import Foundation
 protocol IProfileStorageService {
     
     func load(completion: @escaping (ProfileData?)->())
-    func save(profile: ProfileData, completion: @escaping (Bool) -> ())
+    func save(profile: ProfileData, completion: @escaping (Bool) -> Void)
     
 }
 
@@ -27,7 +27,7 @@ class ProfileStorageService: IProfileStorageService {
         coreDataStorageManager.load(completion: completion)
     }
     
-    func save(profile: ProfileData, completion: @escaping (Bool) -> ()) {
+    func save(profile: ProfileData, completion: @escaping (Bool) -> Void) {
         coreDataStorageManager.save(profile: profile, completion: completion)
     }
     

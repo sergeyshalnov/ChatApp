@@ -19,7 +19,7 @@ class RequestSender: IRequestSender {
             return
         }
         
-        let task = session.dataTask(with: urlRequest) { (data, response, error) in
+        let task = session.dataTask(with: urlRequest) { (data, _, error) in
             if let error = error {
                 print("Error in RequestSender: \(error.localizedDescription)")
                 completion(nil)

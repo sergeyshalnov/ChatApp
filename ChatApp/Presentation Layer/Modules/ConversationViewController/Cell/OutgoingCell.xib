@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Message" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0A-cq-doh">
-                        <rect key="frame" x="236" y="5" width="79" height="84.5"/>
+                        <rect key="frame" x="236" y="0.0" width="79" height="84.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -28,8 +28,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="X0A-cq-doh" secondAttribute="trailing" constant="5" id="RgV-lo-fVM"/>
-                    <constraint firstAttribute="bottom" secondItem="X0A-cq-doh" secondAttribute="bottom" id="Xqg-Lu-tae"/>
-                    <constraint firstItem="X0A-cq-doh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="vib-Hq-x7e"/>
+                    <constraint firstAttribute="bottom" secondItem="X0A-cq-doh" secondAttribute="bottom" constant="5" id="Xqg-Lu-tae"/>
+                    <constraint firstItem="X0A-cq-doh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vib-Hq-x7e"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
