@@ -28,7 +28,7 @@ extension Message {
 extension Message {
     
     static var defaultSortDescriptors: [NSSortDescriptor] {
-        let dateSort = NSSortDescriptor(key: "date", ascending: true)
+        let dateSort = NSSortDescriptor(key: "date", ascending: false)
         return [dateSort]
     }
     

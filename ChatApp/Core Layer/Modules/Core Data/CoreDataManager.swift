@@ -49,7 +49,7 @@ class CoreDataManager: ICoreDataManager, ICommunicationStorage {
         return controller
     }
     
-    func delete(request: NSFetchRequest<NSFetchRequestResult>, completion: @escaping (Bool) -> ()) {
+    func delete(request: NSFetchRequest<NSFetchRequestResult>, completion: @escaping (Bool) -> Void) {
         let delete = NSBatchDeleteRequest(fetchRequest: request)
         let context = CoreDataManager.container.viewContext
         
@@ -92,7 +92,7 @@ class CoreDataManager: ICoreDataManager, ICommunicationStorage {
 
 extension CoreDataManager: IProfileStorage {
     
-    func load(completion: @escaping (ProfileData?) -> ()) {
+    func load(completion: @escaping (ProfileData?) -> Void) {
         CoreDataManager.container.performBackgroundTask { (backgroundContext) in
             let request: NSFetchRequest<Profile> = Profile.fetchRequest()
             
@@ -115,7 +115,7 @@ extension CoreDataManager: IProfileStorage {
         }
     }
     
-    func save(profile: ProfileData, completion: @escaping (Bool) -> ()) {
+    func save(profile: ProfileData, completion: @escaping (Bool) -> Void) {
         CoreDataManager.container.performBackgroundTask { (backgroundContext) in
             let request: NSFetchRequest<Profile> = Profile.fetchRequest()
             
@@ -175,7 +175,7 @@ extension CoreDataManager: IProfileStorage {
 
 extension CoreDataManager: IUserStorage {
     
-    func add(user: UserData, completion: @escaping (String?) -> ()) {
+    func add(user: UserData, completion: @escaping (String?) -> Void) {
         
         let online = user.online
         let name = user.username
@@ -204,13 +204,13 @@ extension CoreDataManager: IUserStorage {
     }
     
     func delete(userId: String) {
-        let DataManager = CoreDataManager()
+        let dataManager = CoreDataManager()
         
         let request: NSFetchRequest<NSFetchRequestResult> = User.fetchRequest()
         let predicate = User.userPredicate(id: userId)
         request.predicate = predicate
         
-        DataManager.delete(request: request) { success in
+        dataManager.delete(request: request) { success in
             print("User delete : \(success)")
         }
     }

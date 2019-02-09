@@ -14,7 +14,7 @@ protocol ICoreDataManager {
     func conversationFetchResultsController() -> NSFetchedResultsController<Conversation>
     func messageFetchResultsController(conversationId: String) -> NSFetchedResultsController<Message>
     
-    func delete(request: NSFetchRequest<NSFetchRequestResult>, completion: @escaping (Bool) -> ())
+    func delete(request: NSFetchRequest<NSFetchRequestResult>, completion: @escaping (Bool) -> Void)
     func terminate()
     
 }
@@ -23,8 +23,8 @@ protocol ICoreDataManager {
 
 protocol IProfileStorage {
     
-    func load(completion: @escaping (ProfileData?) -> ())
-    func save(profile: ProfileData, completion: @escaping (Bool) -> ())
+    func load(completion: @escaping (ProfileData?) -> Void)
+    func save(profile: ProfileData, completion: @escaping (Bool) -> Void)
     
 }
 
@@ -42,7 +42,7 @@ protocol ICommunicationStorage: IUserStorage, IConversationStorage, IMessageStor
 
 protocol IUserStorage {
     
-    func add(user: UserData, completion: @escaping (String?) -> ())
+    func add(user: UserData, completion: @escaping (String?) -> Void)
     func delete(userId: String)
     
 }
@@ -61,5 +61,5 @@ protocol IConversationStorage {
 protocol IMessageStorage {
     
     func add(message: MessageData)
-    
+
 }

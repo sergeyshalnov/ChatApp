@@ -21,19 +21,15 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YNx-Vt-LTX">
-                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YNx-Vt-LTX">
+                    <rect key="frame" x="28" y="20" width="278" height="607"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-            <constraints>
-                <constraint firstItem="H01-Iv-GO1" firstAttribute="bottom" secondItem="YNx-Vt-LTX" secondAttribute="bottom" id="PML-CZ-JIV"/>
-                <constraint firstItem="H01-Iv-GO1" firstAttribute="trailing" secondItem="YNx-Vt-LTX" secondAttribute="trailing" id="d6h-BQ-TGW"/>
-                <constraint firstItem="YNx-Vt-LTX" firstAttribute="leading" secondItem="H01-Iv-GO1" secondAttribute="leading" id="g99-OY-ZvE"/>
-                <constraint firstItem="YNx-Vt-LTX" firstAttribute="top" secondItem="H01-Iv-GO1" secondAttribute="top" id="vUt-I4-Fqy"/>
-            </constraints>
             <viewLayoutGuide key="safeArea" id="H01-Iv-GO1"/>
+            <point key="canvasLocation" x="39.200000000000003" y="46.326836581709152"/>
         </view>
     </objects>
 </document>

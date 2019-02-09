@@ -20,16 +20,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Message" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dwk-4j-6a6">
-                        <rect key="frame" x="5" y="5" width="79" height="84.5"/>
+                        <rect key="frame" x="5" y="0.0" width="79" height="84.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Dwk-4j-6a6" secondAttribute="bottom" id="OJH-nR-azq"/>
+                    <constraint firstAttribute="bottom" secondItem="Dwk-4j-6a6" secondAttribute="bottom" constant="5" id="OJH-nR-azq"/>
                     <constraint firstItem="Dwk-4j-6a6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="a8a-3G-ks4"/>
-                    <constraint firstItem="Dwk-4j-6a6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="qVM-BP-8cE"/>
+                    <constraint firstItem="Dwk-4j-6a6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="lgk-MJ-JQb"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
