@@ -31,7 +31,7 @@ class RequestManagerMock: IRequestManagerMock {
     func load(url: String, completion: @escaping (Data?) -> Void) {
         isLoadCalled = true
         
-        let imageData = UIImagePNGRepresentation(testImage)!
+        let imageData = testImage.pngData()!
 
         completion(imageData)
     }

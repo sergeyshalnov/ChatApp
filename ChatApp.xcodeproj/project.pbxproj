@@ -615,6 +615,7 @@
 				TargetAttributes = {
 					1A655FD021BAA01E00BA6561 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = 1AE85E0A21554C2000967BEE;
 					};
 					1AE85E0A21554C2000967BEE = {
@@ -781,7 +782,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sergeyshalnov.ChatAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChatApp.app/ChatApp";
 			};
@@ -801,7 +802,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sergeyshalnov.ChatAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChatApp.app/ChatApp";
 			};

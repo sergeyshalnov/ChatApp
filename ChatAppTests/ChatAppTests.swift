@@ -53,9 +53,9 @@ class ChatAppTests: XCTestCase {
     // This method preparing image for compare with compressed image
     
     private func imageCompress(image: UIImage) -> Data {
-        let dataCompression_1 = UIImagePNGRepresentation(image)!
+        let dataCompression_1 = image.pngData()!
         let imageFromData = UIImage(data: dataCompression_1)!
-        let dataCompression_2 = UIImagePNGRepresentation(imageFromData)!
+        let dataCompression_2 = imageFromData.pngData()!
         
         return dataCompression_2
     }
@@ -75,7 +75,7 @@ class ChatAppTests: XCTestCase {
                 return
             }
             
-            let dataOfLoadImage = UIImagePNGRepresentation(image)!
+            let dataOfLoadImage = image.pngData()!
             let dataOfTestImage = self.imageCompress(image: self.testImage)
             
             isEqual = dataOfLoadImage == dataOfTestImage
