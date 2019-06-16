@@ -9,16 +9,16 @@
 import Foundation
 
 struct ConversationData {
-    
-    let conversationId: String
-    let wasUnreadMessages: Bool
-    let lastMessage: String?
-    let lastMessageDate: NSDate?
-    
-    init(conversationId: String, wasUnreadMessages: Bool = false, lastMessage: String? = nil, lastMessageDate: NSDate? = nil) {
-        self.conversationId = conversationId
-        self.wasUnreadMessages = wasUnreadMessages
-        self.lastMessage = lastMessage
-        self.lastMessageDate = lastMessageDate
-    }
+  
+  let conversationId: String
+  let wasUnreadMessages: Bool
+  let lastMessage: String?
+  let lastMessageDate: NSDate?
+  
+  init(conversationId: String, wasUnreadMessages: Bool = false, lastMessage: String? = nil, lastMessageDate: NSDate? = nil) {
+    self.conversationId = conversationId
+    self.wasUnreadMessages = wasUnreadMessages
+    self.lastMessage = lastMessage
+    self.lastMessageDate = lastMessageDate
+  }
 }

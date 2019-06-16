@@ -10,8 +10,8 @@ import Foundation
 
 
 protocol IImageManager: IImageDownloader {
-    
-    func performRequest(completion: @escaping (Int) -> Void)
-    func webFormat(index: Int) -> String?
-    
+  
+  func performRequest(completion: @escaping (Int) -> Void)
+  func webFormat(index: Int) -> String?
+  
 }

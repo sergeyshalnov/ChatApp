@@ -9,20 +9,20 @@
 import Foundation
 
 protocol ICoreAssembly {
-    
-    var communicationStorageManager: ICommunicationStorage { get }
-    var profileStorageManager: IProfileStorage { get }
-    
-    var requestSender: IRequestSender { get }
-    var requestLoader: IRequestLoader { get }
-    
+  
+  var communicationStorageManager: ICommunicationStorage { get }
+  var profileStorageManager: IProfileStorage { get }
+  
+  var requestSender: IRequestSender { get }
+  var requestLoader: IRequestLoader { get }
+  
 }
 
 class CoreAssembly: ICoreAssembly {
-    
-    lazy var communicationStorageManager: ICommunicationStorage = CoreDataManager()
-    lazy var profileStorageManager: IProfileStorage = CoreDataManager()
-    lazy var requestSender: IRequestSender = RequestSender()
-    lazy var requestLoader: IRequestLoader = RequestLoader()
-    
+  
+  lazy var communicationStorageManager: ICommunicationStorage = CoreDataManager()
+  lazy var profileStorageManager: IProfileStorage = CoreDataManager()
+  lazy var requestSender: IRequestSender = RequestSender()
+  lazy var requestLoader: IRequestLoader = RequestLoader()
+  
 }

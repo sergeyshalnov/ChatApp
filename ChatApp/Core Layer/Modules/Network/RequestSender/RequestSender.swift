@@ -9,32 +9,41 @@
 import Foundation
 
 
-class RequestSender: IRequestSender {
-    
-    private let session = URLSession.shared
-    
-    func send<Parser>(requestConfig: RequestConfig<Parser>, completion: @escaping (Parser.Model?) -> Void) where Parser : IParser {
-        guard let urlRequest = requestConfig.request.urlRequest else {
-            completion(nil)
-            return
-        }
-        
-        let task = session.dataTask(with: urlRequest) { (data, _, error) in
-            if let error = error {
-                print("Error in RequestSender: \(error.localizedDescription)")
-                completion(nil)
-            }
-            guard let data = data,
-                  let parsedModel: Parser.Model = requestConfig.parser.parse(data: data) else {
-                    completion(nil)
-                    return
-            }
-            
-            completion(parsedModel)
-        }
-        
-        task.resume()
+class RequestSender {
+  
+  private let session = URLSession.shared
+  
+}
+
+
+// MARK: - IRequestSender extension
+
+extension RequestSender: IRequestSender {
+  
+  func send<Parser>(requestConfig: RequestConfig<Parser>, completion: @escaping (Parser.Model?) -> Void) where Parser : IParser {
+    guard let urlRequest = requestConfig.request.urlRequest else {
+      completion(nil)
+      return
     }
     
+    let task = session.dataTask(with: urlRequest) { (data, _, error) in
+      if let error = error {
+        print("Error in RequestSender: \(error.localizedDescription)")
+        completion(nil)
+      }
+      
+      guard
+        let data = data,
+        let model = requestConfig.parser.parse(data: data)
+        else {
+          completion(nil)
+          return
+      }
+      
+      completion(model)
+    }
     
+    task.resume()
+  }
+  
 }

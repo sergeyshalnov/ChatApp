@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ConversationCellConfiguration {
-    
-    var message: String? {get set}
-    
+  
+  var message: String? {get set}
+  
 }

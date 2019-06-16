@@ -10,8 +10,8 @@ import Foundation
 
 
 protocol IRequestLoader {
-    
-    func load(url: String, completion: @escaping (Data?) -> Void)
-    func cancel()
-    
+  
+  func load(url: String, completion: @escaping (Data?) -> Void)
+  func cancel()
+  
 }

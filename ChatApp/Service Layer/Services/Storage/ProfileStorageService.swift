@@ -9,26 +9,26 @@
 import Foundation
 
 protocol IProfileStorageService {
-    
-    func load(completion: @escaping (ProfileData?)->())
-    func save(profile: ProfileData, completion: @escaping (Bool) -> Void)
-    
+  
+  func load(completion: @escaping (ProfileData?)->())
+  func save(profile: ProfileData, completion: @escaping (Bool) -> Void)
+  
 }
 
 class ProfileStorageService: IProfileStorageService {
-    
-    private var coreDataStorageManager: IProfileStorage
-    
-    init(coreDataStorageManager: IProfileStorage) {
-        self.coreDataStorageManager = coreDataStorageManager
-    }
-    
-    func load(completion: @escaping (ProfileData?)->()) {
-        coreDataStorageManager.load(completion: completion)
-    }
-    
-    func save(profile: ProfileData, completion: @escaping (Bool) -> Void) {
-        coreDataStorageManager.save(profile: profile, completion: completion)
-    }
-    
+  
+  private var coreDataStorageManager: IProfileStorage
+  
+  init(coreDataStorageManager: IProfileStorage) {
+    self.coreDataStorageManager = coreDataStorageManager
+  }
+  
+  func load(completion: @escaping (ProfileData?)->()) {
+    coreDataStorageManager.load(completion: completion)
+  }
+  
+  func save(profile: ProfileData, completion: @escaping (Bool) -> Void) {
+    coreDataStorageManager.save(profile: profile, completion: completion)
+  }
+  
 }

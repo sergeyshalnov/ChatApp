@@ -10,15 +10,15 @@ import UIKit
 
 
 struct ProfileData {
-    
-    let username: String?
-    let information: String?
-    let image: UIImage?
-    
-    init(username: String? = nil, information: String? = nil, image: UIImage? = nil) {
-        self.username = username
-        self.information = information
-        self.image = image
-    }
-    
+  
+  let username: String?
+  let information: String?
+  let image: UIImage?
+  
+  init(username: String? = nil, information: String? = nil, image: UIImage? = nil) {
+    self.username = username
+    self.information = information
+    self.image = image
+  }
+  
 }

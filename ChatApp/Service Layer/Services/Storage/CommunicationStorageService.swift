@@ -10,37 +10,37 @@ import Foundation
 
 
 protocol ICommunicationStorageService {
-    
-    func add(user: UserData, completion: @escaping (String?) -> Void)
-    func add(message: MessageData)
-    
-    func edit(conversation: ConversationData)
-    func delete(conversationId: String)
-    
+  
+  func add(user: UserData, completion: @escaping (String?) -> Void)
+  func add(message: MessageData)
+  
+  func edit(conversation: ConversationData)
+  func delete(conversationId: String)
+  
 }
 
 class CommunicationStorageService: ICommunicationStorageService {
-    
-    private var coreDataStorageManager: ICommunicationStorage
-    
-    init(coreDataStorageManager: ICommunicationStorage) {
-        self.coreDataStorageManager = coreDataStorageManager
-    }
-    
-    func add(user: UserData, completion: @escaping (String?) -> Void) {
-        coreDataStorageManager.add(user: user, completion: completion)
-    }
-    
-    func add(message: MessageData) {
-        coreDataStorageManager.add(message: message)
-    }
-    
-    func edit(conversation: ConversationData) {
-        coreDataStorageManager.edit(conversation: conversation)
-    }
-    
-    func delete(conversationId: String) {
-        coreDataStorageManager.delete(conversationId: conversationId)
-    }
-    
+  
+  private var coreDataStorageManager: ICommunicationStorage
+  
+  init(coreDataStorageManager: ICommunicationStorage) {
+    self.coreDataStorageManager = coreDataStorageManager
+  }
+  
+  func add(user: UserData, completion: @escaping (String?) -> Void) {
+    coreDataStorageManager.add(user: user, completion: completion)
+  }
+  
+  func add(message: MessageData) {
+    coreDataStorageManager.add(message: message)
+  }
+  
+  func edit(conversation: ConversationData) {
+    coreDataStorageManager.edit(conversation: conversation)
+  }
+  
+  func delete(conversationId: String) {
+    coreDataStorageManager.delete(conversationId: conversationId)
+  }
+  
 }

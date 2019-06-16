@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol ImageDelegate {
-    
-    func setImage(image: UIImage?)
-    
+  
+  func setImage(image: UIImage?)
+  
 }

@@ -12,13 +12,13 @@ import CoreData
 
 
 extension Profile {
-
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Profile> {
-        return NSFetchRequest<Profile>(entityName: "Profile")
-    }
-
-    @NSManaged public var image: String?
-    @NSManaged public var information: String?
-    @NSManaged public var username: String?
-
+  
+  @nonobjc public class func fetchRequest() -> NSFetchRequest<Profile> {
+    return NSFetchRequest<Profile>(entityName: "Profile")
+  }
+  
+  @NSManaged public var image: String?
+  @NSManaged public var information: String?
+  @NSManaged public var username: String?
+  
 }

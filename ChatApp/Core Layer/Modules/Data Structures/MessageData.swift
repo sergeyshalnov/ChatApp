@@ -10,19 +10,19 @@ import Foundation
 
 
 struct MessageData {
-    
-    let messageId: String
-    let conversationId: String
-    let text: String
-    let date: NSDate
-    let incoming: Bool
-    
-    init(messageId: String, conversationId: String, text: String, date: NSDate = NSDate(), incoming: Bool) {
-        self.messageId = messageId
-        self.conversationId = conversationId
-        self.text = text
-        self.date = date
-        self.incoming = incoming
-    }
-    
+  
+  let messageId: String
+  let conversationId: String
+  let text: String
+  let date: NSDate
+  let incoming: Bool
+  
+  init(messageId: String, conversationId: String, text: String, date: NSDate = NSDate(), incoming: Bool) {
+    self.messageId = messageId
+    self.conversationId = conversationId
+    self.text = text
+    self.date = date
+    self.incoming = incoming
+  }
+  
 }

@@ -9,9 +9,9 @@
 import UIKit
 
 protocol IImageDownloader {
-    
-    func load(url: String, completion: @escaping (UIImage?) -> Void)
-    
+  
+  func load(url: String, completion: @escaping (UIImage?) -> Void)
+  
 }
 
 

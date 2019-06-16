@@ -10,28 +10,28 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
+  
+  var window: UIWindow?
+  
+  private let rootAssembly = RootAssembly()
+  private lazy var coreData: ICoreDataManager = CoreDataManager()
+  
+  
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
-    private let rootAssembly = RootAssembly()
-    private lazy var coreData: ICoreDataManager = CoreDataManager()
+    let controller = rootAssembly.presentationAssembly.conversationsListViewController()
     
+    window?.rootViewController = controller
+    window?.makeKeyAndVisible()
     
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        let controller = rootAssembly.presentationAssembly.conversationsListViewController()
+//    coreData.terminate()
     
-        window?.rootViewController = controller
-        window?.makeKeyAndVisible()
-        
-        coreData.terminate()
-        
-        return true
-    }
-    
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Application will terminate
-    }
+    return true
+  }
+  
+  func applicationWillTerminate(_ application: UIApplication) {
+    // Application will terminate
+  }
 }
 
