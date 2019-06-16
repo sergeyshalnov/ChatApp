@@ -10,6 +10,8 @@ import UIKit
 
 protocol IPresentationAssembly {
   
+  func onboarding() -> UIViewController
+  
   func conversationsListViewController() -> UINavigationController
   
   func conversationViewController(title: String?, conversationId: String, conversationListDelegate: ConversationListDelegate) -> ConversationViewController
@@ -30,10 +32,26 @@ class PresentationAssembly: IPresentationAssembly {
     self.serviceAssembly = serviceAssembly
   }
   
+  func onboarding() -> UIViewController {
+    let controller = OnboardingViewController(
+      presentationAssembly: self,
+      userDefaultsService: UserDefaultsService(),
+      profileStorageService: ProfileStorageService(coreDataStorageManager: CoreDataManager()))
+    
+    return controller
+  }
+  
   func conversationsListViewController() -> UINavigationController {
     let coreData: ICoreDataManager = CoreDataManager()
     let navigator = UINavigationController()
-    let controller = ConversationsListViewController(presentationAssembly: self, communicationService: serviceAssembly.communicationService(username: "Sergey Shalnov"), communicationStorageService: serviceAssembly.communicationStorageService(), profileStorageService: serviceAssembly.profileStorageService(), conversationFetchResultsController: coreData.conversationFetchResultsController())
+    let username = UserDefaultsService().get(for: .username) ?? "Sergey Shalnov"
+    
+    let controller = ConversationsListViewController(
+      presentationAssembly: self,
+      communicationService: serviceAssembly.communicationService(username: username),
+      communicationStorageService: serviceAssembly.communicationStorageService(),
+      profileStorageService: serviceAssembly.profileStorageService(),
+      conversationFetchResultsController: coreData.conversationFetchResultsController())
     
     navigator.viewControllers = [controller]
     

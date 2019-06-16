@@ -8,20 +8,26 @@
 
 import Foundation
 
-protocol IProfileStorageService {
-  
-  func load(completion: @escaping (ProfileData?)->())
-  func save(profile: ProfileData, completion: @escaping (Bool) -> Void)
-  
-}
 
-class ProfileStorageService: IProfileStorageService {
+class ProfileStorageService {
+  
+  // MARK: - Private variables
   
   private var coreDataStorageManager: IProfileStorage
+  
+  
+  // MARK: - Initialization
   
   init(coreDataStorageManager: IProfileStorage) {
     self.coreDataStorageManager = coreDataStorageManager
   }
+  
+}
+
+
+// MARK: - IProfileStorageService extension 
+
+extension ProfileStorageService: IProfileStorageService {
   
   func load(completion: @escaping (ProfileData?)->()) {
     coreDataStorageManager.load(completion: completion)

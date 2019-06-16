@@ -10,6 +10,12 @@
 		1A034570216529CD00A13F96 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A03456F216529CD00A13F96 /* ConversationsListViewController.swift */; };
 		1A03457521652B9700A13F96 /* ConversationsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A03457321652B9700A13F96 /* ConversationsListCell.swift */; };
 		1A03457621652B9700A13F96 /* ConversationsListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A03457421652B9700A13F96 /* ConversationsListCell.xib */; };
+		1A14904D22B6D37100257091 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A14904B22B6D37100257091 /* OnboardingViewController.swift */; };
+		1A14904E22B6D37100257091 /* OnboardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A14904C22B6D37100257091 /* OnboardingViewController.xib */; };
+		1A14905022B6D38300257091 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A14904F22B6D38300257091 /* OnboardingView.swift */; };
+		1A14905222B6D67B00257091 /* IProfileStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A14905122B6D67B00257091 /* IProfileStorageService.swift */; };
+		1A14905522B6D6D800257091 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A14905422B6D6D800257091 /* UserDefaultsService.swift */; };
+		1A14905722B6D6E500257091 /* IUserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A14905622B6D6E500257091 /* IUserDefaultsService.swift */; };
 		1A1578C021A84B8E008B1842 /* ImageViewDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1578BF21A84B8E008B1842 /* ImageViewDownloader.swift */; };
 		1A1578C221A8A9DB008B1842 /* ImageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1578C121A8A9DB008B1842 /* ImageDelegate.swift */; };
 		1A16A9832195FDA9005D8743 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A16A97B2195FDA9005D8743 /* Profile+CoreDataClass.swift */; };
@@ -104,6 +110,12 @@
 		1A03456F216529CD00A13F96 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		1A03457321652B9700A13F96 /* ConversationsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListCell.swift; sourceTree = "<group>"; };
 		1A03457421652B9700A13F96 /* ConversationsListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationsListCell.xib; sourceTree = "<group>"; };
+		1A14904B22B6D37100257091 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		1A14904C22B6D37100257091 /* OnboardingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingViewController.xib; sourceTree = "<group>"; };
+		1A14904F22B6D38300257091 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		1A14905122B6D67B00257091 /* IProfileStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IProfileStorageService.swift; sourceTree = "<group>"; };
+		1A14905422B6D6D800257091 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
+		1A14905622B6D6E500257091 /* IUserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IUserDefaultsService.swift; sourceTree = "<group>"; };
 		1A1578BF21A84B8E008B1842 /* ImageViewDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewDownloader.swift; sourceTree = "<group>"; };
 		1A1578C121A8A9DB008B1842 /* ImageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDelegate.swift; sourceTree = "<group>"; };
 		1A16A97B2195FDA9005D8743 /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -217,6 +229,25 @@
 			path = ConversationsListViewController;
 			sourceTree = "<group>";
 		};
+		1A14904A22B6D33900257091 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				1A14904F22B6D38300257091 /* OnboardingView.swift */,
+				1A14904B22B6D37100257091 /* OnboardingViewController.swift */,
+				1A14904C22B6D37100257091 /* OnboardingViewController.xib */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		1A14905322B6D6C700257091 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				1A14905622B6D6E500257091 /* IUserDefaultsService.swift */,
+				1A14905422B6D6D800257091 /* UserDefaultsService.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
 		1A1578C321A8C342008B1842 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +290,7 @@
 		1A1ED80F21A1BD0F00CFDBE5 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				1A14905122B6D67B00257091 /* IProfileStorageService.swift */,
 				1A7F290D21A08C3600F55C93 /* ProfileStorageService.swift */,
 				1AFE4227219F659400DD3740 /* CommunicationStorageService.swift */,
 			);
@@ -426,6 +458,8 @@
 		1A72876B21A751C800EAA0C1 /* Pixabay */ = {
 			isa = PBXGroup;
 			children = (
+				1A72876C21A7520600EAA0C1 /* IImageDownloader.swift */,
+				1A6E87FE21BC0BE6004226BF /* IImageManager.swift */,
 				1A72876921A751BD00EAA0C1 /* PixabayService.swift */,
 			);
 			path = Pixabay;
@@ -479,6 +513,7 @@
 		1A8448A4219DD5F20033D7E9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				1A14904A22B6D33900257091 /* Onboarding */,
 				1A03456E2165298200A13F96 /* ConversationsListViewController */,
 				1ABAA4EF2167B00F0064DF78 /* ConversationViewController */,
 				1AFDB6E821698E4700D54EB8 /* ProfileViewController */,
@@ -500,8 +535,7 @@
 		1A8448A6219DD6100033D7E9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				1A72876C21A7520600EAA0C1 /* IImageDownloader.swift */,
-				1A6E87FE21BC0BE6004226BF /* IImageManager.swift */,
+				1A14905322B6D6C700257091 /* UserDefaults */,
 				1A72876B21A751C800EAA0C1 /* Pixabay */,
 				1A1ED80F21A1BD0F00CFDBE5 /* Storage */,
 				1A7A989A21838FFE00444D8E /* Network */,
@@ -777,6 +811,7 @@
 				1AC2513D21DCF744007C4206 /* ConversationsListViewController.xib in Resources */,
 				1A60C75D216A5CD800F41EAD /* OutgoingCell.xib in Resources */,
 				1AC2514521DD36C7007C4206 /* ImagesViewController.xib in Resources */,
+				1A14904E22B6D37100257091 /* OnboardingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -800,6 +835,7 @@
 				1A1578C021A84B8E008B1842 /* ImageViewDownloader.swift in Sources */,
 				1A03457521652B9700A13F96 /* ConversationsListCell.swift in Sources */,
 				1A60C74A216A29C200F41EAD /* ConversationListCellConfiguration.swift in Sources */,
+				1A14904D22B6D37100257091 /* OnboardingViewController.swift in Sources */,
 				1A7A98A42183B80D00444D8E /* Alert.swift in Sources */,
 				1A034570216529CD00A13F96 /* ConversationsListViewController.swift in Sources */,
 				1A72875721A726EA00EAA0C1 /* ImageCell.swift in Sources */,
@@ -808,6 +844,7 @@
 				1A72876821A74B0E00EAA0C1 /* RequestSender.swift in Sources */,
 				1A72876321A7448D00EAA0C1 /* PixabayParser.swift in Sources */,
 				1A16A99321988382005D8743 /* User+CoreDataClass.swift in Sources */,
+				1A14905022B6D38300257091 /* OnboardingView.swift in Sources */,
 				1ABAA4F52167B5540064DF78 /* ConversationViewController.swift in Sources */,
 				1A72877221A789B800EAA0C1 /* IRequestLoader.swift in Sources */,
 				1A1ED80D21A1BC3D00CFDBE5 /* Generator.swift in Sources */,
@@ -825,6 +862,7 @@
 				1AE85E1121554C2000967BEE /* ProfileViewController.swift in Sources */,
 				1A2AD3A222B64E6300501EE1 /* PixabayRequestModel.swift in Sources */,
 				1A16A9832195FDA9005D8743 /* Profile+CoreDataClass.swift in Sources */,
+				1A14905722B6D6E500257091 /* IUserDefaultsService.swift in Sources */,
 				1A16A9882195FDA9005D8743 /* Message+CoreDataProperties.swift in Sources */,
 				1A2AD39822B64BB800501EE1 /* String+Substring.swift in Sources */,
 				1A4CC814217C950400261C81 /* FileNames.swift in Sources */,
@@ -836,6 +874,7 @@
 				1A72875E21A73F5000EAA0C1 /* PixabayRequest.swift in Sources */,
 				1AF1DBAF2178A42F0085DD3C /* EditProfileViewController.swift in Sources */,
 				1A72876A21A751BD00EAA0C1 /* PixabayService.swift in Sources */,
+				1A14905222B6D67B00257091 /* IProfileStorageService.swift in Sources */,
 				1A8448D0219DFBA80033D7E9 /* MessageData.swift in Sources */,
 				1A8448C5219DEB0E0033D7E9 /* ImageManager.swift in Sources */,
 				1A16A9872195FDA9005D8743 /* Message+CoreDataClass.swift in Sources */,
@@ -853,6 +892,7 @@
 				1A2AD39C22B64DA100501EE1 /* RequestConfig.swift in Sources */,
 				1A2AD3A922B6C5C400501EE1 /* CoreDataManager+IProfileStorage.swift in Sources */,
 				1A8448D3219E02D50033D7E9 /* CoreDataConfiguration.swift in Sources */,
+				1A14905522B6D6D800257091 /* UserDefaultsService.swift in Sources */,
 				1A16A9842195FDA9005D8743 /* Profile+CoreDataProperties.swift in Sources */,
 				1A6E87FF21BC0BE6004226BF /* IImageManager.swift in Sources */,
 				1A8448AC219DD8100033D7E9 /* PresentationAssembly.swift in Sources */,

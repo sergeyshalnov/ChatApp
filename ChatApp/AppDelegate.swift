@@ -11,27 +11,40 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
+  // MARK: - Variables
+  
   var window: UIWindow?
+  
+  // MARK: - Private variables
   
   private let rootAssembly = RootAssembly()
   private lazy var coreData: ICoreDataManager = CoreDataManager()
   
   
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+  // MARK: - Main
+  
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
-    let controller = rootAssembly.presentationAssembly.conversationsListViewController()
+    if UserDefaultsService().get(for: .username) == nil {
+      let controller = rootAssembly.presentationAssembly.onboarding()
+      
+      window?.rootViewController = controller
+    } else {
+      let controller = rootAssembly.presentationAssembly.conversationsListViewController()
+      
+      window?.rootViewController = controller
+    }
     
-    window?.rootViewController = controller
     window?.makeKeyAndVisible()
-    
-//    coreData.terminate()
     
     return true
   }
   
   func applicationWillTerminate(_ application: UIApplication) {
-    // Application will terminate
+    UserDefaultsService().remove(for: .username)
+    coreData.terminate()
   }
 }
 
