@@ -42,10 +42,33 @@ extension CoreDataManager: IUserStorage {
     
   }
   
+  func offline(userId: String) {
+    let context = CoreDataManager.container.viewContext
+    let request = NSFetchRequest<User>(entityName: "User")
+    let predicate = User.userPredicate(id: userId)
+    
+    request.predicate = predicate
+    
+    do {
+      let items = try context.fetch(request)
+      
+      guard let item = items.first else {
+        return
+      }
+      
+      item.setValue(false, forKey: "online")
+      
+      try context.save()
+    } catch {
+      #if DEBUG
+        print(error.localizedDescription)
+      #endif
+    }
+    
+  }
+  
   func delete(userId: String) {
     let dataManager = CoreDataManager()
-    
-    //    let request: NSFetchRequest<NSFetchRequestResult> = User.fetchRequest()
     let request = NSFetchRequest<NSManagedObject>(entityName: "User")
     let predicate = User.userPredicate(id: userId)
     request.predicate = predicate

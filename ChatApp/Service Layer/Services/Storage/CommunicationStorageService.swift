@@ -14,6 +14,7 @@ protocol ICommunicationStorageService {
   func add(user: UserData, completion: @escaping (String?) -> Void)
   func add(message: MessageData)
   
+  func offline(conversationId: String)
   func edit(conversation: ConversationData)
   func delete(conversationId: String)
   
@@ -43,4 +44,7 @@ class CommunicationStorageService: ICommunicationStorageService {
     coreDataStorageManager.delete(conversationId: conversationId)
   }
   
+  func offline(conversationId: String) {
+    //
+  }
 }

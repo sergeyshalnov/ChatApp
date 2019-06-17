@@ -148,7 +148,7 @@ class ConversationsListViewController: UIViewController {
   
   @objc func profileButtonTouch() {
     let viewController = presentationAssembly.profileViewController()
-    self.present(viewController, animated: true, completion: nil)
+    present(viewController, animated: true, completion: nil)
   }
 }
 
@@ -204,21 +204,20 @@ extension ConversationsListViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-    let action = UITableViewRowAction(style: .normal, title: "Delete") { (action, indexPath) in
-      //
+    guard
+      let cell = tableView.cellForRow(at: indexPath) as? ConversationsListCell,
+      let conversationId = cell.conversationId
+      else {
+        return []
+    }
+    
+    let action = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (action, indexPath) in
+      self?.communicationStorageService.delete(conversationId: conversationId)
+      self?.temporaryUserStorage.delete(conversationId: conversationId)
     }
     
     return [action]
   }
-  
-//  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//    switch editingStyle {
-//    case .delete:
-//      <#code#>
-//    default:
-//      return
-//    }
-//  }
   
 }
 

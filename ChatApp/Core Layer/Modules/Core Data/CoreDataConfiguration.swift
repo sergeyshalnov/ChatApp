@@ -44,6 +44,7 @@ protocol ICommunicationStorage: IUserStorage, IConversationStorage, IMessageStor
 protocol IUserStorage {
   
   func add(user: UserData, completion: @escaping (String?) -> Void)
+  func offline(userId: String)
   func delete(userId: String)
   
 }
