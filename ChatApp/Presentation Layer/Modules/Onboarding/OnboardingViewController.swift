@@ -63,13 +63,14 @@ extension OnboardingViewController {
     
     userDefaultsService.set(value: username, for: .username)
     
-    profileStorageService.save(profile: ProfileData(
-      username: username,
-      information: nil,
-      image: UIImage(named: "profileImage"))) { (isSuccess) in
-        #if DEBUG
-          print("Save profile on onboarding - isSucces? - : \(isSuccess)")
-        #endif
+    profileStorageService.save(
+      profile: ProfileData(
+        username: username,
+        information: nil,
+        image: UIImage(named: "profileImage"))) { (isSuccess) in
+          #if DEBUG
+            print("Save profile on onboarding - isSucces? - : \(isSuccess)")
+          #endif
     }
     
     present(presentationAssembly.conversationsListViewController(), animated: true)

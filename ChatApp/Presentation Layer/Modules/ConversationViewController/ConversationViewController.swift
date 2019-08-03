@@ -20,7 +20,6 @@ class ConversationViewController: UIViewController {
   private let incomingID = String("IncomingCell")
   private let outgoingID = String("OutgoingCell")
   
-  
   // MARK: - Private variables
   
   private var peer: Peer?
@@ -43,7 +42,8 @@ class ConversationViewController: UIViewController {
   // MARK: - Message input views
   
   let messageContainerView: UIView = {
-    let view = UIView(frame: CGRect(x: 0, y: 150, width: 154, height: 54))
+    let frame = CGRect(x: 0, y: 150, width: 154, height: 54)
+    let view = UIView(frame: frame)
     
     view.translatesAutoresizingMaskIntoConstraints = false
     view.backgroundColor = UIColor.white
@@ -52,7 +52,8 @@ class ConversationViewController: UIViewController {
   }()
   
   let messageView: UIView = {
-    let view = UIView(frame: CGRect(x: 0, y: 150, width: 44, height: 144))
+    let frame = CGRect(x: 0, y: 150, width: 44, height: 144)
+    let view = UIView(frame: frame)
     
     view.translatesAutoresizingMaskIntoConstraints = false
     view.clipsToBounds = true
@@ -72,8 +73,9 @@ class ConversationViewController: UIViewController {
     button.isEnabled = true
     button.widthAnchor.constraint(equalToConstant: 34).isActive = true
     button.heightAnchor.constraint(equalToConstant: 34).isActive = true
-    
-    button.addTarget(self, action: #selector(sendMessageButtonTouchUpInside), for: .touchUpInside)
+    button.addTarget(self,
+                     action: #selector(sendMessageButtonTouchUpInside),
+                     for: .touchUpInside)
     
     return button
   }()
@@ -91,7 +93,6 @@ class ConversationViewController: UIViewController {
   // MARK: - Message input constraints
   
   lazy var messageInputBottomConstraint = NSLayoutConstraint(item: messageContainerView, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottomMargin, multiplier: 1, constant: 0)
-  
   
   // MARK: - Init
   
@@ -113,21 +114,12 @@ class ConversationViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override func awakeFromNib() {
-    super.awakeFromNib()
-  }
-  
-  
   // MARK: - Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     setup()
-  }
-  
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
   }
   
   override func viewWillLayoutSubviews() {
@@ -137,9 +129,7 @@ class ConversationViewController: UIViewController {
     messageView.layer.cornerRadius = messageView.bounds.height / 2
   }
   
-  
   // MARK: - Setup Assembly
-  
   func setupAssembly(presentationAssembly: IPresentationAssembly, communicationStorageService: ICommunicationStorageService, messageFetchResultsController: NSFetchedResultsController<Message>) {
     self.presentationAssembly = presentationAssembly
     self.communicationStorageService = communicationStorageService
@@ -168,11 +158,15 @@ class ConversationViewController: UIViewController {
   }
   
   private func setupKeyboardAppearance() {
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(keyboardWillShow),
+                                           name: UIResponder.keyboardWillShowNotification,
+                                           object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
   }
   
   private func setupTableView() {
+    
     conversationTableView.register(UINib(nibName: incomingID, bundle: nil), forCellReuseIdentifier: incomingID)
     conversationTableView.register(UINib(nibName: outgoingID, bundle: nil), forCellReuseIdentifier: outgoingID)
     
@@ -185,10 +179,13 @@ class ConversationViewController: UIViewController {
     
     // Setup conversationTableView layout
     conversationTableView.translatesAutoresizingMaskIntoConstraints = false
-    conversationTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-    conversationTableView.bottomAnchor.constraint(equalTo: messageContainerView.topAnchor).isActive = true
-    conversationTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-    conversationTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    
+    NSLayoutConstraint.activate([
+      conversationTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      conversationTableView.bottomAnchor.constraint(equalTo: messageContainerView.topAnchor),
+      conversationTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      conversationTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+    ])
     
     // Reverse tableView
     conversationTableView.transform = CGAffineTransform(scaleX: 1, y: -1)
@@ -365,10 +362,13 @@ extension ConversationViewController: NSFetchedResultsControllerDelegate{
     conversationTableView.beginUpdates()
   }
   
-  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                  didChange anObject: Any,
+                  at indexPath: IndexPath?,
+                  for type: NSFetchedResultsChangeType,
+                  newIndexPath: IndexPath?) {
     
     if let indexPath = indexPath {
-      
       switch type {
       case .update:
         conversationTableView.reloadRows(at: [indexPath], with: .automatic)
@@ -396,4 +396,8 @@ extension ConversationViewController: NSFetchedResultsControllerDelegate{
     conversationTableView.endUpdates()
   }
   
+}
+
+private struct Colors {
+  static let labelTextColor = UIColor.blue
 }

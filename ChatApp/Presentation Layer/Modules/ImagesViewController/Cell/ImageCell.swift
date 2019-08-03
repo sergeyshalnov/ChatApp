@@ -9,31 +9,31 @@
 import UIKit
 
 class ImageCell: UICollectionViewCell {
-
-    let customImageView: ImageViewDownloader = {
-        let imageView = ImageViewDownloader()
-        imageView.image = UIImage(named: "ImagePlaceholder")
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        
-        return imageView
-    }()
+  
+  let customImageView: ImageViewDownloader = {
+    let imageView = ImageViewDownloader()
+    imageView.image = UIImage(named: "ImagePlaceholder")
+    imageView.clipsToBounds = true
+    imageView.contentMode = .scaleAspectFill
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        setup()
-    }
+    return imageView
+  }()
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
     
-    private func setup() {
-        addSubview(customImageView)
+    setup()
+  }
+  
+  private func setup() {
+    addSubview(customImageView)
     
-        addConstraint(NSLayoutConstraint(item: customImageView, attribute: .centerX,
-                                         relatedBy: .equal, toItem: self, attribute: .centerX,
-                                         multiplier: 1, constant: 0))
-        addConstraint(NSLayoutConstraint(item: customImageView, attribute: .centerY,
-                                         relatedBy: .equal, toItem: self, attribute: .centerY,
-                                         multiplier: 1, constant: 0))
-    }
-
+    addConstraint(NSLayoutConstraint(item: customImageView, attribute: .centerX,
+                                     relatedBy: .equal, toItem: self, attribute: .centerX,
+                                     multiplier: 1, constant: 0))
+    addConstraint(NSLayoutConstraint(item: customImageView, attribute: .centerY,
+                                     relatedBy: .equal, toItem: self, attribute: .centerY,
+                                     multiplier: 1, constant: 0))
+  }
+  
 }

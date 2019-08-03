@@ -10,16 +10,17 @@ import UIKit
 
 class ConversationCell: UITableViewCell, ConversationCellConfiguration {
   
-  @IBOutlet weak var messageBubble: UITextView!
+  @IBOutlet private weak var messageBubble: UITextView!
   
   // MARK: - Layout constant
   
-  let cornerRaidus: CGFloat = 18.0
-  var edgeInsets: UIEdgeInsets {
-    get {
-      return UIEdgeInsets.init(top: cornerRaidus / 2, left: cornerRaidus / 2,
-                               bottom: cornerRaidus / 2, right: cornerRaidus / 2)
-    }
+  private let cornerRaidus: CGFloat = 18.0
+  private var edgeInsets: UIEdgeInsets {
+    return UIEdgeInsets(
+      top: cornerRaidus / 2,
+      left: cornerRaidus / 2,
+      bottom: cornerRaidus / 2,
+      right: cornerRaidus / 2)
   }
   
   // MARK: - Variables
@@ -58,15 +59,10 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     messageBubble.widthAnchor.constraint(greaterThanOrEqualToConstant: minWidth).isActive = true
   }
   
+  // MARK: - PUBLIC
   
-  // MARK: - Other functions
-  
-  override func awakeFromNib() {
-    super.awakeFromNib()
-  }
-  
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
+  func updateContent(message: String) {
+    
   }
   
 }

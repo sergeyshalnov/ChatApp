@@ -176,6 +176,7 @@ class EditProfileViewController: UIViewController {
   
   private func setupProfileInformation() {
     profileStorageService.load { [weak self] profile in
+      
       DispatchQueue.main.async {
         self?.username = profile?.username
         self?.information = profile?.information
@@ -290,15 +291,21 @@ class EditProfileViewController: UIViewController {
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
     let photoLibraryAction = UIAlertAction(title: "Photo library", style: .default) {
-      [weak self] _ in self?.openPhotoLibrary()
+      [weak self] _ in
+      
+      self?.openPhotoLibrary()
     }
     
     let cameraAction = UIAlertAction(title: "Camera", style: .default) {
-      [weak self] _ in self?.openCamera()
+      [weak self] _ in
+      
+      self?.openCamera()
     }
     
     let pixabayPhotoLibrary = UIAlertAction(title: "Download", style: .default) {
-      [weak self] _ in self?.openPixabayPhotoLibrary()
+      [weak self] _ in
+      
+      self?.openPixabayPhotoLibrary()
     }
     
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)

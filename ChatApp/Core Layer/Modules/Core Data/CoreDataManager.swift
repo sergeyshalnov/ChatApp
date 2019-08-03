@@ -49,29 +49,6 @@ class CoreDataManager: ICoreDataManager, ICommunicationStorage {
     return controller
   }
   
-//  func delete(request: NSFetchRequest<NSFetchRequestResult>, completion: @escaping (Bool) -> Void) {
-////    let delete = NSBatchDeleteRequest(fetchRequest: request)
-//
-//    let context = CoreDataManager.container.viewContext
-//
-//    context.perform {
-//      do {
-//        let items = try context.fetch(request)
-//
-//        for item in items {
-//
-//          context.delete(item)
-//          //        try context.execute(delete)
-//          try context.save()
-//        }
-//
-//        completion(true)
-//      } catch {
-//        completion(false)
-//      }
-//    }
-//  }
-  
   func delete(request: NSFetchRequest<NSManagedObject>, completion: @escaping (Bool) -> Void) {
     let context = CoreDataManager.container.viewContext
     

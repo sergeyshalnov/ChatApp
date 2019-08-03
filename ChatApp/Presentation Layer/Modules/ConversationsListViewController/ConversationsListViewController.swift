@@ -81,14 +81,14 @@ class ConversationsListViewController: UIViewController {
   
   // MARK: - Setup Assembly
   
-  func setupAssembly(presentationAssembly:IPresentationAssembly, communicationService: ICommunicationService, communicationStorageService: ICommunicationStorageService, profileStorageService: IProfileStorageService, conversationFetchResultsController: NSFetchedResultsController<Conversation>) {
-    
-    self.presentationAssembly = presentationAssembly
-    self.communicationService = communicationService
-    self.communicationStorageService = communicationStorageService
-    self.profileStorageService = profileStorageService
-    self.conversationFetchResultsController = conversationFetchResultsController
-  }
+//  func setupAssembly(presentationAssembly:IPresentationAssembly, communicationService: ICommunicationService, communicationStorageService: ICommunicationStorageService, profileStorageService: IProfileStorageService, conversationFetchResultsController: NSFetchedResultsController<Conversation>) {
+//    
+//    self.presentationAssembly = presentationAssembly
+//    self.communicationService = communicationService
+//    self.communicationStorageService = communicationStorageService
+//    self.profileStorageService = profileStorageService
+//    self.conversationFetchResultsController = conversationFetchResultsController
+//  }
   
   
   // MARK: - Private setup
@@ -261,9 +261,7 @@ extension ConversationsListViewController: UITableViewDelegate {
   }
 }
 
-
-
-// MARK: - ConversationListDelegate extension
+// MARK: - ConversationListDelegate
 
 extension ConversationsListViewController: ConversationListDelegate {
   
@@ -273,9 +271,7 @@ extension ConversationsListViewController: ConversationListDelegate {
   
 }
 
-
-
-// MARK: - CommunicationServiceDelegate extension
+// MARK: - CommunicationServiceDelegate
 
 extension ConversationsListViewController: CommunicationServiceDelegate {
   
@@ -312,7 +308,11 @@ extension ConversationsListViewController: CommunicationServiceDelegate {
       peer: peer.identifier)
   }
   
-  func communicationService(_ communicationService: ICommunicationService, didReceiveInviteFromPeer peer: Peer, invintationClosure: @escaping (Bool) -> Void) {
+  func communicationService(
+    _ communicationService: ICommunicationService,
+    didReceiveInviteFromPeer peer: Peer,
+    invintationClosure: @escaping (Bool) -> Void
+  ) {
     
     let left: (UIAlertAction) -> Void = { [weak self] _ in
       guard let temporaryUserStorage = self?.temporaryUserStorage else {
@@ -327,9 +327,13 @@ extension ConversationsListViewController: CommunicationServiceDelegate {
       invintationClosure(false)
     }
     
-    let alert = UIAlertController(title: peer.name, message: "Пользователь прислал вам приглашение", preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: "Принять", style: .default, handler: left))
-    alert.addAction(UIAlertAction(title: "Отклонить", style: .default, handler: right))
+    let alert = UIAlertController(
+      title: peer.name,
+      message: "Пользователь прислал вам приглашение",
+      preferredStyle: .alert)
+    
+    alert.addAction(UIAlertAction(title: String.acceptWord, style: .default, handler: left))
+    alert.addAction(UIAlertAction(title: String.cancelWord, style: .default, handler: right))
     
     present(alert, animated: true, completion: nil)
   }
@@ -391,6 +395,7 @@ extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
       guard let indexPath = indexPath else {
         return
       }
+      
       tableView.deleteRows(at: [indexPath], with: .automatic)
     case .insert:
       guard let newIndexPath = newIndexPath else {
@@ -424,7 +429,7 @@ extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
   
 }
 
-
-
-
-
+private extension String {
+  static let acceptWord = "ACCEPT_WORD".localized()
+  static let cancelWord = "CANCEL_WORD".localized()
+}

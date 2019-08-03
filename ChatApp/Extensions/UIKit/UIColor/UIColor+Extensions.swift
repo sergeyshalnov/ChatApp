@@ -1,5 +1,5 @@
 //
-//  UIColor+Hex.swift
+//  UIColor+Extensions.swift
 //  ChatApp
 //
 //  Created by Sergey Shalnov on 15/06/2019.
@@ -17,8 +17,6 @@ extension UIColor {
     let red = CGFloat((hex >> 16) & 0xff) / 255
     let green = CGFloat((hex >> 8) & 0xff) / 255
     let blue = CGFloat(hex & 0xff) / 255
-    
-    print(red, green, blue)
     
     self.init(red: red, green: green, blue: blue, alpha: alpha)
   }

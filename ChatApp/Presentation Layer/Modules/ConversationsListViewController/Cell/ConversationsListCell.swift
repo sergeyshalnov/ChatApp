@@ -89,22 +89,7 @@ class ConversationsListCell: UITableViewCell, ConversationListCellConfiguration 
   // MARK: - Private functions
   
   private func isToday(date: Date) -> Bool {
-    let calendarComponents: Set<Calendar.Component> = [.day, .month, .year]
-    let A = Calendar.current.dateComponents(calendarComponents, from: date)
-    let B = Calendar.current.dateComponents(calendarComponents, from: Date())
-    
-    return A.day == B.day && A.month == B.month && A.year == B.year ? true : false
-  }
-  
-  
-  // MARK: - Other functions
-  
-  override func awakeFromNib() {
-    super.awakeFromNib()
-  }
-  
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
+    return Calendar.current.isDateInToday(date)
   }
   
 }
