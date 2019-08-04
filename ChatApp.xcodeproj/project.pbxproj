@@ -231,13 +231,13 @@
 			path = ConversationsListViewController;
 			sourceTree = "<group>";
 		};
-		1A14904A22B6D33900257091 /* Onboarding */ = {
+		1A14904A22B6D33900257091 /* OnboardingTest */ = {
 			isa = PBXGroup;
 			children = (
 				1A14904B22B6D37100257091 /* OnboardingViewController.swift */,
 				1A14904C22B6D37100257091 /* OnboardingViewController.xib */,
 			);
-			path = Onboarding;
+			path = OnboardingTest;
 			sourceTree = "<group>";
 		};
 		1A14905322B6D6C700257091 /* UserDefaults */ = {
@@ -511,7 +511,7 @@
 		1A8448A4219DD5F20033D7E9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				1A14904A22B6D33900257091 /* Onboarding */,
+				1A14904A22B6D33900257091 /* OnboardingTest */,
 				1A03456E2165298200A13F96 /* ConversationsListViewController */,
 				1ABAA4EF2167B00F0064DF78 /* ConversationViewController */,
 				1AFDB6E821698E4700D54EB8 /* ProfileViewController */,
