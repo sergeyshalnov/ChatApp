@@ -8,35 +8,36 @@
 
 import UIKit
 
-protocol IPresentationAssembly {
+class PresentationAssembly {
   
-  func onboarding() -> UIViewController
-  
-  func conversationsListViewController() -> UINavigationController
-  
-  func conversationViewController(title: String?, conversationId: String, conversationListDelegate: ConversationListDelegate) -> ConversationViewController
-  
-  func profileViewController() -> ProfileViewController
-  
-  func editProfileViewController(temporaryProfileImage: UIImage?) -> EditProfileViewController
-  
-  func imagesViewController(imageDelegate: ImageDelegate) -> ImagesViewController
-  
-}
-
-class PresentationAssembly: IPresentationAssembly {
+  // MARK: - Assembly
   
   private let serviceAssembly: IServiceAssembly
+  
+  // MARK: - Init
   
   init(serviceAssembly: IServiceAssembly) {
     self.serviceAssembly = serviceAssembly
   }
   
+}
+
+// MARK: - IPresentationAssembly
+
+extension PresentationAssembly: IPresentationAssembly {
+  
   func onboarding() -> UIViewController {
-    let controller = OnboardingViewController(
-      presentationAssembly: self,
-      userDefaultsService: UserDefaultsService(),
-      profileStorageService: ProfileStorageService(coreDataStorageManager: CoreDataManager()))
+    let controller = OnboardingViewController()
+    let userDefaultsService = serviceAssembly.userDefaultsService()
+    let profileStorageService = serviceAssembly.profileStorageService()
+    
+    let router = OnboardingRouter(view: controller)
+    let presenter = OnboardingPresenter(output: controller,
+                                        userDefaultsService: userDefaultsService,
+                                        profileStorageService: profileStorageService)
+    
+    controller.output = presenter
+    controller.router = router
     
     return controller
   }

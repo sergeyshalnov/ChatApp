@@ -10,8 +10,9 @@
 		1A034570216529CD00A13F96 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A03456F216529CD00A13F96 /* ConversationsListViewController.swift */; };
 		1A03457521652B9700A13F96 /* ConversationsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A03457321652B9700A13F96 /* ConversationsListCell.swift */; };
 		1A03457621652B9700A13F96 /* ConversationsListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A03457421652B9700A13F96 /* ConversationsListCell.xib */; };
-		1A14904D22B6D37100257091 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A14904B22B6D37100257091 /* OnboardingViewController.swift */; };
-		1A14904E22B6D37100257091 /* OnboardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A14904C22B6D37100257091 /* OnboardingViewController.xib */; };
+		1A0718E222F765D600C8CFB4 /* IPresentationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0718E122F765D600C8CFB4 /* IPresentationAssembly.swift */; };
+		1A0718E522F76A3300C8CFB4 /* UIView+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0718E422F76A3300C8CFB4 /* UIView+CornerRadius.swift */; };
+		1A0718E722F7707300C8CFB4 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0718E622F7707300C8CFB4 /* CustomViewController.swift */; };
 		1A14905222B6D67B00257091 /* IProfileStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A14905122B6D67B00257091 /* IProfileStorageService.swift */; };
 		1A14905522B6D6D800257091 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A14905422B6D6D800257091 /* UserDefaultsService.swift */; };
 		1A14905722B6D6E500257091 /* IUserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A14905622B6D6E500257091 /* IUserDefaultsService.swift */; };
@@ -94,6 +95,16 @@
 		1AFCF30F22B563E800858EDE /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFCF30E22B563E800858EDE /* UIColor+Extensions.swift */; };
 		1AFE4226219F619400DD3740 /* RootAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFE4225219F619400DD3740 /* RootAssembly.swift */; };
 		1AFE4228219F659400DD3740 /* CommunicationStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFE4227219F659400DD3740 /* CommunicationStorageService.swift */; };
+		22A787C56EBF9A3BB8C81F07 /* IOnboardingPresenterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5CF8AECE778D2BA2504F5 /* IOnboardingPresenterInput.swift */; };
+		29841A97F8F7B1F1B5AD6F3A /* IOnboardingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E9B745D92AD52B5CE4BE62 /* IOnboardingRouter.swift */; };
+		2DA8F3CA8013791951EC767A /* IOnboardingViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50790933A48340505D55229B /* IOnboardingViewOutput.swift */; };
+		4A9F38C3D13889B1E7454F37 /* IOnboardingPresenterOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252B06F97193D71E6C983608 /* IOnboardingPresenterOutput.swift */; };
+		5B90A28046E62E7A9D9AFAFF /* OnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC988AB15D0E6F60978E2D4 /* OnboardingPresenter.swift */; };
+		5E6D9D508A872EE0ADA561FC /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDCABFA2FCD1955A64CDE671 /* OnboardingView.xib */; };
+		69177ED316408942C24C231D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A3FEA3FB02B174CA6701C3 /* OnboardingView.swift */; };
+		97109D3195D940E084679393 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399B1CE000DB0DEA6DDD9BFA /* OnboardingViewController.swift */; };
+		AB4F74E39D138688078D4719 /* IOnboardingViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959D4D6EE602365679088853 /* IOnboardingViewInput.swift */; };
+		B32F21F92F50BF670BA183F7 /* OnboardingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5A992F638D3BC35D2FA0 /* OnboardingRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,8 +121,9 @@
 		1A03456F216529CD00A13F96 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		1A03457321652B9700A13F96 /* ConversationsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListCell.swift; sourceTree = "<group>"; };
 		1A03457421652B9700A13F96 /* ConversationsListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationsListCell.xib; sourceTree = "<group>"; };
-		1A14904B22B6D37100257091 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
-		1A14904C22B6D37100257091 /* OnboardingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingViewController.xib; sourceTree = "<group>"; };
+		1A0718E122F765D600C8CFB4 /* IPresentationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPresentationAssembly.swift; sourceTree = "<group>"; };
+		1A0718E422F76A3300C8CFB4 /* UIView+CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CornerRadius.swift"; sourceTree = "<group>"; };
+		1A0718E622F7707300C8CFB4 /* CustomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		1A14905122B6D67B00257091 /* IProfileStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IProfileStorageService.swift; sourceTree = "<group>"; };
 		1A14905422B6D6D800257091 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		1A14905622B6D6E500257091 /* IUserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IUserDefaultsService.swift; sourceTree = "<group>"; };
@@ -201,6 +213,16 @@
 		1AFCF30E22B563E800858EDE /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		1AFE4225219F619400DD3740 /* RootAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootAssembly.swift; sourceTree = "<group>"; };
 		1AFE4227219F659400DD3740 /* CommunicationStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationStorageService.swift; sourceTree = "<group>"; };
+		252B06F97193D71E6C983608 /* IOnboardingPresenterOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IOnboardingPresenterOutput.swift; sourceTree = "<group>"; };
+		36E9B745D92AD52B5CE4BE62 /* IOnboardingRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IOnboardingRouter.swift; sourceTree = "<group>"; };
+		399B1CE000DB0DEA6DDD9BFA /* OnboardingViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		39DE5A992F638D3BC35D2FA0 /* OnboardingRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OnboardingRouter.swift; sourceTree = "<group>"; };
+		4BD5CF8AECE778D2BA2504F5 /* IOnboardingPresenterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IOnboardingPresenterInput.swift; sourceTree = "<group>"; };
+		50790933A48340505D55229B /* IOnboardingViewOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IOnboardingViewOutput.swift; sourceTree = "<group>"; };
+		6EC988AB15D0E6F60978E2D4 /* OnboardingPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OnboardingPresenter.swift; sourceTree = "<group>"; };
+		959D4D6EE602365679088853 /* IOnboardingViewInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IOnboardingViewInput.swift; sourceTree = "<group>"; };
+		BDCABFA2FCD1955A64CDE671 /* OnboardingView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
+		E1A3FEA3FB02B174CA6701C3 /* OnboardingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,13 +253,12 @@
 			path = ConversationsListViewController;
 			sourceTree = "<group>";
 		};
-		1A14904A22B6D33900257091 /* OnboardingTest */ = {
+		1A0718E322F7692600C8CFB4 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
-				1A14904B22B6D37100257091 /* OnboardingViewController.swift */,
-				1A14904C22B6D37100257091 /* OnboardingViewController.xib */,
+				1A0718E422F76A3300C8CFB4 /* UIView+CornerRadius.swift */,
 			);
-			path = OnboardingTest;
+			path = UIView;
 			sourceTree = "<group>";
 		};
 		1A14905322B6D6C700257091 /* UserDefaults */ = {
@@ -503,6 +524,7 @@
 		1A8448A3219DD5E90033D7E9 /* Assembly */ = {
 			isa = PBXGroup;
 			children = (
+				1A0718E122F765D600C8CFB4 /* IPresentationAssembly.swift */,
 				1A8448AB219DD8100033D7E9 /* PresentationAssembly.swift */,
 			);
 			path = Assembly;
@@ -511,7 +533,7 @@
 		1A8448A4219DD5F20033D7E9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				1A14904A22B6D33900257091 /* OnboardingTest */,
+				37DDDCEEAEE763C81E6F9D35 /* Onboarding */,
 				1A03456E2165298200A13F96 /* ConversationsListViewController */,
 				1ABAA4EF2167B00F0064DF78 /* ConversationViewController */,
 				1AFDB6E821698E4700D54EB8 /* ProfileViewController */,
@@ -690,6 +712,7 @@
 			children = (
 				1A2AD39622B64BAB00501EE1 /* Foundation */,
 				1AFCF30B22B562D100858EDE /* UIKit */,
+				1A0718E622F7707300C8CFB4 /* CustomViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -697,6 +720,7 @@
 		1AFCF30B22B562D100858EDE /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				1A0718E322F7692600C8CFB4 /* UIView */,
 				1AFCF30D22B562DD00858EDE /* UIColor */,
 			);
 			path = UIKit;
@@ -718,6 +742,48 @@
 				1AC2514021DD03FC007C4206 /* ProfileViewController.xib */,
 			);
 			path = ProfileViewController;
+			sourceTree = "<group>";
+		};
+		2B757E178E276DEACACD59CA /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				959D4D6EE602365679088853 /* IOnboardingViewInput.swift */,
+				50790933A48340505D55229B /* IOnboardingViewOutput.swift */,
+				BDCABFA2FCD1955A64CDE671 /* OnboardingView.xib */,
+				E1A3FEA3FB02B174CA6701C3 /* OnboardingView.swift */,
+				399B1CE000DB0DEA6DDD9BFA /* OnboardingViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		37DDDCEEAEE763C81E6F9D35 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				2B757E178E276DEACACD59CA /* ViewController */,
+				3CCD881C0900D96955E22AC8 /* Presenter */,
+				90C97FDBCDC9D346E042339B /* Router */,
+			);
+			name = Onboarding;
+			path = ChatApp/Sources/Onboarding;
+			sourceTree = SOURCE_ROOT;
+		};
+		3CCD881C0900D96955E22AC8 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				4BD5CF8AECE778D2BA2504F5 /* IOnboardingPresenterInput.swift */,
+				252B06F97193D71E6C983608 /* IOnboardingPresenterOutput.swift */,
+				6EC988AB15D0E6F60978E2D4 /* OnboardingPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		90C97FDBCDC9D346E042339B /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				36E9B745D92AD52B5CE4BE62 /* IOnboardingRouter.swift */,
+				39DE5A992F638D3BC35D2FA0 /* OnboardingRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -823,7 +889,7 @@
 				1AB485BD22C930CC00E7319D /* Localizable.strings in Resources */,
 				1A60C75D216A5CD800F41EAD /* OutgoingCell.xib in Resources */,
 				1AC2514521DD36C7007C4206 /* ImagesViewController.xib in Resources */,
-				1A14904E22B6D37100257091 /* OnboardingViewController.xib in Resources */,
+				5E6D9D508A872EE0ADA561FC /* OnboardingView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,7 +913,6 @@
 				1A1578C021A84B8E008B1842 /* ImageViewDownloader.swift in Sources */,
 				1A03457521652B9700A13F96 /* ConversationsListCell.swift in Sources */,
 				1A60C74A216A29C200F41EAD /* ConversationListCellConfiguration.swift in Sources */,
-				1A14904D22B6D37100257091 /* OnboardingViewController.swift in Sources */,
 				1A7A98A42183B80D00444D8E /* Alert.swift in Sources */,
 				1A034570216529CD00A13F96 /* ConversationsListViewController.swift in Sources */,
 				1A72875721A726EA00EAA0C1 /* ImageCell.swift in Sources */,
@@ -858,6 +923,7 @@
 				1AB485C322C9318C00E7319D /* String+Extensions.swift in Sources */,
 				1A16A99321988382005D8743 /* User+CoreDataClass.swift in Sources */,
 				1ABAA4F52167B5540064DF78 /* ConversationViewController.swift in Sources */,
+				1A0718E722F7707300C8CFB4 /* CustomViewController.swift in Sources */,
 				1A72877221A789B800EAA0C1 /* IRequestLoader.swift in Sources */,
 				1A1ED80D21A1BC3D00CFDBE5 /* Generator.swift in Sources */,
 				1A8448CC219DFB8D0033D7E9 /* UserData.swift in Sources */,
@@ -877,6 +943,7 @@
 				1A14905722B6D6E500257091 /* IUserDefaultsService.swift in Sources */,
 				1A16A9882195FDA9005D8743 /* Message+CoreDataProperties.swift in Sources */,
 				1A4CC814217C950400261C81 /* FileNames.swift in Sources */,
+				1A0718E522F76A3300C8CFB4 /* UIView+CornerRadius.swift in Sources */,
 				1A2AD3AF22B6C76800501EE1 /* CoreDataManager+IMessageStorage.swift in Sources */,
 				1A72876D21A7520600EAA0C1 /* IImageDownloader.swift in Sources */,
 				1A9D9E2921B437ED002CED3F /* EventHandler.swift in Sources */,
@@ -896,6 +963,7 @@
 				1A9CFFB1218CF2C4007D3EE0 /* Model.xcdatamodeld in Sources */,
 				1A72875021A70C3500EAA0C1 /* ImagesViewController.swift in Sources */,
 				1A60C758216A58C100F41EAD /* ConversationCell.swift in Sources */,
+				1A0718E222F765D600C8CFB4 /* IPresentationAssembly.swift in Sources */,
 				1A8448B3219DE83B0033D7E9 /* CoreAssembly.swift in Sources */,
 				1A2AD3A622B64F8C00501EE1 /* RequestFactory+Pixabay.swift in Sources */,
 				1A2AD39F22B64E3A00501EE1 /* PixabayImageModel.swift in Sources */,
@@ -915,6 +983,15 @@
 				1A8448C7219DECF60033D7E9 /* CoreDataManager.swift in Sources */,
 				1A7F290C21A088EE00F55C93 /* TemporaryUserStorage.swift in Sources */,
 				1A60C748216A29B100F41EAD /* ConversationCellConfiguration.swift in Sources */,
+				AB4F74E39D138688078D4719 /* IOnboardingViewInput.swift in Sources */,
+				2DA8F3CA8013791951EC767A /* IOnboardingViewOutput.swift in Sources */,
+				69177ED316408942C24C231D /* OnboardingView.swift in Sources */,
+				97109D3195D940E084679393 /* OnboardingViewController.swift in Sources */,
+				22A787C56EBF9A3BB8C81F07 /* IOnboardingPresenterInput.swift in Sources */,
+				4A9F38C3D13889B1E7454F37 /* IOnboardingPresenterOutput.swift in Sources */,
+				5B90A28046E62E7A9D9AFAFF /* OnboardingPresenter.swift in Sources */,
+				29841A97F8F7B1F1B5AD6F3A /* IOnboardingRouter.swift in Sources */,
+				B32F21F92F50BF670BA183F7 /* OnboardingRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

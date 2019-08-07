@@ -14,6 +14,7 @@ protocol IServiceAssembly {
   func communicationStorageService() -> ICommunicationStorageService
   func profileStorageService() -> IProfileStorageService
   func pixabayService() -> IImageManager
+  func userDefaultsService() -> IUserDefaultsService
   
 }
 
@@ -39,6 +40,10 @@ class ServiceAssembly: IServiceAssembly {
   
   func pixabayService() -> IImageManager {
     return PixabayService(requestSender: coreAssembly.requestSender, requestLoader: coreAssembly.requestLoader)
+  }
+  
+  func userDefaultsService() -> IUserDefaultsService {
+    return UserDefaultsService()
   }
   
 }

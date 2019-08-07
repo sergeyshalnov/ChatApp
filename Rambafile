@@ -13,7 +13,7 @@ project_target: ChatApp
 project_file_path: ChatApp/Sources
 
 # The Xcode group path to new modules
-project_group_path: ChatApp/Presentation\ Layer/Modules
+project_group_path: ChatApp/Presentation Layer/Modules
 
 ### Templates
 templates:

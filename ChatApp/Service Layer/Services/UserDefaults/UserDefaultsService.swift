@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class UserDefaultsService {
   
   enum Key: String {
