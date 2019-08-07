@@ -29,16 +29,22 @@
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PiE-4p-xFw">
                             <rect key="frame" x="169" y="107" width="197" height="30"/>
-                            <state key="normal" title="Sing in"/>
+                            <state key="normal" title="SIGN_IN_WORD"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizableKey" value="SIGN_IN_WORD"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="signInButtonTouch:" destination="-1" eventType="touchUpInside" id="evj-LG-PuQ"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="USERNAME" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rCx-j8-ZSl">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="USERNAME_PLACEHOLDER_NAME" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rCx-j8-ZSl">
                             <rect key="frame" x="169" y="16" width="197" height="21"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibPlaceholderLocalizableKey" value="USERNAME_PLACEHOLDER_WORD"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="usernameTextFieldEditingChanged:" destination="-1" eventType="editingChanged" id="6H2-8D-2l9"/>
                             </connections>

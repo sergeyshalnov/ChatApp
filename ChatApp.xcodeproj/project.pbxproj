@@ -91,6 +91,8 @@
 		1AE85E1121554C2000967BEE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE85E1021554C2000967BEE /* ProfileViewController.swift */; };
 		1AE85E1621554C2100967BEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AE85E1521554C2100967BEE /* Assets.xcassets */; };
 		1AE85E1921554C2100967BEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AE85E1721554C2100967BEE /* LaunchScreen.storyboard */; };
+		1AE9089322FB5F33000C9EFD /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE9089222FB5F33000C9EFD /* UIButton+Extensions.swift */; };
+		1AE9089922FB60C4000C9EFD /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE9089822FB60C4000C9EFD /* UITextField+Extensions.swift */; };
 		1AF1DBAF2178A42F0085DD3C /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF1DBAE2178A42F0085DD3C /* EditProfileViewController.swift */; };
 		1AFCF30F22B563E800858EDE /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFCF30E22B563E800858EDE /* UIColor+Extensions.swift */; };
 		1AFE4226219F619400DD3740 /* RootAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFE4225219F619400DD3740 /* RootAssembly.swift */; };
@@ -209,6 +211,8 @@
 		1AE85E1521554C2100967BEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1AE85E1821554C2100967BEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1AE85E1A21554C2100967BEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1AE9089222FB5F33000C9EFD /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
+		1AE9089822FB60C4000C9EFD /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		1AF1DBAE2178A42F0085DD3C /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		1AFCF30E22B563E800858EDE /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		1AFE4225219F619400DD3740 /* RootAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootAssembly.swift; sourceTree = "<group>"; };
@@ -707,6 +711,22 @@
 			path = ChatApp;
 			sourceTree = "<group>";
 		};
+		1AE9089422FB5F38000C9EFD /* UIButton */ = {
+			isa = PBXGroup;
+			children = (
+				1AE9089222FB5F33000C9EFD /* UIButton+Extensions.swift */,
+			);
+			path = UIButton;
+			sourceTree = "<group>";
+		};
+		1AE9089722FB60B3000C9EFD /* UITextField */ = {
+			isa = PBXGroup;
+			children = (
+				1AE9089822FB60C4000C9EFD /* UITextField+Extensions.swift */,
+			);
+			path = UITextField;
+			sourceTree = "<group>";
+		};
 		1AFCF30A22B562C700858EDE /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -720,8 +740,10 @@
 		1AFCF30B22B562D100858EDE /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				1AE9089722FB60B3000C9EFD /* UITextField */,
 				1A0718E322F7692600C8CFB4 /* UIView */,
 				1AFCF30D22B562DD00858EDE /* UIColor */,
+				1AE9089422FB5F38000C9EFD /* UIButton */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -959,6 +981,7 @@
 				1A72876121A7445300EAA0C1 /* IParser.swift in Sources */,
 				1A7A989D2183904300444D8E /* PeerData.swift in Sources */,
 				1A72876F21A7533C00EAA0C1 /* RequestFactory.swift in Sources */,
+				1AE9089922FB60C4000C9EFD /* UITextField+Extensions.swift in Sources */,
 				1AE85E0F21554C2000967BEE /* AppDelegate.swift in Sources */,
 				1A9CFFB1218CF2C4007D3EE0 /* Model.xcdatamodeld in Sources */,
 				1A72875021A70C3500EAA0C1 /* ImagesViewController.swift in Sources */,
@@ -989,6 +1012,7 @@
 				97109D3195D940E084679393 /* OnboardingViewController.swift in Sources */,
 				22A787C56EBF9A3BB8C81F07 /* IOnboardingPresenterInput.swift in Sources */,
 				4A9F38C3D13889B1E7454F37 /* IOnboardingPresenterOutput.swift in Sources */,
+				1AE9089322FB5F33000C9EFD /* UIButton+Extensions.swift in Sources */,
 				5B90A28046E62E7A9D9AFAFF /* OnboardingPresenter.swift in Sources */,
 				29841A97F8F7B1F1B5AD6F3A /* IOnboardingRouter.swift in Sources */,
 				B32F21F92F50BF670BA183F7 /* OnboardingRouter.swift in Sources */,

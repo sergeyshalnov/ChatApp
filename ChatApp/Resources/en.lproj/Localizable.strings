@@ -8,5 +8,7 @@
 
 // MARK: - Global
 
+"SIGN_IN_WORD" = "Sign in";
+"USERNAME_PLACEHOLDER_WORD" = "Username";
 "ACCEPT_WORD" = "Accept";
 "CANCEL_WORD" = "Cancel";

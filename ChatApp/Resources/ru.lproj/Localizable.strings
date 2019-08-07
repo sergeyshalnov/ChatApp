@@ -8,5 +8,7 @@
 
 // MARK: - Global
 
+"SIGN_IN_WORD" = "Войти";
+"USERNAME_PLACEHOLDER_WORD" = "Логин";
 "ACCEPT_WORD" = "Принять";
 "CANCEL_WORD" = "Отклонить";
