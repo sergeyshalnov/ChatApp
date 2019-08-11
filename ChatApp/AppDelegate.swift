@@ -27,16 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
-    if UserDefaultsService().get(for: .username) == nil {
-      let controller = rootAssembly.presentationAssembly.onboarding()
-      
-      window?.rootViewController = controller
-    } else {
-      let controller = rootAssembly.presentationAssembly.conversationsListViewController()
-      
-      window?.rootViewController = controller
-    }
-    
+//    if UserDefaultsService().get(for: .username) == nil {
+//      let controller = rootAssembly.presentationAssembly.onboarding()
+//
+//      window?.rootViewController = controller
+//    } else {
+//      let controller = rootAssembly.presentationAssembly.conversationsListViewController()
+//
+//      window?.rootViewController = controller
+//    }
+
+    window?.rootViewController = rootAssembly.presentationAssembly.conversationsListViewController()
     window?.makeKeyAndVisible()
     
     return true

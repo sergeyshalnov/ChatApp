@@ -11,10 +11,12 @@ import Foundation
 protocol IServiceAssembly {
   
   func communicationService(username: String) -> ICommunicationService
-  func communicationStorageService() -> ICommunicationStorageService
+//  func communicationStorageService() -> ICommunicationStorageService
   func profileStorageService() -> IProfileStorageService
   func pixabayService() -> IImageManager
   func userDefaultsService() -> IUserDefaultsService
+  
+  func storageService() -> IStorageService
   
 }
 
@@ -26,13 +28,21 @@ class ServiceAssembly: IServiceAssembly {
     self.coreAssembly = coreAssembly
   }
   
+  func storageService() -> IStorageService {
+    let storageService = StorageService(userStorage: coreAssembly.userStorage,
+                                        conversationStorage: coreAssembly.conversationStorage,
+                                        messageStorage: coreAssembly.messageStorage)
+    
+    return storageService
+  }
+  
   func communicationService(username: String) -> ICommunicationService {
     return CommunicationService(username: username)
   }
   
-  func communicationStorageService() -> ICommunicationStorageService {
-    return CommunicationStorageService(coreDataStorageManager: coreAssembly.communicationStorageManager)
-  }
+//  func communicationStorageService() -> ICommunicationStorageService {
+//    return CommunicationStorageService(coreDataStorageManager: coreAssembly.communicationStorageManager)
+//  }
   
   func profileStorageService() -> IProfileStorageService {
     return ProfileStorageService(coreDataStorageManager: coreAssembly.profileStorageManager)

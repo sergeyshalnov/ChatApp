@@ -11,18 +11,16 @@ import Foundation
 
 struct MessageData {
   
-  let messageId: String
-  let conversationId: String
+  let id: String
   let text: String
   let date: NSDate
-  let incoming: Bool
+  let isIncoming: Bool
   
-  init(messageId: String, conversationId: String, text: String, date: NSDate = NSDate(), incoming: Bool) {
-    self.messageId = messageId
-    self.conversationId = conversationId
+  init(id: String, text: String, date: NSDate = NSDate(), isIncoming: Bool) {
+    self.id = id
     self.text = text
     self.date = date
-    self.incoming = incoming
+    self.isIncoming = isIncoming
   }
   
 }

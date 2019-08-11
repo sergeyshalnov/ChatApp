@@ -11,7 +11,7 @@ import Foundation
 
 protocol ICommunicationStorageService {
   
-  func add(user: UserData, completion: @escaping (String?) -> Void)
+//  func add(user: UserData, completion: @escaping (String?) -> Void)
   func add(message: MessageData)
   
   func offline(conversationId: String)
@@ -22,26 +22,26 @@ protocol ICommunicationStorageService {
 
 class CommunicationStorageService: ICommunicationStorageService {
   
-  private var coreDataStorageManager: ICommunicationStorage
-  
-  init(coreDataStorageManager: ICommunicationStorage) {
-    self.coreDataStorageManager = coreDataStorageManager
-  }
-  
-  func add(user: UserData, completion: @escaping (String?) -> Void) {
-    coreDataStorageManager.add(user: user, completion: completion)
-  }
+//  private var coreDataStorageManager: IStorageManager
+//
+//  init(coreDataStorageManager: IStorageManager) {
+//    self.coreDataStorageManager = coreDataStorageManager
+//  }
+//
+//  func add(user: UserData, completion: @escaping (String?) -> Void) {
+//    coreDataStorageManager.add(user: user, completion: completion)
+//  }
   
   func add(message: MessageData) {
-    coreDataStorageManager.add(message: message)
+//    coreDataStorageManager.add(message: message)
   }
   
   func edit(conversation: ConversationData) {
-    coreDataStorageManager.edit(conversation: conversation)
+//    coreDataStorageManager.edit(conversation: conversation)
   }
   
   func delete(conversationId: String) {
-    coreDataStorageManager.delete(conversationId: conversationId)
+//    coreDataStorageManager.delete(conversation: conversationId)
   }
   
   func offline(conversationId: String) {

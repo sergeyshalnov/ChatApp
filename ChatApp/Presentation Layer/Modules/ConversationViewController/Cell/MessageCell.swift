@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConversationCell: UITableViewCell, ConversationCellConfiguration {
+class MessageCell: UITableViewCell, ConversationCellConfiguration {
   
   @IBOutlet private weak var messageBubble: UITextView!
   

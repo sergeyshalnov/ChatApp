@@ -9,7 +9,7 @@
 
 import Foundation
 import CoreData
-
+import MultipeerConnectivity.MCPeerID
 
 extension Conversation {
   
@@ -17,16 +17,15 @@ extension Conversation {
     return NSFetchRequest<Conversation>(entityName: "Conversation")
   }
   
-  @NSManaged public var conversationId: String?
+  @NSManaged public var id: String?
   @NSManaged public var user: User?
   @NSManaged public var messages: NSSet?
-  @NSManaged public var wasUnreadMessages: Bool
+  @NSManaged public var isUnread: Bool
   
-  @NSManaged public var lastMessage: String?
-  @NSManaged public var lastMessageDate: NSDate?
 }
 
 // MARK: Generated accessors for messages
+
 extension Conversation {
   
   @objc(addMessagesObject:)
@@ -46,14 +45,16 @@ extension Conversation {
 extension Conversation {
   
   static var defaultSortDescriptors: [NSSortDescriptor] {
-    let onlineSort = NSSortDescriptor(key: "user.online", ascending: false)
-    let nameSort = NSSortDescriptor(key: "user.name", ascending: true)
-    let dateSort = NSSortDescriptor(key: "lastMessageDate", ascending: false)
-    return [onlineSort, dateSort, nameSort]
+    let onlineSort = NSSortDescriptor(key: "user.isOnline", ascending: false)
+    return [onlineSort]
   }
   
   static func conversationPredicate(id: String) -> NSPredicate {
-    return NSPredicate(format: "conversationId == %@", id)
+    return NSPredicate(format: "id == %@", id)
+  }
+  
+  static func predicate(peer: MCPeerID) -> NSPredicate {
+    return NSPredicate(format: "user.peer == %@", peer)
   }
   
 }
@@ -64,7 +65,7 @@ extension Conversation {
   
   static func nonEmptyOnlineFetchRequest() -> NSFetchRequest<Conversation> {
     let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
-    let predicate = NSPredicate(format: "user.online == 1 AND messages.@count > 0")
+    let predicate = NSPredicate(format: "user.isOnline == 1 AND messages.@count > 0")
     request.predicate = predicate
     return request
   }
@@ -75,4 +76,14 @@ extension Conversation {
     request.predicate = predicate
     return request
   }
+  
+  static func fetchRequest(peer: MCPeerID) -> NSFetchRequest<Conversation> {
+    let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
+    let predicate = Conversation.predicate(peer: peer)
+    
+    request.predicate = predicate
+    
+    return request
+  }
+  
 }

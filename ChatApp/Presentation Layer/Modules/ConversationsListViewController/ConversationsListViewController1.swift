@@ -11,7 +11,7 @@ import UIKit
 import CoreData
 import MultipeerConnectivity
 
-class ConversationsListViewController: UIViewController {
+class ConversationsListViewController1: UIViewController {
   
   // MARK: - Outlets
   
@@ -20,12 +20,12 @@ class ConversationsListViewController: UIViewController {
   // MARK: - Variables
   
   private let sections: [String] = ["Online", "History"]
-  private let identifier = String(describing: ConversationsListCell.self)
+  private let identifier = String(describing: ConversationCell1.self)
   
   // MARK: - Covnersation delegate
   
   private var conversationDelegate: ConversationDelegate?
-  private var currentPeerConversation: Peer?
+  private var currentPeerConversation: MCPeerID?
   
   
   // MARK: - Assembly variables
@@ -156,7 +156,7 @@ class ConversationsListViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 
-extension ConversationsListViewController: UITableViewDataSource {
+extension ConversationsListViewController1: UITableViewDataSource {
   
   func numberOfSections(in tableView: UITableView) -> Int {
     guard let sections = conversationFetchResultsController.sections else { return 0 }
@@ -182,7 +182,7 @@ extension ConversationsListViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard
-      let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? ConversationsListCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? ConversationCell1
       else {
         return UITableViewCell()
     }
@@ -190,22 +190,22 @@ extension ConversationsListViewController: UITableViewDataSource {
     let conversation = conversationFetchResultsController.object(at: indexPath)
     let user = conversation.user
     
-    if let online = user?.online {
+    if let online = user?.isOnline {
       cell.online = online
     }
     
-    cell.name = user?.name
-    cell.date = conversation.lastMessageDate as Date?
-    cell.message = conversation.lastMessage
-    cell.conversationId = conversation.conversationId
-    cell.wasUnreadMessages = conversation.wasUnreadMessages
+    cell.name = user?.peer?.displayName
+//    cell.date = conversation.lastMessageDate as Date?
+//    cell.message = conversation.lastMessage
+    cell.conversationId = conversation.id
+    cell.wasUnreadMessages = conversation.isUnread
     
     return cell
   }
   
   func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     guard
-      let cell = tableView.cellForRow(at: indexPath) as? ConversationsListCell,
+      let cell = tableView.cellForRow(at: indexPath) as? ConversationCell1,
       let conversationId = cell.conversationId
       else {
         return []
@@ -225,47 +225,47 @@ extension ConversationsListViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension ConversationsListViewController: UITableViewDelegate {
+extension ConversationsListViewController1: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     
     guard
-      let cell = tableView.cellForRow(at: indexPath) as? ConversationsListCell,
+      let cell = tableView.cellForRow(at: indexPath) as? ConversationCell1,
       let id = cell.conversationId,
       let user = temporaryUserStorage.find(conversationId: id)
       else {
         return
     }
     
-    let peer = Peer(identifier: user.peer, name: user.peer.displayName)
-    
-    if user.isConfirmed {
-      let conversationViewController = presentationAssembly.conversationViewController(
-        title: cell.name,
-        conversationId: user.conversationId,
-        conversationListDelegate: self)
-      
-      conversationDelegate = conversationViewController
-      conversationDelegate?.conversation(didSelectPeer: peer)
-      currentPeerConversation = peer
-      
-      let conversation = ConversationData(conversationId: user.conversationId)
-      
-      communicationStorageService.edit(conversation: conversation)
-      
-      navigationController?.pushViewController(conversationViewController, animated: true)
-    } else {
-      communicationService.invite(nil, to: peer)
-    }
+//    let peer = Peer(identifier: user.peer, name: user.peer.displayName)
+//
+//    if user.isConfirmed {
+//      let conversationViewController = presentationAssembly.conversationViewController(
+//        title: cell.name,
+//        conversationId: user.conversationId,
+//        conversationListDelegate: self)
+//
+//      conversationDelegate = conversationViewController
+//      conversationDelegate?.conversation(didSelectPeer: peer)
+//      currentPeerConversation = peer
+//
+//      let conversation = ConversationData(id: user.conversationId)
+//
+//      communicationStorageService.edit(conversation: conversation)
+//
+//      navigationController?.pushViewController(conversationViewController, animated: true)
+//    } else {
+//      communicationService.invite(nil, to: peer)
+//    }
   }
 }
 
 // MARK: - ConversationListDelegate
 
-extension ConversationsListViewController: ConversationListDelegate {
+extension ConversationsListViewController1: ConversationListDelegate {
   
-  func conversationList(sentMessage message: MessageData, toPeer peer: Peer) {
+  func conversationList(sentMessage message: MessageData, toPeer peer: MCPeerID) {
     communicationService.send(message, to: peer)
   }
   
@@ -273,27 +273,27 @@ extension ConversationsListViewController: ConversationListDelegate {
 
 // MARK: - CommunicationServiceDelegate
 
-extension ConversationsListViewController: CommunicationServiceDelegate {
+extension ConversationsListViewController1: ICommunicationServiceDelegate {
   
-  func communicationService(_ communicationService: ICommunicationService, didFoundPeer peer: Peer) {
-    let user = UserData(username: peer.name)
-    
-    communicationStorageService.add(user: user) { [weak self] conversationId in
-      guard let id = conversationId else {
-        return
-      }
-      
-      let user = TemporaryUser(conversationId: id, peer: peer.identifier)
-      self?.temporaryUserStorage.add(user: user)
-    }
+  func communicationService(_ communicationService: ICommunicationService, didFoundPeer peer: MCPeerID) {
+//    let user = UserData(username: peer.name)
+//
+//    communicationStorageService.add(user: user) { [weak self] conversationId in
+//      guard let id = conversationId else {
+//        return
+//      }
+//
+//      let user = TemporaryUser(conversationId: id, peer: peer.identifier)
+//      self?.temporaryUserStorage.add(user: user)
+//    }
   }
   
-  func communicationService(_ communicationService: ICommunicationService, didLostPeer peer: Peer) {
-    if let user = temporaryUserStorage.find(peer: peer.identifier) {
-      communicationStorageService.delete(conversationId: user.conversationId)
-      temporaryUserStorage.delete(conversationId: user.conversationId)
-      conversationDelegate?.conversation(didLostPeer: peer)
-    }
+  func communicationService(_ communicationService: ICommunicationService, didLostPeer peer: MCPeerID) {
+//    if let user = temporaryUserStorage.find(peer: peer.identifier) {
+//      communicationStorageService.delete(conversationId: user.conversationId)
+//      temporaryUserStorage.delete(conversationId: user.conversationId)
+//      conversationDelegate?.conversation(didLostPeer: peer)
+//    }
   }
   
   func communicationService(_ communicationService: ICommunicationService, didNotStartBrowsingForPeers error: Error) {
@@ -302,40 +302,40 @@ extension ConversationsListViewController: CommunicationServiceDelegate {
     #endif
   }
   
-  func communicationService(_ communicationService: ICommunicationService, didChange state: inviteState, from peer: Peer) {
-    temporaryUserStorage.change(
-      confirmed: state == .confirmed ? true : false,
-      peer: peer.identifier)
+  func communicationService(_ communicationService: ICommunicationService, didChange state: inviteState, from peer: MCPeerID) {
+//    temporaryUserStorage.change(
+//      confirmed: state == .confirmed ? true : false,
+//      peer: peer.identifier)
   }
   
   func communicationService(
     _ communicationService: ICommunicationService,
-    didReceiveInviteFromPeer peer: Peer,
+    didReceiveInviteFromPeer peer: MCPeerID,
     invintationClosure: @escaping (Bool) -> Void
   ) {
-    
-    let left: (UIAlertAction) -> Void = { [weak self] _ in
-      guard let temporaryUserStorage = self?.temporaryUserStorage else {
-        return
-      }
-      
-      temporaryUserStorage.change(confirmed: true, peer: peer.identifier)
-      invintationClosure(true)
-    }
-    
-    let right: (UIAlertAction) -> Void = { _ in
-      invintationClosure(false)
-    }
-    
-    let alert = UIAlertController(
-      title: peer.name,
-      message: "Пользователь прислал вам приглашение",
-      preferredStyle: .alert)
-    
-    alert.addAction(UIAlertAction(title: String.acceptWord, style: .default, handler: left))
-    alert.addAction(UIAlertAction(title: String.cancelWord, style: .default, handler: right))
-    
-    present(alert, animated: true, completion: nil)
+//
+//    let left: (UIAlertAction) -> Void = { [weak self] _ in
+//      guard let temporaryUserStorage = self?.temporaryUserStorage else {
+//        return
+//      }
+//
+//      temporaryUserStorage.change(confirmed: true, peer: peer.identifier)
+//      invintationClosure(true)
+//    }
+//
+//    let right: (UIAlertAction) -> Void = { _ in
+//      invintationClosure(false)
+//    }
+//
+//    let alert = UIAlertController(
+//      title: peer.name,
+//      message: "Пользователь прислал вам приглашение",
+//      preferredStyle: .alert)
+//
+//    alert.addAction(UIAlertAction(title: String.acceptWord, style: .default, handler: left))
+//    alert.addAction(UIAlertAction(title: String.cancelWord, style: .default, handler: right))
+//
+//    present(alert, animated: true, completion: nil)
   }
   
   func communicationService(_ communicationService: ICommunicationService, didNotStartAdvertisingForPeers error: Error) {
@@ -344,32 +344,29 @@ extension ConversationsListViewController: CommunicationServiceDelegate {
     #endif
   }
   
-  func communicationService(_ communicationService: ICommunicationService, didReceiveMessage message: MessageData, from peer: Peer) {
-    guard
-      let user = temporaryUserStorage.find(peer: peer.identifier)
-      else {
-        return
-    }
-    
-    let message = MessageData(
-      messageId: message.messageId,
-      conversationId: user.conversationId,
-      text: message.text,
-      date: message.date,
-      incoming: message.incoming)
-    
-    communicationStorageService.add(message: message)
-    
-    if user.peer != currentPeerConversation?.identifier {
-      communicationStorageService.edit(
-        conversation: ConversationData(
-          conversationId: user.conversationId,
-          wasUnreadMessages: true))
-    }
-    
-    #if DEBUG
-      print("Receive message from \(peer.identifier.displayName): \(message.text)")
-    #endif
+  func communicationService(_ communicationService: ICommunicationService, didReceiveMessage message: MessageData, from peer: MCPeerID) {
+//    guard
+//      let user = temporaryUserStorage.find(peer: peer.identifier)
+//      else {
+//        return
+//    }
+//
+//    let message = MessageData(
+//      id: message.id,
+//      conversationIdentifier: user.conversationId,
+//      text: message.text,
+//      date: message.date,
+//      isIncoming: message.isIncoming)
+//
+//    communicationStorageService.add(message: message)
+//
+//    if user.peer != currentPeerConversation?.identifier {
+//      communicationStorageService.edit(conversation: ConversationData(id: user.conversationId, isUnread: true))
+//    }
+//
+//    #if DEBUG
+//      print("Receive message from \(peer.identifier.displayName): \(message.text)")
+//    #endif
   }
 }
 
@@ -377,7 +374,7 @@ extension ConversationsListViewController: CommunicationServiceDelegate {
 
 // MARK: - NSFetchedResultsControllerDelegate
 
-extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
+extension ConversationsListViewController1: NSFetchedResultsControllerDelegate {
   
   func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
     tableView.beginUpdates()

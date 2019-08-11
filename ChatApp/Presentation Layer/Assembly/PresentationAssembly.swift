@@ -43,29 +43,47 @@ extension PresentationAssembly: IPresentationAssembly {
   }
   
   func conversationsListViewController() -> UINavigationController {
-    let coreData: ICoreDataManager = CoreDataManager()
-    let navigator = UINavigationController()
-    let username = UserDefaultsService().get(for: .username) ?? "Sergey Shalnov"
+    let controller = ConversationsListViewController()
+    let fetchedResultsController = CAFetchedResultsController(CoreDataManager().conversationFetchResultsController(),
+                                                              for: controller.view().conversationsTableView)
     
-    let controller = ConversationsListViewController(
-      presentationAssembly: self,
-      communicationService: serviceAssembly.communicationService(username: username),
-      communicationStorageService: serviceAssembly.communicationStorageService(),
-      profileStorageService: serviceAssembly.profileStorageService(),
-      conversationFetchResultsController: coreData.conversationFetchResultsController())
+    let communicationService = serviceAssembly.communicationService(username: "123")
+    let communicationController = CACommunicationController(communicationService: communicationService,
+                                                            storageService: serviceAssembly.storageService())
     
-    navigator.viewControllers = [controller]
+    let router = ConversationsListRouter(view: controller)
+    let presenter = ConversationsListPresenter(output: controller,
+                                               fetchedResultsController: fetchedResultsController,
+                                               communicationController: communicationController)
     
-    return navigator
+    controller.output = presenter
+    controller.router = router
+    
+    return UINavigationController(rootViewController: controller)
+    
+//    let coreData: ICoreDataManager = CoreDataManager()
+//    let navigator = UINavigationController()
+//    let username = UserDefaultsService().get(for: .username) ?? "Sergey Shalnov"
+//
+//    let controller = ConversationsListViewController(
+//      presentationAssembly: self,
+//      communicationService: serviceAssembly.communicationService(username: username),
+//      communicationStorageService: serviceAssembly.communicationStorageService(),
+//      profileStorageService: serviceAssembly.profileStorageService(),
+//      conversationFetchResultsController: coreData.conversationFetchResultsController())
+//
+//    navigator.viewControllers = [controller]
+//
+//    return navigator
   }
   
   func conversationViewController(title: String?, conversationId: String, conversationListDelegate: ConversationListDelegate) -> ConversationViewController {
-    
-    let coreData: ICoreDataManager = CoreDataManager()
-    
-    let controller = ConversationViewController(title: title, currentConversation: conversationId, conversationListDelegate: conversationListDelegate, presentationAssembly: self, communicationStorageService: serviceAssembly.communicationStorageService(), messageFetchResultsController: coreData.messageFetchResultsController(conversationId: conversationId))
-    
-    return controller
+    fatalError()
+//    let coreData: ICoreDataManager = CoreDataManager()
+//
+//    let controller = ConversationViewController(title: title, currentConversation: conversationId, conversationListDelegate: conversationListDelegate, presentationAssembly: self, communicationStorageService: serviceAssembly.communicationStorageService(), messageFetchResultsController: coreData.messageFetchResultsController(conversationId: conversationId))
+//
+//    return controller
   }
   
   func profileViewController() -> ProfileViewController {

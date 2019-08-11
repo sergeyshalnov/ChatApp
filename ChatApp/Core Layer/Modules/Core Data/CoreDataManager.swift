@@ -12,7 +12,7 @@ import CoreData
 
 // MARK: - Core Data Manager
 
-class CoreDataManager: ICoreDataManager, ICommunicationStorage {
+class CoreDataManager: ICoreDataManager {
   
   static let container: NSPersistentContainer = {
     let container = NSPersistentContainer(name: "Model")
@@ -20,16 +20,28 @@ class CoreDataManager: ICoreDataManager, ICommunicationStorage {
     return container
   }()
   
-  func conversationFetchResultsController() -> NSFetchedResultsController<Conversation> {
-    let fetchRequest = NSFetchRequest<Conversation>(entityName: String(describing: Conversation.self))
+  func conversationFetchResultsController() -> NSFetchedResultsController<NSManagedObject> {
+//    let fetchRequest = NSFetchRequest<Conversation>(entityName: String(describing: Conversation.self))
+//
+//    fetchRequest.sortDescriptors = Conversation.defaultSortDescriptors
+//    fetchRequest.resultType = .managedObjectResultType
+//
+//    let controller: NSFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+//                                                managedObjectContext: CoreDataManager.container.viewContext,
+//                                                sectionNameKeyPath: nil,
+//                                                cacheName: nil)
+//
+//    return controller
+    
+    let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: String(describing: Conversation.self))
     
     fetchRequest.sortDescriptors = Conversation.defaultSortDescriptors
     fetchRequest.resultType = .managedObjectResultType
     
-    let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                                managedObjectContext: CoreDataManager.container.viewContext,
-                                                sectionNameKeyPath: nil,
-                                                cacheName: nil)
+    let controller: NSFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                                            managedObjectContext: CoreDataManager.container.viewContext,
+                                                                            sectionNameKeyPath: nil,
+                                                                            cacheName: nil)
     
     return controller
   }

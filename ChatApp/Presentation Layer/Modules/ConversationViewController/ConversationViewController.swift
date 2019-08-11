@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import MultipeerConnectivity.MCPeerID
 
 class ConversationViewController: UIViewController {
   
@@ -22,7 +23,7 @@ class ConversationViewController: UIViewController {
   
   // MARK: - Private variables
   
-  private var peer: Peer?
+//  private var peer: Peer?
   private var online: Bool = true
   
   // MARK: - ConversationListDelegate
@@ -263,16 +264,16 @@ class ConversationViewController: UIViewController {
   // MARK: - Button functions
   
   @objc func sendMessageButtonTouchUpInside() {
-    guard let text = messageField.text else { return }
-    guard let currentConversationId = currentConversationId else { return }
-    guard let peer = peer else { return }
-    
-    let date = NSDate()
-    let id = Generator.id()
-    let message = MessageData(messageId: id, conversationId: currentConversationId, text: text, date: date, incoming: false)
-    
-    communicationStorageService.add(message: message)
-    conversationListDelegate?.conversationList(sentMessage: message, toPeer: peer)
+//    guard let text = messageField.text else { return }
+//    guard let currentConversationId = currentConversationId else { return }
+//    guard let peer = peer else { return }
+//    
+//    let date = NSDate()
+//    let id = Generator.id()
+//    let message = MessageData(messageIdentifier: id, conversationIdentifier: currentConversationId, text: text, date: date, isIncoming: false)
+//    
+//    communicationStorageService.add(message: message)
+//    conversationListDelegate?.conversationList(sentMessage: message, toPeer: peer)
     
     messageField.text = ""
     changeButtonState(isEnable: false)
@@ -292,15 +293,15 @@ class ConversationViewController: UIViewController {
 
 extension ConversationViewController: ConversationDelegate {
   
-  func conversation(didSelectPeer peer: Peer) {
-    self.peer = peer
+  func conversation(didSelectPeer peer: MCPeerID) {
+//    self.peer = peer
   }
   
-  func conversation(didLostPeer peer: Peer) {
-    if self.peer?.identifier == peer.identifier {
-      online = false
-      changeButtonState(isEnable: false)
-    }
+  func conversation(didLostPeer peer: MCPeerID) {
+//    if self.peer?.identifier == peer.identifier {
+//      online = false
+//      changeButtonState(isEnable: false)
+//    }
   }
   
 }
@@ -318,9 +319,9 @@ extension ConversationViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let message = messageFetchResultsController.object(at: indexPath)
-    let incoming = message.incoming
+    let incoming = message.isIncoming
     
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: incoming ? incomingID : outgoingID, for: indexPath) as? ConversationCell else {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: incoming ? incomingID : outgoingID, for: indexPath) as? MessageCell else {
       return UITableViewCell()
     }
     

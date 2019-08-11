@@ -10,7 +10,7 @@ import Foundation
 
 final class OnboardingRouter {
   
-  // MARK: - Private variables
+  // MARK: - Variables
   
   private weak var view: OnboardingViewController?
   

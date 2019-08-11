@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import MultipeerConnectivity.MCPeerID
 import CoreData
 
 
@@ -17,16 +18,17 @@ extension User {
     return NSFetchRequest<User>(entityName: "User")
   }
   
-  @NSManaged public var userId: String?
-  @NSManaged public var name: String?
-  @NSManaged public var online: Bool
+  @NSManaged public var id: String?
+  @NSManaged public var peer: MCPeerID?
   @NSManaged public var conversation: Conversation?
+  @NSManaged public var isOnline: Bool
+  @NSManaged public var isConfirmed: Bool
   
 }
 
 extension User {
   static var defaultSortDescriptors: [NSSortDescriptor] {
-    let onlineSort = NSSortDescriptor(key: "online", ascending: false)
+    let onlineSort = NSSortDescriptor(key: "isOnline", ascending: false)
     // let nameSort = NSSortDescriptor(key: "name", ascending: true)
     return [onlineSort]
   }
@@ -35,12 +37,25 @@ extension User {
 extension User {
   
   static func userPredicate(id: String) -> NSPredicate {
-    return NSPredicate(format: "userId == %@", id)
+    return NSPredicate(format: "id == %@", id)
+  }
+  
+  static func predicate(peer: MCPeerID) -> NSPredicate {
+    return NSPredicate(format: "peer == %@", peer)
   }
   
 }
 
 extension User {
+  
+  static func fetchRequest(peer: MCPeerID) -> NSFetchRequest<User> {
+    let request: NSFetchRequest<User> = User.fetchRequest()
+    let predicate = User.predicate(peer: peer)
+    
+    request.predicate = predicate
+    
+    return request
+  }
   
   static func userFetchRequest(id: String) -> NSFetchRequest<User> {
     let request: NSFetchRequest<User> = User.fetchRequest()
@@ -51,7 +66,7 @@ extension User {
   
   static func onlineUsersFetchRequest() -> NSFetchRequest<User> {
     let request: NSFetchRequest<User> = User.fetchRequest()
-    let predicate = NSPredicate(format: "online == 1")
+    let predicate = NSPredicate(format: "isOnline == 1")
     request.predicate = predicate
     return request
   }

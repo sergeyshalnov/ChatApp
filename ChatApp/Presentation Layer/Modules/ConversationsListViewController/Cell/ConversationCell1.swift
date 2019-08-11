@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConversationsListCell: UITableViewCell, ConversationListCellConfiguration {
+class ConversationCell1: UITableViewCell, ConversationListCellConfiguration {
   
   // MARK: - Outlets
   
@@ -73,7 +73,7 @@ class ConversationsListCell: UITableViewCell, ConversationListCellConfiguration 
   
   // MARK: - Peer
   
-  var peer: Peer?
+//  var peer: Peer?
   var conversationId: String?
   
   // MARK: - Initialization

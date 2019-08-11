@@ -10,15 +10,12 @@ import Foundation
 
 struct ConversationData {
   
-  let conversationId: String
-  let wasUnreadMessages: Bool
-  let lastMessage: String?
-  let lastMessageDate: NSDate?
+  let id: String
+  let isUnread: Bool
   
-  init(conversationId: String, wasUnreadMessages: Bool = false, lastMessage: String? = nil, lastMessageDate: NSDate? = nil) {
-    self.conversationId = conversationId
-    self.wasUnreadMessages = wasUnreadMessages
-    self.lastMessage = lastMessage
-    self.lastMessageDate = lastMessageDate
+  init(id: String, isUnread: Bool = false) {
+    self.id = id
+    self.isUnread = isUnread
   }
+  
 }

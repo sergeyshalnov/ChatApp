@@ -17,11 +17,11 @@ extension Message {
     return NSFetchRequest<Message>(entityName: "Message")
   }
   
+  @NSManaged public var conversation: Conversation?
+  @NSManaged public var id: String?
   @NSManaged public var date: NSDate?
   @NSManaged public var text: String?
-  @NSManaged public var incoming: Bool
-  @NSManaged public var messageId: String?
-  @NSManaged public var conversation: Conversation?
+  @NSManaged public var isIncoming: Bool
   
 }
 
@@ -33,7 +33,7 @@ extension Message {
   }
   
   static func defaultPredicate(conversationId: String) -> NSPredicate {
-    let conversationPredicate = NSPredicate(format: "conversation.conversationId == %@", conversationId)
+    let conversationPredicate = NSPredicate(format: "conversation.id == %@", conversationId)
     return conversationPredicate
   }
   
@@ -43,7 +43,7 @@ extension Message {
   
   func messagesFetchRequest(conversationId: String) -> NSFetchRequest<Message> {
     let request: NSFetchRequest<Message> = Message.fetchRequest()
-    let predicate = NSPredicate(format: "conversation.conversationId == %@", conversationId)
+    let predicate = NSPredicate(format: "conversation.id == %@", conversationId)
     request.predicate = predicate
     return request
   }

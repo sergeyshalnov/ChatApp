@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MultipeerConnectivity.MCPeerID
 
 enum inviteState {
   case confirmed
@@ -15,37 +16,60 @@ enum inviteState {
 
 protocol ICommunicationService {
   
-  var delegate: CommunicationServiceDelegate? { get set }
+  var delegate: ICommunicationServiceDelegate? { get set }
   
-  // Start browsing & advertising for peers
   func start()
-  // Stop browsing & advertising for peers
   func stop()
   
-  // Send message to peer
-  func send(_ message: MessageData, to peer: Peer)
-  // Invite peer to conversation
-  func invite(_ message: MessageData?, to peer: Peer)
+  func send(_ message: MessageData, to peer: MCPeerID)
   
 }
 
-protocol CommunicationServiceDelegate: class {
+protocol ICommunicationServiceDelegate: class {
   
-  // MARK: - Browsing
-  func communicationService(_ communicationService: ICommunicationService, didFoundPeer peer: Peer)
-  func communicationService(_ communicationService: ICommunicationService, didLostPeer peer: Peer)
-  func communicationService(_ communicationService: ICommunicationService, didNotStartBrowsingForPeers error: Error)
+  func communicationService(_ communicationService: ICommunicationService,
+                            didFoundPeer peer: MCPeerID)
   
-  // MARK: - Advertising
-  func communicationService(_ communicationService: ICommunicationService, didReceiveInviteFromPeer peer: Peer,
+  func communicationService(_ communicationService: ICommunicationService,
+                            didLostPeer peer: MCPeerID)
+  
+  func communicationService(_ communicationService: ICommunicationService,
+                            didNotStartBrowsingForPeers error: Error)
+  
+  func communicationService(_ communicationService: ICommunicationService,
+                            didReceiveMessage message: MessageData,
+                            from peer: MCPeerID)
+  
+  func communicationService(_ communicationService: ICommunicationService,
+                            didReceiveInviteFromPeer peer: MCPeerID,
                             invintationClosure: @escaping (Bool) -> Void)
-  func communicationService(_ communicationService: ICommunicationService, didNotStartAdvertisingForPeers error: Error)
   
-  // MARK: - Messages
-  func communicationService(_ communicationService: ICommunicationService, didReceiveMessage message: MessageData, from peer: Peer)
+  func communicationService(_ communicationService: ICommunicationService,
+                            didNotStartAdvertisingForPeers error: Error)
   
-  // MARK: - Invite
-  func communicationService(_ communicationService: ICommunicationService, didChange state: inviteState, from peer: Peer)
+  func communicationService(_ communicationService: ICommunicationService,
+                            didChange state: inviteState,
+                            from peer: MCPeerID)
+  
+}
+
+// MARK: - Optional
+
+extension ICommunicationServiceDelegate {
+  
+  func communicationService(_ communicationService: ICommunicationService,
+                            didNotStartBrowsingForPeers error: Error) { }
+  
+  func communicationService(_ communicationService: ICommunicationService,
+                            didReceiveInviteFromPeer peer: MCPeerID,
+                            invintationClosure: @escaping (Bool) -> Void) { }
+  
+  func communicationService(_ communicationService: ICommunicationService,
+                            didNotStartAdvertisingForPeers error: Error) { }
+  
+  func communicationService(_ communicationService: ICommunicationService,
+                            didChange state: inviteState,
+                            from peer: MCPeerID) { }
   
 }
 

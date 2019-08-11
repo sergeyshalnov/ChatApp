@@ -19,35 +19,32 @@ extension CoreDataManager: IConversationStorage {
     
     context.performAndWait {
       do {
-        let request = Conversation.conversationFetchRequest(id: conversation.conversationId)
+        let request = Conversation.conversationFetchRequest(id: conversation.id)
         let conversations = try context.fetch(request)
         let entity = conversations.first
         
-        entity?.wasUnreadMessages = conversation.wasUnreadMessages
-        
-        if conversation.lastMessage != nil && conversation.lastMessageDate != nil {
-          entity?.lastMessage = conversation.lastMessage
-          entity?.lastMessageDate = conversation.lastMessageDate
-        }
+        entity?.isUnread = conversation.isUnread
         
         try context.save()
-        
       } catch {
-        print(error.localizedDescription)
+        #if DEBUG
+          print(error.localizedDescription)
+        #endif
       }
     }
     
   }
   
-  func delete(conversationId: String) {
+  func delete(conversation: ConversationData) {
     let DataManager: ICoreDataManager = CoreDataManager()
-    //    let request: NSFetchRequest<NSFetchRequestResult> = Conversation.fetchRequest()
     let request = NSFetchRequest<NSManagedObject>(entityName: "Conversation")
-    let predicate = Conversation.conversationPredicate(id: conversationId)
+    let predicate = Conversation.conversationPredicate(id: conversation.id)
     request.predicate = predicate
     
     DataManager.delete(request: request) { success in
-      print("Conversation delete : \(success)")
+      #if DEBUG
+        print("Conversation delete : \(success)")
+      #endif
     }
   }
   

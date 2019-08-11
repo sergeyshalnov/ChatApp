@@ -7,20 +7,21 @@
 //
 
 import Foundation
+import MultipeerConnectivity.MCPeerID
 
 protocol ConversationDelegate {
   
   // For init conversation with specific peer
-  func conversation(didSelectPeer peer: Peer)
+  func conversation(didSelectPeer peer: MCPeerID)
   // Change button status for lost peer
-  func conversation(didLostPeer peer: Peer)
+  func conversation(didLostPeer peer: MCPeerID)
   
 }
 
 protocol ConversationListDelegate {
   
   // Add sent message to sender
-  func conversationList(sentMessage message: MessageData, toPeer peer: Peer)
+  func conversationList(sentMessage message: MessageData, toPeer peer: MCPeerID)
   
 }
 

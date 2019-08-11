@@ -7,18 +7,18 @@
 //
 
 import Foundation
-
+import MultipeerConnectivity.MCPeerID
 
 struct UserData {
   
-  let username: String
-  let online: Bool
-  var userId: String
+  let peer: MCPeerID
+  let isOnline: Bool
+  let isConfirmed: Bool
   
-  init(username: String, online: Bool = true, userId: String = "") {
-    self.username = username
-    self.online = online
-    self.userId = userId
+  init(peer: MCPeerID, isOnline: Bool, isConfirmed: Bool) {
+    self.peer = peer
+    self.isOnline = isOnline
+    self.isConfirmed = isConfirmed
   }
   
 }

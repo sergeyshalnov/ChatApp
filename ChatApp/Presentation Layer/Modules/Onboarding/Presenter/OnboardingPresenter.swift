@@ -42,7 +42,9 @@ extension OnboardingPresenter: IOnboardingPresenterInput {
     
     userDefaultsService.set(value: username, for: .username)
     profileStorageService.save(profile: profile) { [weak self] (isSuccess) in
-      self?.output?.saveResult(isSuccess: isSuccess)
+      DispatchQueue.main.async {
+        self?.output?.saveResult(isSuccess: isSuccess)
+      }
     }
   }
   

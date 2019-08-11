@@ -10,10 +10,10 @@ import Foundation
 import MultipeerConnectivity
 
 
-struct Peer {
-  
-  let identifier: MCPeerID
-  let name: String
-  
-}
+//struct Peer {
+//
+//  let identifier: MCPeerID
+//  let name: String
+//
+//}
 
