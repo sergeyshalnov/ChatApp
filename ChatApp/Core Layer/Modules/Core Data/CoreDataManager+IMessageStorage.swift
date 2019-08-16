@@ -14,7 +14,7 @@ import MultipeerConnectivity.MCPeerID
 
 extension CoreDataManager: IMessageStorage {
   
-  func add(message: MessageData, from peer: MCPeerID) {
+  func add(message: MessageModel, from peer: MCPeerID) {
     let context = CoreDataManager.container.viewContext
     
     context.performAndWait {
@@ -27,7 +27,7 @@ extension CoreDataManager: IMessageStorage {
         
         entity.conversation = conversation
         entity.text = message.text
-        entity.date = message.date
+        entity.date = message.date as NSDate
         entity.isIncoming = message.isIncoming
         entity.id = message.id
         

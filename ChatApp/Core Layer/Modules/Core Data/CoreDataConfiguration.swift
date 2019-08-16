@@ -13,7 +13,7 @@ import MultipeerConnectivity
 protocol ICoreDataManager {
   
   func conversationFetchResultsController() -> NSFetchedResultsController<NSManagedObject>
-  func messageFetchResultsController(conversationId: String) -> NSFetchedResultsController<Message>
+  func messageFetchResultsController(conversation: Conversation) -> NSFetchedResultsController<NSManagedObject>
   
   func delete(request: NSFetchRequest<NSManagedObject>, completion: @escaping (Bool) -> Void)
   func terminate()

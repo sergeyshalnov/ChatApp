@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MultipeerConnectivity.MCSession
 
 protocol IServiceAssembly {
   
@@ -17,6 +18,8 @@ protocol IServiceAssembly {
   func userDefaultsService() -> IUserDefaultsService
   
   func storageService() -> IStorageService
+  func messageService(session: MCSession) -> IMessageService
+  func alertService() -> IAlertService
   
 }
 
@@ -28,6 +31,14 @@ class ServiceAssembly: IServiceAssembly {
     self.coreAssembly = coreAssembly
   }
   
+  func messageService(session: MCSession) -> IMessageService {
+    return MessageService(session: session, messageStorage: coreAssembly.messageStorage)
+  }
+  
+  func alertService() -> IAlertService {
+    return AlertService()
+  }
+  
   func storageService() -> IStorageService {
     let storageService = StorageService(userStorage: coreAssembly.userStorage,
                                         conversationStorage: coreAssembly.conversationStorage,
@@ -37,12 +48,8 @@ class ServiceAssembly: IServiceAssembly {
   }
   
   func communicationService(username: String) -> ICommunicationService {
-    return CommunicationService(username: username)
+    return CommunicationService(username: username, dataParser: coreAssembly.dataParser())
   }
-  
-//  func communicationStorageService() -> ICommunicationStorageService {
-//    return CommunicationStorageService(coreDataStorageManager: coreAssembly.communicationStorageManager)
-//  }
   
   func profileStorageService() -> IProfileStorageService {
     return ProfileStorageService(coreDataStorageManager: coreAssembly.profileStorageManager)

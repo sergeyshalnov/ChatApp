@@ -12,7 +12,7 @@ import Foundation
 protocol ICommunicationStorageService {
   
 //  func add(user: UserData, completion: @escaping (String?) -> Void)
-  func add(message: MessageData)
+  func add(message: MessageModel)
   
   func offline(conversationId: String)
   func edit(conversation: ConversationData)
@@ -32,7 +32,7 @@ class CommunicationStorageService: ICommunicationStorageService {
 //    coreDataStorageManager.add(user: user, completion: completion)
 //  }
   
-  func add(message: MessageData) {
+  func add(message: MessageModel) {
 //    coreDataStorageManager.add(message: message)
   }
   

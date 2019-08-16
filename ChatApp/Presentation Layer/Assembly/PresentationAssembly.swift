@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MultipeerConnectivity.MCSession
 
 class PresentationAssembly {
   
@@ -42,7 +43,7 @@ extension PresentationAssembly: IPresentationAssembly {
     return controller
   }
   
-  func conversationsListViewController() -> UINavigationController {
+  func conversationsList() -> UINavigationController {
     let controller = ConversationsListViewController()
     let fetchedResultsController = CAFetchedResultsController(CoreDataManager().conversationFetchResultsController(),
                                                               for: controller.view().conversationsTableView)
@@ -50,11 +51,11 @@ extension PresentationAssembly: IPresentationAssembly {
     let communicationService = serviceAssembly.communicationService(username: "123")
     let communicationController = CACommunicationController(communicationService: communicationService,
                                                             storageService: serviceAssembly.storageService())
-    
-    let router = ConversationsListRouter(view: controller)
+    let router = ConversationsListRouter(view: controller, presentationAssembly: self)
     let presenter = ConversationsListPresenter(output: controller,
                                                fetchedResultsController: fetchedResultsController,
-                                               communicationController: communicationController)
+                                               communicationController: communicationController,
+                                               alertService: serviceAssembly.alertService())
     
     controller.output = presenter
     controller.router = router
@@ -77,14 +78,33 @@ extension PresentationAssembly: IPresentationAssembly {
 //    return navigator
   }
   
-  func conversationViewController(title: String?, conversationId: String, conversationListDelegate: ConversationListDelegate) -> ConversationViewController {
-    fatalError()
-//    let coreData: ICoreDataManager = CoreDataManager()
-//
-//    let controller = ConversationViewController(title: title, currentConversation: conversationId, conversationListDelegate: conversationListDelegate, presentationAssembly: self, communicationStorageService: serviceAssembly.communicationStorageService(), messageFetchResultsController: coreData.messageFetchResultsController(conversationId: conversationId))
-//
-//    return controller
+  func conversation(_ conversation: Conversation, with session: MCSession) -> UIViewController {
+    let controller = ConversationViewController()
+    let messageService = serviceAssembly.messageService(session: session)
+    let messageFetchResultsController = CoreDataManager().messageFetchResultsController(conversation: conversation)
+    let fetchedResultsController = CAFetchedResultsController(messageFetchResultsController, for: controller.view().tableView)
+    
+    let router = ConversationRouter(view: controller)
+    let presenter = ConversationPresenter(output: controller,
+                                          conversation: conversation,
+                                          fetchedResultsController: fetchedResultsController,
+                                          messageService: messageService)
+    
+    
+    controller.output = presenter
+    controller.router = router
+    
+    return controller
   }
+  
+//  func conversationViewController(title: String?, conversationId: String, conversationListDelegate: ConversationListDelegate) -> ConversationViewController {
+//    fatalError()
+////    let coreData: ICoreDataManager = CoreDataManager()
+////
+////    let controller = ConversationViewController(title: title, currentConversation: conversationId, conversationListDelegate: conversationListDelegate, presentationAssembly: self, communicationStorageService: serviceAssembly.communicationStorageService(), messageFetchResultsController: coreData.messageFetchResultsController(conversationId: conversationId))
+////
+////    return controller
+//  }
   
   func profileViewController() -> ProfileViewController {
     let controller = ProfileViewController(presentationAssembly: self, profileStorageService: serviceAssembly.profileStorageService())

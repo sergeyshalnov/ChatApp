@@ -7,15 +7,20 @@
 //
 
 import Foundation
+import MultipeerConnectivity.MCSession
 
 final class ConversationsListRouter {
   
+  // MARK: - Variables
+  
+  private var presentationAssembly: IPresentationAssembly
   weak var view: ConversationsListViewController?
   
   // MARK: - Init
   
-  init(view: ConversationsListViewController) {
+  init(view: ConversationsListViewController, presentationAssembly: IPresentationAssembly) {
     self.view = view
+    self.presentationAssembly = presentationAssembly
   }
   
 }
@@ -24,7 +29,12 @@ final class ConversationsListRouter {
 
 extension ConversationsListRouter: IConversationsListRouter {
   
-  func navigate(to conversation: Conversation, animated: Bool) {
+  func navigate(to conversation: Conversation, with session: MCSession, animated: Bool) {
+    let controller = presentationAssembly.conversation(conversation, with: session)
+    view?.navigationController?.pushViewController(controller, animated: animated)
+  }
+  
+  func profile() {
     fatalError()
   }
   

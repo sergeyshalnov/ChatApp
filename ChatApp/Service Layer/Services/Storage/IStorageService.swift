@@ -14,12 +14,12 @@ protocol IStorageService {
   func users() -> [User]
   
   func add(user peer: MCPeerID)
-  func edit(user: UserData)
+  func edit(user: UserModel)
   func delete(user peer: MCPeerID)
   
   func edit(conversation: ConversationData)
   func delete(conversation: ConversationData)
   
-  func add(message: MessageData, from peer: MCPeerID)
+  func add(message: MessageModel, from peer: MCPeerID)
   
 }

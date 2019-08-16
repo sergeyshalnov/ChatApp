@@ -10,6 +10,6 @@ import UIKit
 
 final class ConversationsListView: UIView {
   
-  @IBOutlet fileprivate(set) weak var conversationsTableView: UITableView!
+  @IBOutlet private(set) weak var conversationsTableView: UITableView!
   
 }

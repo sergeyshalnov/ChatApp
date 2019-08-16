@@ -15,7 +15,7 @@ protocol IUserStorage {
   func user(by peer: MCPeerID) -> User?
   
   func add(user peer: MCPeerID)
-  func edit(user: UserData)
+  func edit(user: UserModel)
   func delete(user peer: MCPeerID)
   
 }

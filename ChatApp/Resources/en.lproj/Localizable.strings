@@ -13,3 +13,5 @@
 "ACCEPT_WORD" = "Accept";
 "CANCEL_WORD" = "Cancel";
 "NO_MESSAGES_WORD" = "No messages";
+"CHATS_WORD" = "Chats";
+"INVITE_WORD" = "Sent an invitation";

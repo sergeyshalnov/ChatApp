@@ -6,11 +6,12 @@
 //  Copyright 2019 Sergey Shalnov. All rights reserved.
 //
 
-import Foundation
-import MultipeerConnectivity.MCPeerID
+import UIKit.UIAlertController
+import MultipeerConnectivity.MCSession
 
 protocol IConversationsListPresenterOutput: class {
   
-  func converse(in conversation: Conversation)
+  func display(alert: UIAlertController)
+  func converse(in conversation: Conversation, with session: MCSession)
   
 }

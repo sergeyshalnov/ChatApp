@@ -20,6 +20,8 @@ protocol ICoreAssembly {
   var conversationStorage: IConversationStorage { get }
   var messageStorage: IMessageStorage { get }
   
+  func dataParser<Model: Codable>() -> DataParser<Model> 
+  
 }
 
 class CoreAssembly: ICoreAssembly {
@@ -33,6 +35,8 @@ class CoreAssembly: ICoreAssembly {
   lazy var requestSender: IRequestSender = RequestSender()
   lazy var requestLoader: IRequestLoader = RequestLoader()
   
-  
+  func dataParser<Model: Codable>() -> DataParser<Model> {
+    return DataParser<Model>()
+  }
   
 }

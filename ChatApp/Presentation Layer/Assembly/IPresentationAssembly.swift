@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import MultipeerConnectivity.MCSession
 
 protocol IPresentationAssembly {
   
   func onboarding() -> UIViewController
-  func conversationsListViewController() -> UINavigationController
-  func conversationViewController(title: String?, conversationId: String, conversationListDelegate: ConversationListDelegate) -> ConversationViewController
+  func conversationsList() -> UINavigationController
+  func conversation(_ conversation: Conversation, with session: MCSession) -> UIViewController
+  
+//  func conversationViewController(title: String?, conversationId: String, conversationListDelegate: ConversationListDelegate) -> ConversationViewController
   func profileViewController() -> ProfileViewController
   func editProfileViewController(temporaryProfileImage: UIImage?) -> EditProfileViewController
   func imagesViewController(imageDelegate: ImageDelegate) -> ImagesViewController

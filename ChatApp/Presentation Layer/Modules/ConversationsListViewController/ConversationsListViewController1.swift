@@ -265,8 +265,8 @@ extension ConversationsListViewController1: UITableViewDelegate {
 
 extension ConversationsListViewController1: ConversationListDelegate {
   
-  func conversationList(sentMessage message: MessageData, toPeer peer: MCPeerID) {
-    communicationService.send(message, to: peer)
+  func conversationList(sentMessage message: MessageModel, toPeer peer: MCPeerID) {
+//    communicationService.send(message, to: peer)
   }
   
 }
@@ -302,7 +302,7 @@ extension ConversationsListViewController1: ICommunicationServiceDelegate {
     #endif
   }
   
-  func communicationService(_ communicationService: ICommunicationService, didChange state: inviteState, from peer: MCPeerID) {
+  func communicationService(_ communicationService: ICommunicationService, didChange state: MCSessionState, from peer: MCPeerID) {
 //    temporaryUserStorage.change(
 //      confirmed: state == .confirmed ? true : false,
 //      peer: peer.identifier)
@@ -344,7 +344,7 @@ extension ConversationsListViewController1: ICommunicationServiceDelegate {
     #endif
   }
   
-  func communicationService(_ communicationService: ICommunicationService, didReceiveMessage message: MessageData, from peer: MCPeerID) {
+  func communicationService(_ communicationService: ICommunicationService, didReceiveMessage message: MessageModel, from peer: MCPeerID) {
 //    guard
 //      let user = temporaryUserStorage.find(peer: peer.identifier)
 //      else {

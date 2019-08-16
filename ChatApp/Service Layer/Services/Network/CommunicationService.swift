@@ -17,20 +17,22 @@ class CommunicationService: NSObject {
   
   // MARK: - Variables
   
+  private(set) var session: MCSession
+  
   private let peer: MCPeerID
-  private let session: MCSession
   private let browser: MCNearbyServiceBrowser
   private let advertiser: MCNearbyServiceAdvertiser
   private let discoveryInfo: [String: String]
+  private let dataParser: DataParser<MessageModel>
   
   private let serviceType = "text-chat"
   
+  // MARK: - Init
   
-  // MARK: - Initialization & Deinitialization
-  
-  init(username: String) {
-    discoveryInfo = ["userName": username]
+  init(username: String, dataParser: DataParser<MessageModel>) {
+    self.dataParser = dataParser
     
+    discoveryInfo = ["username": username]
     peer = MCPeerID(displayName: username)
     session = MCSession(peer: peer, securityIdentity: nil, encryptionPreference: .none)
     browser = MCNearbyServiceBrowser(peer: peer, serviceType: serviceType)
@@ -42,6 +44,8 @@ class CommunicationService: NSObject {
     browser.delegate = self
     advertiser.delegate = self
   }
+  
+  // MARK: - Deinit
   
   deinit {
     stop()
@@ -63,17 +67,10 @@ extension CommunicationService: ICommunicationService {
     advertiser.stopAdvertisingPeer()
   }
   
-  func send(_ message: MessageData, to peer: MCPeerID) {
-    do {
-      let json = ["eventType": "TextMessage", "messageId": Generator.id(), "text": message.text]
-      let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-      
-      try session.send(jsonData, toPeers: [peer], with: .reliable)
-    } catch {
-      print("Error when send message to \(peer.description)")
-      return
-    }
+  func invite(peer: MCPeerID) {
+    browser.invitePeer(peer, to: session, withContext: nil, timeout: 300)
   }
+  
 }
 
 // MARK: - MCSessionDelegate
@@ -81,26 +78,13 @@ extension CommunicationService: ICommunicationService {
 extension CommunicationService: MCSessionDelegate {
   
   func session(_ session: MCSession, didReceive: Data, fromPeer: MCPeerID) {
-//    let peer = Peer(identifier: fromPeer, name: fromPeer.displayName)
-    
-    do {
-      guard let json = try JSONSerialization.jsonObject(with: didReceive, options: []) as? [String: String] else { return }
-      
-      guard let messageId = json["messageId"] else { return }
-      guard let text = json["text"] else { return }
-      
-      let message = MessageData(id: messageId, text: text, date: NSDate(), isIncoming: true)
-      
-      
-      DispatchQueue.main.async {
-        self.delegate?.communicationService(self, didReceiveMessage: message, from: fromPeer)
-      }
-    } catch {
-      print("Error while receive message")
+    guard let message = dataParser.parse(data: didReceive) else {
       return
     }
     
-    
+    DispatchQueue.main.async {
+      self.delegate?.communicationService(self, didReceiveMessage: message, from: fromPeer)
+    }
   }
   
   func session(_ session: MCSession,
@@ -110,9 +94,9 @@ extension CommunicationService: MCSessionDelegate {
     
     #if DEBUG
     let log = """
-      Peer \"\(fromPeer.displayName)\" did start receiving resource with name
-      \"\(didStartReceivingResourceWithName)\", progress: \(with.debugDescription)"
-      """
+              Peer \"\(fromPeer.displayName)\" did start receiving resource with name
+              \"\(didStartReceivingResourceWithName)\", progress: \(with.debugDescription)"
+              """
     
     print(log)
     #endif
@@ -126,9 +110,9 @@ extension CommunicationService: MCSessionDelegate {
     
     #if DEBUG
     let log = """
-      Peer \"\(fromPeer.displayName)\" did finish receiving resource
-      with name \"\(didFinishReceivingResourceWithName)\"
-      """
+              Peer \"\(fromPeer.displayName)\" did finish receiving resource
+              with name \"\(didFinishReceivingResourceWithName)\"
+              """
     
     print(log)
     #endif
@@ -160,6 +144,8 @@ extension CommunicationService: MCSessionDelegate {
       print("Peer \"\(peerID.displayName)\" have unknow MCSessionState")
     }
     #endif
+    
+    delegate?.communicationService(self, didChange: didChange, from: peerID)
   }
   
 }
@@ -172,8 +158,10 @@ extension CommunicationService: MCNearbyServiceAdvertiserDelegate {
                   didReceiveInvitationFromPeer peerID: MCPeerID,
                   withContext context: Data?,
                   invitationHandler: @escaping (Bool, MCSession?) -> Void) {
-
-    invitationHandler(true, session)
+    
+    delegate?.communicationService(self, didReceiveInviteFromPeer: peerID) { [weak self] (isAccepted) in
+      invitationHandler(isAccepted, self?.session)
+    }
   }
   
 }
@@ -190,7 +178,6 @@ extension CommunicationService: MCNearbyServiceBrowserDelegate {
                foundPeer peerID: MCPeerID,
                withDiscoveryInfo info: [String : String]?) {
     
-    browser.invitePeer(peerID, to: session, withContext: nil, timeout: 300)
     delegate?.communicationService(self, didFoundPeer: peerID)
   }
   

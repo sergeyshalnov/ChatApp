@@ -14,13 +14,12 @@ final class ConversationsListViewController: UIViewController, CustomViewControl
   
   // MARK: - Variables
   
+  var router: IConversationsListRouter?
   var output: IConversationsListViewOutput? {
     didSet {
       output?.performFetch()
     }
   }
-  
-  var router: IConversationsListRouter?
   
   // MARK: - Lifecycle
   
@@ -30,10 +29,6 @@ final class ConversationsListViewController: UIViewController, CustomViewControl
     setup()
   }
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-  }
-  
 }
 
 // MARK: - Setup
@@ -41,10 +36,33 @@ final class ConversationsListViewController: UIViewController, CustomViewControl
 private extension ConversationsListViewController {
   
   func setup() {
+    setupTableView()
+    setupNavigationBar()
+  }
+  
+  func setupTableView() {
     let identifier = Conversation.TableViewCell().reuseIdentifier
     
     view().conversationsTableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
     view().conversationsTableView.delegate = self
+  }
+  
+  func setupNavigationBar() {
+    navigationItem.title = "CHATS_WORD".localized()
+    navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Contact"),
+                                                        style: .done,
+                                                        target: self,
+                                                        action: #selector(profileButtonTouch))
+  }
+  
+}
+
+// MARK: - Actions
+
+private extension ConversationsListViewController {
+  
+  @objc dynamic func profileButtonTouch(_ sender: UIBarButtonItem) {
+    router?.profile()
   }
   
 }
@@ -64,8 +82,12 @@ extension ConversationsListViewController: UITableViewDelegate {
 
 extension ConversationsListViewController: IConversationsListViewInput {
   
-  func converse(in conversation: Conversation) {
-    router?.navigate(to: conversation, animated: true)
+  func display(alert: UIAlertController) {
+    present(alert, animated: true)
+  }
+  
+  func converse(in conversation: Conversation, with session: MCSession) {
+    router?.navigate(to: conversation, with: session, animated: true)
   }
   
 }

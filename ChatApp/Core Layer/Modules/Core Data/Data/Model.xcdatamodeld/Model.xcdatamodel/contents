@@ -9,7 +9,7 @@
     <entity name="Message" representedClassName="Message" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="String"/>
-        <attribute name="incoming" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isIncoming" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="text" optional="YES" attributeType="String"/>
         <relationship name="conversation" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Conversation" inverseName="messages" inverseEntity="Conversation"/>
     </entity>
@@ -32,7 +32,7 @@
     <fetchRequest name="getUser" entity="User" predicateString="userId == $userId"/>
     <elements>
         <element name="Conversation" positionX="-54" positionY="-249" width="128" height="103"/>
-        <element name="Message" positionX="162" positionY="-279" width="128" height="120"/>
+        <element name="Message" positionX="162" positionY="-279" width="128" height="118"/>
         <element name="Profile" positionX="-279" positionY="-279" width="128" height="88"/>
         <element name="User" positionX="-243" positionY="-126" width="128" height="118"/>
     </elements>

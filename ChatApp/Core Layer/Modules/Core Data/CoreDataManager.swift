@@ -21,37 +21,25 @@ class CoreDataManager: ICoreDataManager {
   }()
   
   func conversationFetchResultsController() -> NSFetchedResultsController<NSManagedObject> {
-//    let fetchRequest = NSFetchRequest<Conversation>(entityName: String(describing: Conversation.self))
-//
-//    fetchRequest.sortDescriptors = Conversation.defaultSortDescriptors
-//    fetchRequest.resultType = .managedObjectResultType
-//
-//    let controller: NSFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-//                                                managedObjectContext: CoreDataManager.container.viewContext,
-//                                                sectionNameKeyPath: nil,
-//                                                cacheName: nil)
-//
-//    return controller
-    
     let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: String(describing: Conversation.self))
     
     fetchRequest.sortDescriptors = Conversation.defaultSortDescriptors
     fetchRequest.resultType = .managedObjectResultType
     
-    let controller: NSFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                                                            managedObjectContext: CoreDataManager.container.viewContext,
-                                                                            sectionNameKeyPath: nil,
-                                                                            cacheName: nil)
+    let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                managedObjectContext: CoreDataManager.container.viewContext,
+                                                sectionNameKeyPath: nil,
+                                                cacheName: nil)
     
     return controller
   }
   
-  func messageFetchResultsController(conversationId: String) -> NSFetchedResultsController<Message> {
-    let fetchRequest = NSFetchRequest<Message>(entityName: String(describing: Message.self))
+  func messageFetchResultsController(conversation: Conversation) -> NSFetchedResultsController<NSManagedObject> {
+    let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: String(describing: Message.self))
     
     fetchRequest.sortDescriptors = Message.defaultSortDescriptors
     fetchRequest.resultType = .managedObjectResultType
-    fetchRequest.predicate = Message.defaultPredicate(conversationId: conversationId)
+    fetchRequest.predicate = Message.predicate(conversation: conversation)
     
     let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                 managedObjectContext: CoreDataManager.container.viewContext,

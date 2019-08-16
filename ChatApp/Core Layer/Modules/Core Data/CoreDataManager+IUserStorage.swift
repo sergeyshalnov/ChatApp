@@ -58,10 +58,9 @@ extension CoreDataManager: IUserStorage {
     }
   }
   
-  func edit(user: UserData) {
+  func edit(user: UserModel) {
     let context = CoreDataManager.container.viewContext
     let request = NSFetchRequest<User>(entityName: "User")
-//    let predicate = User.userPredicate(id: user.id)
     let predicate = User.predicate(peer: user.peer)
     
     request.predicate = predicate

@@ -39,7 +39,7 @@ extension StorageService: IStorageService {
     userStorage.add(user: peer)
   }
   
-  func edit(user: UserData) {
+  func edit(user: UserModel) {
     userStorage.edit(user: user)
   }
   
@@ -55,7 +55,7 @@ extension StorageService: IStorageService {
     conversationStorage.delete(conversation: conversation)
   }
   
-  func add(message: MessageData, from peer: MCPeerID) {
+  func add(message: MessageModel, from peer: MCPeerID) {
     messageStorage.add(message: message, from: peer)
   }
   

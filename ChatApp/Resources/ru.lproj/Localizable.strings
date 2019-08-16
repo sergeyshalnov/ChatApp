@@ -13,3 +13,5 @@
 "ACCEPT_WORD" = "Принять";
 "CANCEL_WORD" = "Отклонить";
 "NO_MESSAGES_WORD" = "Нет сообщений";
+"CHATS_WORD" = "Чаты";
+"INVITE_WORD" = "Прислал приглашение";

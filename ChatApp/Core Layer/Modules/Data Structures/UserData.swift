@@ -1,5 +1,5 @@
 //
-//  UserData.swift
+//  UserModel.swift
 //  ChatApp
 //
 //  Created by Sergey Shalnov on 15/11/2018.
@@ -9,7 +9,7 @@
 import Foundation
 import MultipeerConnectivity.MCPeerID
 
-struct UserData {
+struct UserModel {
   
   let peer: MCPeerID
   let isOnline: Bool

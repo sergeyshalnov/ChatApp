@@ -11,6 +11,6 @@ import MultipeerConnectivity.MCPeerID
 
 protocol IMessageStorage {
   
-  func add(message: MessageData, from peer: MCPeerID)
+  func add(message: MessageModel, from peer: MCPeerID)
   
 }
