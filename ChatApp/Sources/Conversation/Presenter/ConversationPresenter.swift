@@ -59,15 +59,13 @@ private extension ConversationPresenter {
   }
   
   @objc func managedObjectContextObjectsDidChange(_ notification: NSNotification) {
-    guard
-      let userInfo = notification.userInfo,
-      let deletedObjects = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject>,
-      deletedObjects.count > 0
-      else {
-        return
+    guard let userInfo = notification.userInfo else {
+      return
     }
     
-    output?.disableInterface()
+    if let deletedObjects = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject>, deletedObjects.count > 0 {
+      output?.disconnected(from: conversation)
+    }
   }
   
 }

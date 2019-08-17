@@ -13,5 +13,10 @@
 "ACCEPT_WORD" = "Принять";
 "CANCEL_WORD" = "Отклонить";
 "NO_MESSAGES_WORD" = "Нет сообщений";
+"CONVERSATION_PREVIEW_PREFIX" = "Вы: ";
 "CHATS_WORD" = "Чаты";
 "INVITE_WORD" = "Прислал приглашение";
+"DISCONNECTED_WORD" = "Пользователь отключился";
+"OK_WORD" = "Ок";
+"SEND_WORD" = "Отправить";
+"MESSAGE_PLACEHOLDER_WORD" = "Сообщение...";

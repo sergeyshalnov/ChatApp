@@ -48,34 +48,18 @@ extension PresentationAssembly: IPresentationAssembly {
     let fetchedResultsController = CAFetchedResultsController(CoreDataManager().conversationFetchResultsController(),
                                                               for: controller.view().conversationsTableView)
     
-    let communicationService = serviceAssembly.communicationService(username: "123")
+    let communicationService = serviceAssembly.communicationService(username: "TEST")
     let communicationController = CACommunicationController(communicationService: communicationService,
                                                             storageService: serviceAssembly.storageService())
     let router = ConversationsListRouter(view: controller, presentationAssembly: self)
     let presenter = ConversationsListPresenter(output: controller,
                                                fetchedResultsController: fetchedResultsController,
-                                               communicationController: communicationController,
-                                               alertService: serviceAssembly.alertService())
+                                               communicationController: communicationController)
     
     controller.output = presenter
     controller.router = router
     
     return UINavigationController(rootViewController: controller)
-    
-//    let coreData: ICoreDataManager = CoreDataManager()
-//    let navigator = UINavigationController()
-//    let username = UserDefaultsService().get(for: .username) ?? "Sergey Shalnov"
-//
-//    let controller = ConversationsListViewController(
-//      presentationAssembly: self,
-//      communicationService: serviceAssembly.communicationService(username: username),
-//      communicationStorageService: serviceAssembly.communicationStorageService(),
-//      profileStorageService: serviceAssembly.profileStorageService(),
-//      conversationFetchResultsController: coreData.conversationFetchResultsController())
-//
-//    navigator.viewControllers = [controller]
-//
-//    return navigator
   }
   
   func conversation(_ conversation: Conversation, with session: MCSession) -> UIViewController {
@@ -91,23 +75,17 @@ extension PresentationAssembly: IPresentationAssembly {
                                           messageService: messageService)
     
     
+    controller.navigationItem.title = conversation.user?.peer?.displayName
     controller.output = presenter
     controller.router = router
     
     return controller
   }
   
-//  func conversationViewController(title: String?, conversationId: String, conversationListDelegate: ConversationListDelegate) -> ConversationViewController {
-//    fatalError()
-////    let coreData: ICoreDataManager = CoreDataManager()
-////
-////    let controller = ConversationViewController(title: title, currentConversation: conversationId, conversationListDelegate: conversationListDelegate, presentationAssembly: self, communicationStorageService: serviceAssembly.communicationStorageService(), messageFetchResultsController: coreData.messageFetchResultsController(conversationId: conversationId))
-////
-////    return controller
-//  }
+  // TODO: - Refactoring
   
-  func profileViewController() -> ProfileViewController {
-    let controller = ProfileViewController(presentationAssembly: self, profileStorageService: serviceAssembly.profileStorageService())
+  func profileViewController() -> ProfileViewController1 {
+    let controller = ProfileViewController1(presentationAssembly: self, profileStorageService: serviceAssembly.profileStorageService())
     
     return controller
   }

@@ -10,10 +10,6 @@ import Foundation
 
 struct Decorator {
   
-  struct TextView {
-    
-  }
-  
 }
 
 

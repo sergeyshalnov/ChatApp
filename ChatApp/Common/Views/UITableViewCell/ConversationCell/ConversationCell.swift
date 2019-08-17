@@ -52,18 +52,23 @@ private extension ConversationCell {
   }
   
   func updateMessage(with conversation: Conversation) {
-    guard let message = (conversation.messages?.allObjects as? [Message])?.last else {
-        return
-    }
-    
-    if message.text.isEmpty() {
-      messageLabel.font = UIFont.italicSystemFont(ofSize: 17.0)
-    } else {
+    if let message = conversation.preview {
       messageLabel.font = UIFont.systemFont(ofSize: 17, weight: conversation.isUnread ? .bold : .regular)
+      messageLabel.textColor = conversation.isUnread ? .black : .darkGray
+      
+      if let text = message.text {
+        messageLabel.text = prefix(isIncoming: message.isIncoming) + text
+      } else {
+        messageLabel.text = "NO_MESSAGES_WORD".localized()
+      }
+    } else {
+      messageLabel.font = UIFont.italicSystemFont(ofSize: 17.0)
+      messageLabel.text = "NO_MESSAGES_WORD".localized()
     }
-    
-    messageLabel.textColor = conversation.isUnread ? .black : .darkGray
-    messageLabel.text = message.text ?? "NO_MESSAGES_WORD".localized()
+  }
+  
+  func prefix(isIncoming: Bool) -> String {
+    return isIncoming ? "" : "CONVERSATION_PREVIEW_PREFIX".localized()
   }
   
 }

@@ -14,7 +14,7 @@ struct MessageModel: Codable {
   let id: String
   let text: String
   let date: Date
-  let isIncoming: Bool
+  var isIncoming: Bool
   
   init(id: String, text: String, date: Date = Date(), isIncoming: Bool) {
     self.id = id

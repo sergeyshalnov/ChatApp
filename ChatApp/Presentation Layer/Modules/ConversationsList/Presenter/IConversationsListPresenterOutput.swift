@@ -6,12 +6,12 @@
 //  Copyright 2019 Sergey Shalnov. All rights reserved.
 //
 
-import UIKit.UIAlertController
-import MultipeerConnectivity.MCSession
+import UIKit
+import MultipeerConnectivity
 
 protocol IConversationsListPresenterOutput: class {
   
-  func display(alert: UIAlertController)
-  func converse(in conversation: Conversation, with session: MCSession)
+  func invite(from peer: MCPeerID, with actions: [UIAlertAction])
+  func display(conversation: Conversation, with session: MCSession)
   
 }

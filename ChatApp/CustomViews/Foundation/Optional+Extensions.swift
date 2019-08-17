@@ -9,7 +9,9 @@
 import Foundation
 
 extension Optional where Wrapped == String {
+  
   func isEmpty() -> Bool {
     return self?.isEmpty ?? true
   }
+  
 }

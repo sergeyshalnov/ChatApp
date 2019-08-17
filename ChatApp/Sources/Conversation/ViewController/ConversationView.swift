@@ -10,30 +10,62 @@ import UIKit
 
 final class ConversationView: UIView {
   
+  // MARK: - Outlets
+  
   @IBOutlet private(set) weak var tableView: UITableView!
   @IBOutlet private(set) weak var messageTextField: CATextField!
   @IBOutlet private weak var messageContainerView: UIView!
-  @IBOutlet private weak var sendButton: UIButton!
   @IBOutlet private weak var messageContainerBottomConstraint: NSLayoutConstraint!
   
+  private(set) lazy var sendButton = makeSendButton()
+  
 }
+
+// MARK: - Setup
 
 extension ConversationView {
   
   func setup() {
-    sendButton.setImage(UIImage(named: "SendButton")?.withRenderingMode(.alwaysOriginal), for: .normal)
-    sendButton.setImage(UIImage(named: "SendButton")?.withRenderingMode(.alwaysTemplate), for: .disabled)
-    sendButton.imageView?.contentMode = .scaleAspectFit
+    setupTableView()
+    setupSendButton()
+  }
+  
+  func setupTableView() {
+    let identifier = Message.TableViewCell().reuseIdentifier
+    
+    tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
+    tableView.rowHeight = UITableView.automaticDimension
+    tableView.estimatedRowHeight = 60
+    tableView.allowsSelection = false
+  }
+  
+  func setupSendButton() {
+    guard let size = sendButton.titleLabel?.size() else {
+      return
+    }
+    
+    messageTextField.addSubview(sendButton)
+    messageTextField.rightView = sendButton
+    messageTextField.rightViewMode = .always
+    messageTextField.padding.right = size.width + 20
+    sendButton.translatesAutoresizingMaskIntoConstraints = false
+    
+    NSLayoutConstraint.activate([sendButton.heightAnchor.constraint(equalTo: messageTextField.heightAnchor),
+                                 sendButton.widthAnchor.constraint(equalToConstant: size.width + 20)])
   }
   
 }
 
-// MARK: - IBActions
+// MARK: - Makers
 
 private extension ConversationView {
   
-  @IBAction func messageTextFieldValueChanged(_ sender: UITextField) {
-    sendButton.isEnabled = !sender.text.isEmpty()
+  func makeSendButton() -> UIButton {
+    let button = UIButton()
+    
+    button.decorate(with: Decorator.Button.Send(tintColor: tintColor))
+    
+    return button
   }
   
 }
@@ -60,17 +92,6 @@ extension ConversationView {
   @objc func keyboardWillHide(_ notification: NSNotification) {
     messageContainerBottomConstraint.constant = 0
     layoutIfNeeded()
-  }
-  
-}
-
-// MARK: - Disable interface
-
-extension ConversationView {
-  
-  func disableInterface() {
-    messageTextField.isEnabled = false
-    sendButton.isEnabled = false 
   }
   
 }

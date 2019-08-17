@@ -43,6 +43,8 @@ class CommunicationService: NSObject {
     session.delegate = self
     browser.delegate = self
     advertiser.delegate = self
+    
+    CoreDataManager().terminate()
   }
   
   // MARK: - Deinit
@@ -76,6 +78,10 @@ extension CommunicationService: ICommunicationService {
 // MARK: - MCSessionDelegate
 
 extension CommunicationService: MCSessionDelegate {
+  
+  func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
+    certificateHandler(true)
+  }
   
   func session(_ session: MCSession, didReceive: Data, fromPeer: MCPeerID) {
     guard let message = dataParser.parse(data: didReceive) else {
@@ -158,7 +164,6 @@ extension CommunicationService: MCNearbyServiceAdvertiserDelegate {
                   didReceiveInvitationFromPeer peerID: MCPeerID,
                   withContext context: Data?,
                   invitationHandler: @escaping (Bool, MCSession?) -> Void) {
-    
     delegate?.communicationService(self, didReceiveInviteFromPeer: peerID) { [weak self] (isAccepted) in
       invitationHandler(isAccepted, self?.session)
     }

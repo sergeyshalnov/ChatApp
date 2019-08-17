@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController1: UIViewController {
   
   // MARK: - Outlets
   

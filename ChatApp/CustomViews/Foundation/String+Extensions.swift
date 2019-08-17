@@ -9,6 +9,7 @@
 import Foundation
 
 extension String {
+  
   func localized() -> String {
     return NSLocalizedString(self, comment: "")
   }
@@ -16,6 +17,7 @@ extension String {
   func substring(from index: Int) -> String {
     return String(self[self.index(startIndex, offsetBy: index)...])
   }
+  
 }
 
 

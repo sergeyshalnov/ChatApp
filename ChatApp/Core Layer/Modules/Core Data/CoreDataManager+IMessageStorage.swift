@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import MultipeerConnectivity.MCPeerID
 
-// MARK: - IMessageStorage extension
+// MARK: - IMessageStorage
 
 extension CoreDataManager: IMessageStorage {
   
@@ -19,7 +19,6 @@ extension CoreDataManager: IMessageStorage {
     
     context.performAndWait {
       do {
-//        let request = Conversation.conversationFetchRequest(id: message.conversationIdentifier)
         let request = Conversation.fetchRequest(peer: peer)
         let conversations = try context.fetch(request)
         let conversation = conversations.first
@@ -32,8 +31,7 @@ extension CoreDataManager: IMessageStorage {
         entity.id = message.id
         
         conversation?.addToMessages(entity)
-//        conversation?.lastMessageDate = message.date
-//        conversation?.lastMessage = message.text
+        conversation?.preview = entity
         
         try context.save()
       } catch {

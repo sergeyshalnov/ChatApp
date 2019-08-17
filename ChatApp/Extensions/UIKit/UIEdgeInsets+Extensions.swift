@@ -1,5 +1,5 @@
 //
-//  UIEdgeInsets.swift
+//  UIEdgeInsets+Extensions.swift
 //  ChatApp
 //
 //  Created by Sergey Shalnov on 15/08/2019.

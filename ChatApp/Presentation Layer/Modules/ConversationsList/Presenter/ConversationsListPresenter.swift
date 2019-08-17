@@ -14,18 +14,15 @@ final class ConversationsListPresenter {
   private weak var output: IConversationsListPresenterOutput?
   private let fetchedResultsController: CAFetchedResultsController
   private let communicationController: CACommunicationController
-  private let alertService: IAlertService
   
   // MARK: - Init
   
   init(output: IConversationsListPresenterOutput,
        fetchedResultsController: CAFetchedResultsController,
-       communicationController: CACommunicationController,
-       alertService: IAlertService) {
+       communicationController: CACommunicationController) {
     
     self.output = output
     self.fetchedResultsController = fetchedResultsController
-    self.alertService = alertService
     
     self.communicationController = communicationController
     self.communicationController.delegate = self
@@ -48,9 +45,9 @@ extension ConversationsListPresenter: IConversationsListPresenterInput {
       else {
         return
     }
-
+    
     if user.isConfirmed {
-      output?.converse(in: conversation, with: communicationController.session)
+      output?.display(conversation: conversation, with: communicationController.session)
     } else if let peer = user.peer {
       communicationController.invite(peer: peer)
     }
@@ -66,23 +63,16 @@ extension ConversationsListPresenter: ICACommunicationControllerDelegate {
                                peer: MCPeerID,
                                didReceiveInvitation invitationHandler: @escaping (Bool) -> ()) {
     
-    let actions = { () -> [UIAlertAction] in
-      let acceptAction = UIAlertAction(title: "ACCEPT_WORD".localized(), style: .default) { _ in
-        invitationHandler(true)
-      }
-      
-      let cancelAction = UIAlertAction(title: "CANCEL_WORD".localized(), style: .cancel) { _ in
-        invitationHandler(false)
-      }
-      
-      return [acceptAction, cancelAction]
+    
+    let acceptAction = UIAlertAction(title: "ACCEPT_WORD".localized(), style: .default) { _ in
+      invitationHandler(true)
     }
     
-    let controller = alertService.controller(title: peer.displayName,
-                                             message: "INVITE_WORD".localized(),
-                                             actions: actions)
+    let cancelAction = UIAlertAction(title: "CANCEL_WORD".localized(), style: .cancel) { _ in
+      invitationHandler(false)
+    }
     
-    output?.display(alert: controller)
+    output?.invite(from: peer, with: [acceptAction, cancelAction])
   }
   
 }

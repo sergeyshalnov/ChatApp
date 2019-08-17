@@ -11,6 +11,8 @@ import MultipeerConnectivity.MCPeerID
 
 final class CACommunicationController {
   
+  // MARK: - Variables
+  
   private var storageService: IStorageService
   private var communicationService: ICommunicationService
   

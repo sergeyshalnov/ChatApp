@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //
 //      window?.rootViewController = controller
 //    }
-
+    
     window?.rootViewController = rootAssembly.presentationAssembly.conversationsList()
     window?.makeKeyAndVisible()
     

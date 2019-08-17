@@ -4,6 +4,7 @@
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="isUnread" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Message" inverseName="conversation" inverseEntity="Message"/>
+        <relationship name="preview" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="User" inverseName="conversation" inverseEntity="User"/>
     </entity>
     <entity name="Message" representedClassName="Message" syncable="YES">
@@ -31,7 +32,7 @@
     <fetchRequest name="getOnlineUsers" entity="User" predicateString="online == 1"/>
     <fetchRequest name="getUser" entity="User" predicateString="userId == $userId"/>
     <elements>
-        <element name="Conversation" positionX="-54" positionY="-249" width="128" height="103"/>
+        <element name="Conversation" positionX="-54" positionY="-249" width="128" height="118"/>
         <element name="Message" positionX="162" positionY="-279" width="128" height="118"/>
         <element name="Profile" positionX="-279" positionY="-279" width="128" height="88"/>
         <element name="User" positionX="-243" positionY="-126" width="128" height="118"/>

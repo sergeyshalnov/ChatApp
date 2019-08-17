@@ -29,6 +29,11 @@ final class ConversationsListViewController: UIViewController, CustomViewControl
     setup()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.navigationBar.prefersLargeTitles = true
+  }
+  
 }
 
 // MARK: - Setup
@@ -38,12 +43,11 @@ private extension ConversationsListViewController {
   func setup() {
     setupTableView()
     setupNavigationBar()
+    
+    view().setup()
   }
   
   func setupTableView() {
-    let identifier = Conversation.TableViewCell().reuseIdentifier
-    
-    view().conversationsTableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
     view().conversationsTableView.delegate = self
   }
   
@@ -82,11 +86,11 @@ extension ConversationsListViewController: UITableViewDelegate {
 
 extension ConversationsListViewController: IConversationsListViewInput {
   
-  func display(alert: UIAlertController) {
-    present(alert, animated: true)
+  func invite(from peer: MCPeerID, with actions: [UIAlertAction]) {
+    alert(title: peer.displayName, message: "INVITE_WORD".localized(), actions: actions)
   }
   
-  func converse(in conversation: Conversation, with session: MCSession) {
+  func display(conversation: Conversation, with session: MCSession) {
     router?.navigate(to: conversation, with: session, animated: true)
   }
   

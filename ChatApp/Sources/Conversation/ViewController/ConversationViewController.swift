@@ -34,8 +34,12 @@ final class ConversationViewController: UIViewController, CustomViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     setup()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.navigationBar.prefersLargeTitles = false
   }
   
 }
@@ -46,7 +50,7 @@ private extension ConversationViewController {
   
   func setup() {
     setupKeyboardAppearance()
-    setupTableView()
+    setupSendButton()
     
     view().setup()
   }
@@ -61,27 +65,27 @@ private extension ConversationViewController {
     observers.append(NotificationCenter.default.addObserver(view(), selector: willHide, name: hideName, object: nil))
   }
   
-  func setupTableView() {
-    let identifier = Message.TableViewCell().reuseIdentifier
-    
-    view().tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
-    view().tableView.rowHeight = UITableView.automaticDimension
-    view().tableView.estimatedRowHeight = 60
-    view().tableView.allowsSelection = false
+  func setupSendButton() {
+    view().sendButton.addTarget(self, action: #selector(sendButtonTouch(_:)), for: .touchUpInside)
   }
   
 }
 
 // MARK: - IBActions
 
-extension ConversationViewController {
+private extension ConversationViewController {
   
-  @IBAction func sendButtonTouch(_ sender: Any) {
+  @IBAction func messageTextFieldValueChanged(_ sender: UITextField) {
+    view().sendButton.isEnabled = !sender.text.isEmpty()
+  }
+  
+  @objc func sendButtonTouch(_ sender: Any) {
     guard let message = view().messageTextField.text else {
       return
     }
     
     output?.send(message: message)
+    view().messageTextField.text = nil
   }
   
 }
@@ -89,9 +93,13 @@ extension ConversationViewController {
 // MARK: - IConversationViewInput
 
 extension ConversationViewController: IConversationViewInput {
- 
-  func disableInterface() {
-    view().disableInterface()
+  
+  func disconnected(from conversation: Conversation) {
+    let action = UIAlertAction(title: "OK_WORD".localized(), style: .default) { [weak self] _ in
+      self?.router?.close(animated: true)
+    }
+    
+    alert(title: conversation.user?.peer?.displayName, message: "DISCONNECTED_WORD".localized(), actions: [action])
   }
   
 }

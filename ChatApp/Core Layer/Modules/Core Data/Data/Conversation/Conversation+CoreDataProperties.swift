@@ -19,6 +19,7 @@ extension Conversation {
   
   @NSManaged public var id: String
   @NSManaged public var user: User?
+  @NSManaged public var preview: Message?
   @NSManaged public var messages: NSSet?
   @NSManaged public var isUnread: Bool
   
@@ -45,11 +46,11 @@ extension Conversation {
 extension Conversation {
   
   static var defaultSortDescriptors: [NSSortDescriptor] {
-    let onlineSort = NSSortDescriptor(key: "user.isOnline", ascending: false)
-    return [onlineSort]
+    let onlineDescriptor = NSSortDescriptor(key: "user.isOnline", ascending: false)
+    return [onlineDescriptor]
   }
   
-  static func conversationPredicate(id: String) -> NSPredicate {
+  static func predicate(id: String) -> NSPredicate {
     return NSPredicate(format: "id == %@", id)
   }
   
@@ -70,9 +71,9 @@ extension Conversation {
     return request
   }
   
-  static func conversationFetchRequest(id: String) -> NSFetchRequest<Conversation> {
+  static func fetchRequest(id: String) -> NSFetchRequest<Conversation> {
     let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
-    let predicate = Conversation.conversationPredicate(id: id)
+    let predicate = Conversation.predicate(id: id)
     request.predicate = predicate
     return request
   }

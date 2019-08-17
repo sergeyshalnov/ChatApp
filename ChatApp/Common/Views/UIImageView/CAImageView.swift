@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ImageViewDownloader: UIImageView {
+class CAImageView: UIImageView {
   
   // MARK: - Private services
   
@@ -24,7 +24,7 @@ class ImageViewDownloader: UIImageView {
 
 // MARK: - Pixabay extension
 
-extension ImageViewDownloader {
+extension CAImageView {
   
   func pixabayLoader(url: String) {
     self.url = url

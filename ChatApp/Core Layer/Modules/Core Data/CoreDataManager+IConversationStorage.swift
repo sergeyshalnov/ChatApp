@@ -19,7 +19,7 @@ extension CoreDataManager: IConversationStorage {
     
     context.performAndWait {
       do {
-        let request = Conversation.conversationFetchRequest(id: conversation.id)
+        let request = Conversation.fetchRequest(id: conversation.id)
         let conversations = try context.fetch(request)
         let entity = conversations.first
         
@@ -36,12 +36,12 @@ extension CoreDataManager: IConversationStorage {
   }
   
   func delete(conversation: ConversationData) {
-    let DataManager: ICoreDataManager = CoreDataManager()
     let request = NSFetchRequest<NSManagedObject>(entityName: "Conversation")
-    let predicate = Conversation.conversationPredicate(id: conversation.id)
+    let predicate = Conversation.predicate(id: conversation.id)
+    
     request.predicate = predicate
     
-    DataManager.delete(request: request) { success in
+    delete(request: request) { success in
       #if DEBUG
         print("Conversation delete : \(success)")
       #endif

@@ -6,10 +6,10 @@
 //  Copyright 2019 Sergey Shalnov. All rights reserved.
 //
 
-import Foundation
+import UIKit.UIAlertController
 
 protocol IConversationPresenterOutput: class {
   
-  func disableInterface()
+  func disconnected(from conversation: Conversation)
   
 }

@@ -14,8 +14,14 @@ class MessageCell: UITableViewCell {
   
   @IBOutlet private weak var containerView: UIView!
   @IBOutlet private weak var messageLabel: UILabel!
-  @IBOutlet private weak var containerLeadingConstraint: NSLayoutConstraint!
-  @IBOutlet private weak var containerTrailingConstraint: NSLayoutConstraint!
+  
+  private var leadingConstraint: NSLayoutConstraint?
+  private var trailingConstraint: NSLayoutConstraint?
+  
+  override func awakeFromNib() {
+    leadingConstraint = containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5)
+    trailingConstraint = containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5)
+  }
   
 }
 
@@ -27,8 +33,9 @@ extension MessageCell: ITableViewModelRepresentable {
     }
     
     messageLabel.text = message.text
-    containerTrailingConstraint.isActive = !message.isIncoming
-    containerLeadingConstraint.isActive = message.isIncoming
+    
+    trailingConstraint?.isActive = !message.isIncoming
+    leadingConstraint?.isActive = message.isIncoming
     
     containerView.backgroundColor = message.isIncoming ? UIColor.Palette.Grey.bubble : UIColor.Palette.Blue.bubble
     messageLabel.textColor = message.isIncoming ? .black : .white

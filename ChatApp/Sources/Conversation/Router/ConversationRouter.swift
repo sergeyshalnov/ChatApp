@@ -24,4 +24,8 @@ final class ConversationRouter {
 
 extension ConversationRouter: IConversationRouter {
   
+  func close(animated: Bool) {
+    view?.navigationController?.popViewController(animated: animated)
+  }
+  
 }

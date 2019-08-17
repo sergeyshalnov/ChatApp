@@ -19,7 +19,6 @@ protocol IServiceAssembly {
   
   func storageService() -> IStorageService
   func messageService(session: MCSession) -> IMessageService
-  func alertService() -> IAlertService
   
 }
 
@@ -33,10 +32,6 @@ class ServiceAssembly: IServiceAssembly {
   
   func messageService(session: MCSession) -> IMessageService {
     return MessageService(session: session, messageStorage: coreAssembly.messageStorage)
-  }
-  
-  func alertService() -> IAlertService {
-    return AlertService()
   }
   
   func storageService() -> IStorageService {

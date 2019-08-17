@@ -109,14 +109,12 @@ extension CoreDataManager: IUserStorage {
   }
   
   func delete(user peer: MCPeerID) {
-    let dataManager = CoreDataManager()
     let request = NSFetchRequest<NSManagedObject>(entityName: "User")
-//    let predicate = User.userPredicate(id: user.id)
     let predicate = User.predicate(peer: peer)
     
     request.predicate = predicate
     
-    dataManager.delete(request: request) { success in
+    delete(request: request) { success in
       #if DEBUG
         print("User delete : \(success)")
       #endif

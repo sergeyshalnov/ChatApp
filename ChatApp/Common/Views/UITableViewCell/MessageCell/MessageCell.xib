@@ -37,17 +37,15 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="GbR-vi-CtN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="LP4-Ni-1Ur"/>
+                    <constraint firstItem="GbR-vi-CtN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" placeholder="YES" id="LP4-Ni-1Ur"/>
                     <constraint firstAttribute="bottom" secondItem="GbR-vi-CtN" secondAttribute="bottom" id="c3g-SO-vND"/>
-                    <constraint firstAttribute="trailing" secondItem="GbR-vi-CtN" secondAttribute="trailing" constant="5" id="dg2-eF-ske"/>
+                    <constraint firstAttribute="trailing" secondItem="GbR-vi-CtN" secondAttribute="trailing" constant="5" placeholder="YES" id="dg2-eF-ske"/>
                     <constraint firstItem="GbR-vi-CtN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="kZG-Gy-bam"/>
                     <constraint firstItem="GbR-vi-CtN" firstAttribute="width" relation="lessThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.75" id="kuA-uP-T4f"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="containerLeadingConstraint" destination="LP4-Ni-1Ur" id="GSj-JS-idc"/>
-                <outlet property="containerTrailingConstraint" destination="dg2-eF-ske" id="PY0-Ht-7wc"/>
                 <outlet property="containerView" destination="GbR-vi-CtN" id="iVB-8h-Fmb"/>
                 <outlet property="messageLabel" destination="kz2-mq-t4r" id="mvy-M1-yB2"/>
             </connections>

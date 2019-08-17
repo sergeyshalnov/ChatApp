@@ -10,8 +10,8 @@ import UIKit
 
 class ImageCell: UICollectionViewCell {
   
-  let customImageView: ImageViewDownloader = {
-    let imageView = ImageViewDownloader()
+  let customImageView: CAImageView = {
+    let imageView = CAImageView()
     imageView.image = UIImage(named: "ImagePlaceholder")
     imageView.clipsToBounds = true
     imageView.contentMode = .scaleAspectFill
