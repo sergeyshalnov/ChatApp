@@ -1,26 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14810.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14766.15"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="MVPExample" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="ChatApp" customModuleProvider="target">
             <connections>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="ProfileView" customModule="MVPExample" customModuleProvider="target">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="ProfileView" customModule="ChatApp" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="Zd0-lP-nGc">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="jcd-9s-Zcw">
+                            <rect key="frame" x="20" y="20" width="374" height="529"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SA8-le-gjX">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="374"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LhZ-NH-ExE">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="374"/>
+                                            <color key="backgroundColor" red="0.94515007734298706" green="0.94499820470809937" blue="0.94902080297470093" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="LhZ-NH-ExE" secondAttribute="height" multiplier="1:1" id="6nF-Km-up3"/>
+                                            </constraints>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQd-og-NhT">
+                                            <rect key="frame" x="328" y="344" width="46" height="30"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <state key="normal" title="Button">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizableKey" value="UPDATE_PROFILE_IMAGE_WORD"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="updateAccountImageButtonTouch:" destination="-1" eventType="touchUpInside" id="drm-BA-63B"/>
+                                            </connections>
+                                        </button>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="D62-f4-EDS">
+                                            <rect key="frame" x="177" y="177" width="20" height="20"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="LhZ-NH-ExE" secondAttribute="bottom" id="2yL-XI-Xhx"/>
+                                        <constraint firstItem="LhZ-NH-ExE" firstAttribute="leading" secondItem="SA8-le-gjX" secondAttribute="leading" id="Ei6-8j-2Ng"/>
+                                        <constraint firstAttribute="trailing" secondItem="nQd-og-NhT" secondAttribute="trailing" id="Maa-Ft-7Mq"/>
+                                        <constraint firstAttribute="bottom" secondItem="nQd-og-NhT" secondAttribute="bottom" id="Okn-gd-XkK"/>
+                                        <constraint firstAttribute="trailing" secondItem="LhZ-NH-ExE" secondAttribute="trailing" id="SxO-E6-oM6"/>
+                                        <constraint firstItem="D62-f4-EDS" firstAttribute="centerX" secondItem="SA8-le-gjX" secondAttribute="centerX" id="aQ7-cj-qCX"/>
+                                        <constraint firstItem="LhZ-NH-ExE" firstAttribute="top" secondItem="SA8-le-gjX" secondAttribute="top" id="e0g-Cs-vuD"/>
+                                        <constraint firstItem="D62-f4-EDS" firstAttribute="centerY" secondItem="SA8-le-gjX" secondAttribute="centerY" id="zOU-tL-bav"/>
+                                    </constraints>
+                                </view>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="62K-u1-ojK" customClass="CATextField" customModule="ChatApp" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="394" width="374" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="zbo-PN-iLV"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibPlaceholderLocalizableKey" value="PROFILE_NAME_PLACEHOLDER_WORD"/>
+                                    </userDefinedRuntimeAttributes>
+                                </textField>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HXx-P2-XTe">
+                                    <rect key="frame" x="0.0" y="458" width="374" height="71"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8XM-ms-ToS" customClass="CATextField" customModule="ChatApp" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="44" id="S6h-HV-7ic"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibPlaceholderLocalizableKey" value="BIO_PLACEHOLDER_WORD"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </textField>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COJ-WR-hcO">
+                                            <rect key="frame" x="0.0" y="54" width="374" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.72955489158630371" green="0.72913521528244019" blue="0.74117869138717651" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLabelLocalizableKey" value="BIO_LABEL_WORD"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pvW-rN-qQX">
+                            <rect key="frame" x="20" y="569" width="374" height="30"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocalizableKey" value="SAVE_BUTTON_WORD"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="saveAccountButtonTouch:" destination="-1" eventType="touchUpInside" id="xIr-J9-7as"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="jcd-9s-Zcw" secondAttribute="trailing" constant="20" id="F2h-hK-tQV"/>
+                        <constraint firstItem="jcd-9s-Zcw" firstAttribute="top" secondItem="Zd0-lP-nGc" secondAttribute="top" constant="20" id="OQM-fU-Ww9"/>
+                        <constraint firstItem="pvW-rN-qQX" firstAttribute="top" secondItem="jcd-9s-Zcw" secondAttribute="bottom" constant="20" id="aEp-6b-6eb"/>
+                        <constraint firstItem="pvW-rN-qQX" firstAttribute="leading" secondItem="Zd0-lP-nGc" secondAttribute="leading" constant="20" id="bmA-NW-Tdb"/>
+                        <constraint firstAttribute="trailing" secondItem="pvW-rN-qQX" secondAttribute="trailing" constant="20" id="c7r-gm-WWa"/>
+                        <constraint firstItem="jcd-9s-Zcw" firstAttribute="leading" secondItem="Zd0-lP-nGc" secondAttribute="leading" constant="20" id="fg0-c5-3EM"/>
+                        <constraint firstAttribute="bottom" secondItem="pvW-rN-qQX" secondAttribute="bottom" constant="20" id="hQL-di-p4D"/>
+                        <constraint firstItem="jcd-9s-Zcw" firstAttribute="width" secondItem="Zd0-lP-nGc" secondAttribute="width" constant="-40" id="lcA-87-moW"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Zd0-lP-nGc" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="6lO-eC-YwX"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Zd0-lP-nGc" secondAttribute="bottom" id="7Cg-ft-2Oa"/>
+                <constraint firstItem="Zd0-lP-nGc" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="OBW-uY-fDs"/>
+                <constraint firstItem="Zd0-lP-nGc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="h11-iF-cd5"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <connections>
+                <outlet property="activityIndicator" destination="D62-f4-EDS" id="LWq-g0-XAe"/>
+                <outlet property="containerScrollView" destination="Zd0-lP-nGc" id="IRh-44-tYY"/>
+                <outlet property="profileImageView" destination="LhZ-NH-ExE" id="0il-ME-JtU"/>
+                <outlet property="saveProfileButton" destination="pvW-rN-qQX" id="wsA-Ar-PE8"/>
+                <outlet property="statusTextField" destination="8XM-ms-ToS" id="cCh-Md-J1t"/>
+                <outlet property="updateProfileImageButton" destination="nQd-og-NhT" id="2gU-3g-kHA"/>
+                <outlet property="usernameTextField" destination="62K-u1-ojK" id="SUE-XC-CJt"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="121"/>
         </view>
     </objects>
 </document>

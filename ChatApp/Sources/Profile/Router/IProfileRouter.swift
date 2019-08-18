@@ -6,8 +6,10 @@
 //  Copyright 2019 Sergey Shalnov. All rights reserved.
 //
 
-import Foundation
+import UIKit.UIImagePickerController
 
 protocol IProfileRouter {
+  
+  func open(sourceType: UIImagePickerController.SourceType, presentationStyle: UIModalPresentationStyle, animated: Bool)
   
 }

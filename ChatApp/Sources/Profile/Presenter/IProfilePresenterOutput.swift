@@ -6,8 +6,11 @@
 //  Copyright 2019 Sergey Shalnov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol IProfilePresenterOutput: class {
+  
+  func display(profile: ProfileData)
+  func display(message: String, with actions: [UIAlertAction])
   
 }

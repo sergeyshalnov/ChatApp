@@ -10,8 +10,12 @@ import UIKit.UIViewController
 
 extension UIViewController {
   
-  func alert(title: String?, message: String?, actions: [UIAlertAction]) {
-    let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+  func alert(title: String?,
+             message: String?,
+             preferredStyle: UIAlertController.Style = .alert,
+             actions: [UIAlertAction]) {
+    
+    let controller = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
     
     for action in actions {
       controller.addAction(action)

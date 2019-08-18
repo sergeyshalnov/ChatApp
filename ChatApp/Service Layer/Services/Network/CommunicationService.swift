@@ -79,7 +79,10 @@ extension CommunicationService: ICommunicationService {
 
 extension CommunicationService: MCSessionDelegate {
   
-  func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
+  func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?,
+               fromPeer peerID: MCPeerID,
+               certificateHandler: @escaping (Bool) -> Void) {
+    
     certificateHandler(true)
   }
   

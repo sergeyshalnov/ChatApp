@@ -10,6 +10,15 @@ import UIKit.UILabel
 
 extension UILabel {
   
+  @IBInspectable var xibLabelLocalizableKey: String? {
+    get {
+      return nil
+    }
+    set(key) {
+      text = key?.localized()
+    }
+  }
+  
   func size() -> CGSize? {
     guard let text = text else {
       return nil

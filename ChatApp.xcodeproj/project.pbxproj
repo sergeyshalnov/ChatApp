@@ -163,13 +163,11 @@
 		82A200FF4A64A434D1C4C4A8 /* IConversationPresenterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAD1B93405F6F54341FD829 /* IConversationPresenterInput.swift */; };
 		8756F345ECD6A4DE7A84D9F9 /* IProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFE3D6D90F733A1C1633E15 /* IProfileRouter.swift */; };
 		8D0EBD7ABB812910F58E649B /* ConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531F99E4154EC54186654CC2 /* ConversationPresenter.swift */; };
-		97F6D96FD84B527A5E92E260 /* IProfileConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD0AD531D084A8B8003929 /* IProfileConfigurator.swift */; };
 		A141B9B2996748A0EE476AF3 /* IProfileViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8827A52EF1F0839D4DCF9B52 /* IProfileViewOutput.swift */; };
 		A8A5BA71841526D13100A63B /* ConversationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7C2C834EC40BD090EB8C6 /* ConversationRouter.swift */; };
 		C078346FA99080D534B5BECB /* ConversationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A860BE8E7295321AF2C3FCE1 /* ConversationView.xib */; };
 		DE02A8E67608421ED07DA98E /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA2581C4ACD89EF81FD5B9F /* ConversationView.swift */; };
 		E5110A6F5F828ED8D53CC01B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261D20C79BDB0A0AAD2BCAC3 /* ProfileView.swift */; };
-		ECEE2815C8B1A515BF44F32E /* ProfileConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B6CF464DDAB73FA45B144B /* ProfileConfigurator.swift */; };
 		FC60D596D4ED09AAC9466651 /* IProfilePresenterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D039512B7DF71A281CEDDAC4 /* IProfilePresenterInput.swift */; };
 /* End PBXBuildFile section */
 
@@ -350,8 +348,6 @@
 		CAFE3D6D90F733A1C1633E15 /* IProfileRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IProfileRouter.swift; sourceTree = "<group>"; };
 		CBAD1B93405F6F54341FD829 /* IConversationPresenterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IConversationPresenterInput.swift; sourceTree = "<group>"; };
 		D039512B7DF71A281CEDDAC4 /* IProfilePresenterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IProfilePresenterInput.swift; sourceTree = "<group>"; };
-		D3B6CF464DDAB73FA45B144B /* ProfileConfigurator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileConfigurator.swift; sourceTree = "<group>"; };
-		DBCD0AD531D084A8B8003929 /* IProfileConfigurator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IProfileConfigurator.swift; sourceTree = "<group>"; };
 		E0C7C2C834EC40BD090EB8C6 /* ConversationRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConversationRouter.swift; sourceTree = "<group>"; };
 		ECCBFE3CEC86D1810999D5CE /* ProfileView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = ProfileView.xib; sourceTree = "<group>"; };
 		F2BB6E719690B4C54D35975A /* IConversationViewOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IConversationViewOutput.swift; sourceTree = "<group>"; };
@@ -851,12 +847,12 @@
 				1A00CCDB22FED05600EA8A95 /* Onboarding */,
 				1A00CCBF22FED04C00EA8A95 /* ConversationsList */,
 				591F06D6587866D1FBDA3B21 /* Conversation */,
+				5B25B94D1E4ED3304047ABF1 /* Profile */,
 				1A03456E2165298200A13F96 /* ConversationsListViewController */,
 				1ABAA4EF2167B00F0064DF78 /* ConversationViewController */,
 				1AFDB6E821698E4700D54EB8 /* ProfileViewController */,
 				1A8448AD219DD9E60033D7E9 /* EditProfileViewController */,
 				1A72874A21A70A9100EAA0C1 /* ImagesViewController */,
-				5B25B94D1E4ED3304047ABF1 /* Profile */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1115,7 +1111,6 @@
 		5B25B94D1E4ED3304047ABF1 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				E248C3130612CEBFF931C236 /* Configurator */,
 				DF79A014E3A9BF8A3E1D5F6A /* ViewController */,
 				5CCA5C56C76129FA3BD16B05 /* Presenter */,
 				5C0BA1C0250D1418D18D4F10 /* Router */,
@@ -1165,15 +1160,6 @@
 				C4FF1579CDB993BBB2C154A4 /* ProfileViewController.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		E248C3130612CEBFF931C236 /* Configurator */ = {
-			isa = PBXGroup;
-			children = (
-				DBCD0AD531D084A8B8003929 /* IProfileConfigurator.swift */,
-				D3B6CF464DDAB73FA45B144B /* ProfileConfigurator.swift */,
-			);
-			path = Configurator;
 			sourceTree = "<group>";
 		};
 		EE08DA35B67CBD6DECB6190A /* Router */ = {
@@ -1446,8 +1432,6 @@
 				8D0EBD7ABB812910F58E649B /* ConversationPresenter.swift in Sources */,
 				7BCF42FD5A2E60DD6A3C4AA7 /* IConversationRouter.swift in Sources */,
 				A8A5BA71841526D13100A63B /* ConversationRouter.swift in Sources */,
-				97F6D96FD84B527A5E92E260 /* IProfileConfigurator.swift in Sources */,
-				ECEE2815C8B1A515BF44F32E /* ProfileConfigurator.swift in Sources */,
 				1159C13B3A1950FC15FB9F47 /* IProfileViewInput.swift in Sources */,
 				A141B9B2996748A0EE476AF3 /* IProfileViewOutput.swift in Sources */,
 				E5110A6F5F828ED8D53CC01B /* ProfileView.swift in Sources */,

@@ -36,7 +36,7 @@ class CATextField: UITextField {
         return
       }
       
-      self.cornerRadius(self.padding.left)
+      self.cornerRadius(10)
     }
   }
   

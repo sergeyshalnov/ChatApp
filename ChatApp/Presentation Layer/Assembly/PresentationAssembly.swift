@@ -82,6 +82,18 @@ extension PresentationAssembly: IPresentationAssembly {
     return controller
   }
   
+  func profile() -> ProfileViewController {
+    let controller = ProfileViewController()
+    let router = ProfileRouter(view: controller)
+    let presenter = ProfilePresenter(output: controller,
+                                     profileStorageService: serviceAssembly.profileStorageService())
+    
+    controller.output = presenter
+    controller.router = router
+    
+    return controller
+  }
+  
   // TODO: - Refactoring
   
   func profileViewController() -> ProfileViewController1 {

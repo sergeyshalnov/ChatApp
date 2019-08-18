@@ -6,14 +6,20 @@
 //  Copyright 2019 Sergey Shalnov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 final class ProfilePresenter {
   
-  private weak var output: IProfilePresenterOutput?
+  // MARK: - Variables
   
-  init(output: IProfilePresenterOutput) {
+  private weak var output: IProfilePresenterOutput?
+  private let profileStorageService: IProfileStorageService
+  
+  // MARK: - Init
+  
+  init(output: IProfilePresenterOutput, profileStorageService: IProfileStorageService) {
     self.output = output
+    self.profileStorageService = profileStorageService
   }
   
 }
@@ -21,5 +27,28 @@ final class ProfilePresenter {
 // MARK: - IProfilePresenterInput
 
 extension ProfilePresenter: IProfilePresenterInput {
+  
+  func load() {
+    profileStorageService.load { [weak self] (profile) in
+      guard let profile = profile else {
+        return
+      }
+      
+      DispatchQueue.main.async {
+        self?.output?.display(profile: profile)
+      }
+    }
+  }
+  
+  func save(profile: ProfileData) {
+    profileStorageService.save(profile: profile) { [weak self] (isSuccess) in
+      let message = isSuccess ? "ACCOUNT_SUCCESS_SAVE_WORD".localized() : "ACCOUNT_FAILURE_SAVE_WORD".localized()
+      let action = UIAlertAction(title: "OK_WORD".localized(), style: .default, handler: nil)
+      
+      DispatchQueue.main.async {
+        self?.output?.display(message: message, with: [action])
+      }
+    }
+  }
   
 }

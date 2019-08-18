@@ -66,7 +66,7 @@ private extension ConversationsListViewController {
 private extension ConversationsListViewController {
   
   @objc dynamic func profileButtonTouch(_ sender: UIBarButtonItem) {
-    router?.profile()
+    router?.profile(animated: true)
   }
   
 }

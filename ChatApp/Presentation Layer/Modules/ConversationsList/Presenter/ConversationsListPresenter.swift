@@ -64,11 +64,11 @@ extension ConversationsListPresenter: ICACommunicationControllerDelegate {
                                didReceiveInvitation invitationHandler: @escaping (Bool) -> ()) {
     
     
-    let acceptAction = UIAlertAction(title: "ACCEPT_WORD".localized(), style: .default) { _ in
+    let acceptAction = UIAlertAction(title: "ACCEPT_INVITE_WORD".localized(), style: .default) { _ in
       invitationHandler(true)
     }
     
-    let cancelAction = UIAlertAction(title: "CANCEL_WORD".localized(), style: .cancel) { _ in
+    let cancelAction = UIAlertAction(title: "CANCEL_INVITE_WORD".localized(), style: .cancel) { _ in
       invitationHandler(false)
     }
     

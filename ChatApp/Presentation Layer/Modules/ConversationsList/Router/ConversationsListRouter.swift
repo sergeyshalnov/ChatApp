@@ -34,8 +34,9 @@ extension ConversationsListRouter: IConversationsListRouter {
     view?.navigationController?.pushViewController(controller, animated: animated)
   }
   
-  func profile() {
-    fatalError()
+  func profile(animated: Bool) {
+    let controller = presentationAssembly.profile()
+    view?.navigationController?.pushViewController(controller, animated: animated)
   }
   
 }

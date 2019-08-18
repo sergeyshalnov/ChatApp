@@ -10,8 +10,8 @@
 
 "SIGN_IN_WORD" = "Войти";
 "USERNAME_PLACEHOLDER_WORD" = "Логин";
-"ACCEPT_WORD" = "Принять";
-"CANCEL_WORD" = "Отклонить";
+"ACCEPT_INVITE_WORD" = "Принять";
+"CANCEL_INVITE_WORD" = "Отклонить";
 "NO_MESSAGES_WORD" = "Нет сообщений";
 "CONVERSATION_PREVIEW_PREFIX" = "Вы: ";
 "CHATS_WORD" = "Чаты";
@@ -20,3 +20,16 @@
 "OK_WORD" = "Ок";
 "SEND_WORD" = "Отправить";
 "MESSAGE_PLACEHOLDER_WORD" = "Сообщение...";
+
+"ACCOUNT_TITLE_WORD" = "Аккаунт";
+"PROFILE_NAME_PLACEHOLDER_WORD" = "Укажите свое имя";
+"BIO_PLACEHOLDER_WORD" = "О себе";
+"BIO_LABEL_WORD" = "Любые подробности, наример: возраст, род занятий или город.";
+"UPDATE_PROFILE_IMAGE_WORD" = "Обновить";
+"ACCOUNT_SUCCESS_SAVE_WORD" = "Аккаунт успешно сохранен";
+"ACCOUNT_FAILURE_SAVE_WORD" = "Аккаунт не был сохранен, повторите попытку позднее";
+"SAVE_BUTTON_WORD" = "Сохранить";
+"CAMERA_WORD" = "Камера";
+"PHOTO_LIBRARY_WORD" = "Галерея";
+"DOWNLOAD_WORD" = "Загрузить";
+"CANCEL_WORD" = "Отмена";

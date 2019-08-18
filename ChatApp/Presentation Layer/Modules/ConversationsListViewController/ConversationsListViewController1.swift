@@ -427,6 +427,6 @@ extension ConversationsListViewController1: NSFetchedResultsControllerDelegate {
 }
 
 private extension String {
-  static let acceptWord = "ACCEPT_WORD".localized()
-  static let cancelWord = "CANCEL_WORD".localized()
+  static let acceptWord = "ACCEPT_INVITE_WORD".localized()
+  static let cancelWord = "CANCEL_INVITE_WORD".localized()
 }

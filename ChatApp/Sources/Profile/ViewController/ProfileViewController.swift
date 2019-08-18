@@ -8,29 +8,113 @@
 
 import UIKit
 
-final class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController, CustomViewController {
+  typealias RootView = ProfileView
   
   // MARK: - Variables
+  
+  private var observers: [Any] = []
   
   var output: IProfileViewOutput?
   var router: IProfileRouter?
   
-  // MARK: - Init
+  // MARK: - Deinit
   
-  init(configurator: IProfileConfigurator = ProfileConfigurator()) {
-    super.init(nibName: nil, bundle: nil)
+  deinit {
+    for observer in observers {
+      NotificationCenter.default.removeObserver(observer)
+    }
+  }
+  
+  // MARK: - Lifecycle
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    setup()
+  }
+  
+  override func viewWillLayoutSubviews() {
+    super.viewWillLayoutSubviews()
+    view().updateLayout()
+  }
+  
+}
+
+// MARK: - Setup
+
+private extension ProfileViewController {
+  
+  func setup() {
+    setupNavigationBar()
+    setupKeyboardAppearance()
+    view().setup()
+    load()
+  }
+  
+  func setupNavigationBar() {    
+    navigationItem.title = "ACCOUNT_TITLE_WORD".localized()
+  }
+  
+  func setupKeyboardAppearance() {
+    let willShow = #selector(view().keyboardWillShow(_:))
+    let willHide = #selector(view().keyboardWillHide(_:))
+    let showName = UIResponder.keyboardWillShowNotification
+    let hideName = UIResponder.keyboardWillHideNotification
     
-    configure(configurator: configurator)
+    observers.append(NotificationCenter.default.addObserver(view(), selector: willShow, name: showName, object: nil))
+    observers.append(NotificationCenter.default.addObserver(view(), selector: willHide, name: hideName, object: nil))
   }
   
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
+}
+
+// MARK: - IBActions
+
+private extension ProfileViewController {
+  
+  @IBAction func saveAccountButtonTouch(_ sender: Any) {
+    save()
   }
   
-  // MARK: - Configure
+  @IBAction func updateAccountImageButtonTouch(_ sender: Any) {
+    var actions = [UIAlertAction(title: "CANCEL_WORD".localized(), style: .cancel)]
+    
+    if UIImagePickerController.isSourceTypeAvailable(.camera) {
+      let action = UIAlertAction(title: "CAMERA_WORD".localized(), style: .default) { [weak self] _ in
+        self?.router?.open(sourceType: .camera, presentationStyle: .fullScreen, animated: true)
+      }
+      
+      actions.append(action)
+    }
+    
+    if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+      let action = UIAlertAction(title: "PHOTO_LIBRARY_WORD".localized(), style: .default) { [weak self] _ in
+        self?.router?.open(sourceType: .photoLibrary, presentationStyle: .fullScreen, animated: true)
+      }
+      
+      actions.append(action)
+    }
+    
+    actions.append(UIAlertAction(title: "DOWNLOAD_WORD".localized(), style: .default) { _ in
+      //
+    })
+    
+    alert(title: nil, message: nil, preferredStyle: .actionSheet, actions: actions)
+  }
   
-  private func configure(configurator: IProfileConfigurator) {
-    configurator.configure(view: self)
+}
+
+// MARK: - Actions
+
+private extension ProfileViewController {
+  
+  func load() {
+    view().activityIndicator.startAnimating()
+    output?.load()
+  }
+  
+  func save() {
+    view().activityIndicator.startAnimating()
+    output?.save(profile: view().profile())
   }
   
 }
@@ -38,5 +122,34 @@ final class ProfileViewController: UIViewController {
 // MARK: - IProfileViewInput
 
 extension ProfileViewController: IProfileViewInput {
+  
+  func display(profile: ProfileData) {
+    view().updateContent(profile: profile)
+  }
+  
+  func display(message: String, with actions: [UIAlertAction]) {
+    alert(title: nil, message: message, actions: actions)
+  }
+
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  
+  func imagePickerController(_ picker: UIImagePickerController,
+                             didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    
+    if let pickedImage = (info[.editedImage] ?? info[.originalImage]) as? UIImage {
+      view().profileImageView.image = pickedImage
+    } else {
+//      let alert = Alert.controller(type: .imageError)
+//      self.present(alert, animated: true, completion: nil)
+    }
+    
+    picker.dismiss(animated: true, completion: nil)
+  }
+  
+  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    picker.dismiss(animated: true, completion: nil)
+  }
   
 }

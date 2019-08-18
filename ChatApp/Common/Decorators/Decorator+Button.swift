@@ -30,8 +30,7 @@ extension Decorator {
         view.contentHorizontalAlignment = .center
         
         view.setTitleColor(tintColor, for: .normal)
-        view.setTitle("SEND_WORD".localized(), for: .normal)
-        view.setTitle("SEND_WORD".localized(), for: .disabled)
+        view.xibLocalizableKey = "SEND_WORD".localized()
         view.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .light)
       }
       
