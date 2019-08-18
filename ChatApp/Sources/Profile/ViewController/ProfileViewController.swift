@@ -33,6 +33,13 @@ final class ProfileViewController: UIViewController, CustomViewController {
     setup()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.navigationBar.prefersLargeTitles = true
+    navigationItem.largeTitleDisplayMode = .always
+    navigationController?.navigationBar.shadowImage = UIImage()
+  }
+  
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
     view().updateLayout()
@@ -51,8 +58,13 @@ private extension ProfileViewController {
     load()
   }
   
-  func setupNavigationBar() {    
+  func setupNavigationBar() {
+    let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                             target: self,
+                                             action: #selector(closeButtonTouch(_:)))
+    
     navigationItem.title = "ACCOUNT_TITLE_WORD".localized()
+    navigationItem.rightBarButtonItem = rightBarButtonItem
   }
   
   func setupKeyboardAppearance() {
@@ -99,6 +111,10 @@ private extension ProfileViewController {
     })
     
     alert(title: nil, message: nil, preferredStyle: .actionSheet, actions: actions)
+  }
+  
+  @objc func closeButtonTouch(_ sender: Any) {
+    router?.close(animated: true)
   }
   
 }

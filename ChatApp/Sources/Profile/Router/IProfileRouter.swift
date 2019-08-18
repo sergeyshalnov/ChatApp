@@ -10,6 +10,10 @@ import UIKit.UIImagePickerController
 
 protocol IProfileRouter {
   
-  func open(sourceType: UIImagePickerController.SourceType, presentationStyle: UIModalPresentationStyle, animated: Bool)
+  func open(sourceType: UIImagePickerController.SourceType,
+            presentationStyle: UIModalPresentationStyle,
+            animated: Bool)
+  
+  func close(animated: Bool)
   
 }

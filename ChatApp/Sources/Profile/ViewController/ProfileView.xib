@@ -68,7 +68,7 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="zbo-PN-iLV"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="xibPlaceholderLocalizableKey" value="PROFILE_NAME_PLACEHOLDER_WORD"/>
@@ -82,7 +82,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="S6h-HV-7ic"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="xibPlaceholderLocalizableKey" value="BIO_PLACEHOLDER_WORD"/>

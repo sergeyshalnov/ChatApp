@@ -17,34 +17,23 @@ class CommunicationService: NSObject {
   
   // MARK: - Variables
   
-  private(set) var session: MCSession
+  private(set) var session: MCSession?
   
-  private let peer: MCPeerID
-  private let browser: MCNearbyServiceBrowser
-  private let advertiser: MCNearbyServiceAdvertiser
-  private let discoveryInfo: [String: String]
+  private var peer: MCPeerID?
+  private var browser: MCNearbyServiceBrowser?
+  private var advertiser: MCNearbyServiceAdvertiser?
+  private var discoveryInfo: [String: String] = [:]
   private let dataParser: DataParser<MessageModel>
-  
+  private let profileStorageService: IProfileStorageService
   private let serviceType = "text-chat"
   
   // MARK: - Init
   
-  init(username: String, dataParser: DataParser<MessageModel>) {
+  init(profileStorageService: IProfileStorageService, dataParser: DataParser<MessageModel>) {
     self.dataParser = dataParser
-    
-    discoveryInfo = ["username": username]
-    peer = MCPeerID(displayName: username)
-    session = MCSession(peer: peer, securityIdentity: nil, encryptionPreference: .none)
-    browser = MCNearbyServiceBrowser(peer: peer, serviceType: serviceType)
-    advertiser = MCNearbyServiceAdvertiser(peer: peer, discoveryInfo: discoveryInfo, serviceType: serviceType)
+    self.profileStorageService = profileStorageService
     
     super.init()
-    
-    session.delegate = self
-    browser.delegate = self
-    advertiser.delegate = self
-    
-    CoreDataManager().terminate()
   }
   
   // MARK: - Deinit
@@ -59,18 +48,54 @@ class CommunicationService: NSObject {
 
 extension CommunicationService: ICommunicationService {
   
-  func start() {
-    browser.startBrowsingForPeers()
-    advertiser.startAdvertisingPeer()
+  func start(completion: @escaping Closure<Bool, ()>) {
+    profileStorageService.load { [weak self] (profile) in
+      guard
+        let self = self,
+        let username = profile?.username
+        else {
+          completion(false)
+          return
+      }
+      
+      self.discoveryInfo = ["username": username]
+      self.peer = MCPeerID(displayName: username)
+      
+      guard let peer = self.peer else {
+        completion(false)
+        return
+      }
+      
+      self.session = MCSession(peer: peer, securityIdentity: nil, encryptionPreference: .none)
+      self.browser = MCNearbyServiceBrowser(peer: peer, serviceType: self.serviceType)
+      self.advertiser = MCNearbyServiceAdvertiser(peer: peer, discoveryInfo: self.discoveryInfo, serviceType: self.serviceType)
+      
+      self.session?.delegate = self
+      self.browser?.delegate = self
+      self.advertiser?.delegate = self
+      
+      DispatchQueue.main.async {
+        CoreDataManager().terminate()
+      }
+      
+      self.browser?.startBrowsingForPeers()
+      self.advertiser?.startAdvertisingPeer()
+      
+      completion(true)
+    }
   }
   
   func stop() {
-    browser.stopBrowsingForPeers()
-    advertiser.stopAdvertisingPeer()
+    browser?.stopBrowsingForPeers()
+    advertiser?.stopAdvertisingPeer()
   }
   
   func invite(peer: MCPeerID) {
-    browser.invitePeer(peer, to: session, withContext: nil, timeout: 300)
+    guard let session = session else {
+      return
+    }
+    
+    browser?.invitePeer(peer, to: session, withContext: nil, timeout: 300)
   }
   
 }

@@ -36,7 +36,8 @@ extension ConversationsListRouter: IConversationsListRouter {
   
   func profile(animated: Bool) {
     let controller = presentationAssembly.profile()
-    view?.navigationController?.pushViewController(controller, animated: animated)
+    view?.present(controller, animated: animated)
+//    view?.navigationController?.pushViewController(controller, animated: animated)
   }
   
 }

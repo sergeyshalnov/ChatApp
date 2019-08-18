@@ -10,6 +10,7 @@ import Foundation
 
 protocol IConversationsListViewOutput {
   
+  func startCommunicationService() 
   func performFetch()
   func selectedItem(at indexPath: IndexPath)
   

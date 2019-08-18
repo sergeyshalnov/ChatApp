@@ -18,7 +18,7 @@ final class CACommunicationController {
   
   weak var delegate: ICACommunicationControllerDelegate?
   
-  var session: MCSession {
+  var session: MCSession? {
     return communicationService.session
   }
   
@@ -45,6 +45,14 @@ extension CACommunicationController {
     communicationService.invite(peer: peer)
   }
   
+  func start() {
+    communicationService.start { (isRunning) -> () in
+      #if DEBUG
+      print("Communication service is running...")
+      #endif
+    }
+  }
+  
 }
 
 // MARK: - Setup
@@ -53,7 +61,6 @@ private extension CACommunicationController {
   
   func setup() {
     communicationService.delegate = self
-    communicationService.start()
   }
   
 }

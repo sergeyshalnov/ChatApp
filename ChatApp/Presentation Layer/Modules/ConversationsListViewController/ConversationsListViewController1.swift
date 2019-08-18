@@ -102,7 +102,11 @@ class ConversationsListViewController1: UIViewController {
   
   private func setupCommunicationService() {
     communicationService.delegate = self
-    communicationService.start()
+    communicationService.start { (isRunning) -> () in
+      #if DEBUG
+      print("Communication service is running...")
+      #endif
+    }
   }
   
   private func setupFetchResultsController() {
@@ -230,13 +234,13 @@ extension ConversationsListViewController1: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     
-    guard
-      let cell = tableView.cellForRow(at: indexPath) as? ConversationCell1,
-      let id = cell.conversationId,
-      let user = temporaryUserStorage.find(conversationId: id)
-      else {
-        return
-    }
+//    guard
+//      let cell = tableView.cellForRow(at: indexPath) as? ConversationCell1,
+//      let id = cell.conversationId,
+//      let user = temporaryUserStorage.find(conversationId: id)
+//      else {
+//        return
+//    }
     
 //    let peer = Peer(identifier: user.peer, name: user.peer.displayName)
 //

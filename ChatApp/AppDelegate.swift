@@ -23,19 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   // MARK: - Main
   
-  func application(
-    _ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
-//    if UserDefaultsService().get(for: .username) == nil {
-//      let controller = rootAssembly.presentationAssembly.onboarding()
-//
-//      window?.rootViewController = controller
-//    } else {
-//      let controller = rootAssembly.presentationAssembly.conversationsListViewController()
-//
-//      window?.rootViewController = controller
-//    }
+    UINavigationBar.appearance().barTintColor = .white
     
     window?.rootViewController = rootAssembly.presentationAssembly.conversationsList()
     window?.makeKeyAndVisible()

@@ -14,7 +14,7 @@ protocol IPresentationAssembly {
   func onboarding() -> UIViewController
   func conversationsList() -> UINavigationController
   func conversation(_ conversation: Conversation, with session: MCSession) -> UIViewController
-  func profile() -> ProfileViewController
+  func profile() -> UINavigationController
   
   func profileViewController() -> ProfileViewController1
   func editProfileViewController(temporaryProfileImage: UIImage?) -> EditProfileViewController

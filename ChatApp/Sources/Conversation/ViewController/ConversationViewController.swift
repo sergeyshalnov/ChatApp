@@ -42,6 +42,11 @@ final class ConversationViewController: UIViewController, CustomViewController {
     navigationController?.navigationBar.prefersLargeTitles = false
   }
   
+  override func viewWillLayoutSubviews() {
+    super.viewWillLayoutSubviews()
+    view().updateLayout()
+  }
+  
 }
 
 // MARK: - Setup

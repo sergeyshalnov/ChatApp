@@ -6,7 +6,7 @@
 //  Copyright 2019 Sergey Shalnov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import CoreData
 
 final class ConversationPresenter {
@@ -28,8 +28,10 @@ final class ConversationPresenter {
     
     self.output = output
     self.conversation = conversation
-    self.fetchedResultsController = fetchedResultsController
     self.messageService = messageService
+    
+    self.fetchedResultsController = fetchedResultsController
+    self.fetchedResultsController.transform = CGAffineTransform(scaleX: 1, y: -1)
     
     setup()
   }

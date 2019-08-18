@@ -16,6 +16,14 @@ final class CAFetchedResultsController: NSObject {
   private let fetchedResultsController: NSFetchedResultsController<NSManagedObject>
   private let tableView: UITableView
   
+  // MARK: - Public variables
+  
+  var transform: CGAffineTransform = .identity {
+    didSet {
+      tableView.transform = transform
+    }
+  }
+  
   // MARK: - Init
   
   init(_ fetchedResultsController: NSFetchedResultsController<NSManagedObject>, for tableView: UITableView) {
@@ -76,7 +84,10 @@ extension CAFetchedResultsController: UITableViewDataSource {
       return UITableViewCell()
     }
     
-    return model.cell(tableView, for: indexPath)
+    let cell = model.cell(tableView, for: indexPath)
+    cell.transform = transform
+    
+    return cell
   }
   
 }
@@ -99,7 +110,7 @@ extension CAFetchedResultsController: NSFetchedResultsControllerDelegate {
     case .delete:
       tableView.deleteRows(at: [indexPath ?? []], with: .automatic)
     case .insert:
-      tableView.insertRows(at: [newIndexPath ?? []], with: .automatic)
+      tableView.insertRows(at: [newIndexPath ?? []], with: .top)
     case .move:
       guard
         let indexPath = indexPath,

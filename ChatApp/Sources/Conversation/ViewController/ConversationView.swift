@@ -63,7 +63,7 @@ private extension ConversationView {
   func makeSendButton() -> UIButton {
     let button = UIButton()
     
-    button.decorate(with: Decorator.Button.Send(tintColor: tintColor))
+    button.decorate(with: Decorator.Button.Send())
     
     return button
   }
@@ -92,6 +92,18 @@ extension ConversationView {
   @objc func keyboardWillHide(_ notification: NSNotification) {
     messageContainerBottomConstraint.constant = 0
     layoutIfNeeded()
+  }
+  
+}
+
+// MARK: - Update
+
+extension ConversationView {
+  
+  func updateLayout() {
+    DispatchQueue.main.async { [weak self] in
+      self?.sendButton.cornerRadius(10)
+    }
   }
   
 }

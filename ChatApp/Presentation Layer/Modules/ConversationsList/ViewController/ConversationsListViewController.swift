@@ -18,6 +18,7 @@ final class ConversationsListViewController: UIViewController, CustomViewControl
   var output: IConversationsListViewOutput? {
     didSet {
       output?.performFetch()
+      output?.startCommunicationService()
     }
   }
   
@@ -25,7 +26,6 @@ final class ConversationsListViewController: UIViewController, CustomViewControl
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     setup()
   }
   

@@ -10,8 +10,8 @@
 
 "SIGN_IN_WORD" = "Sign in";
 "USERNAME_PLACEHOLDER_WORD" = "Username";
-"ACCEPT_WORD" = "Accept";
-"CANCEL_WORD" = "Cancel";
+"ACCEPT_INVITE_WORD" = "Accept";
+"CANCEL_INVITE_WORD" = "Cancel";
 "NO_MESSAGES_WORD" = "No messages";
 "CONVERSATION_PREVIEW_PREFIX" = "You: ";
 "CHATS_WORD" = "Chats";

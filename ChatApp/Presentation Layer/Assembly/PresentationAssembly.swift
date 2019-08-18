@@ -59,7 +59,11 @@ extension PresentationAssembly: IPresentationAssembly {
     controller.output = presenter
     controller.router = router
     
-    return UINavigationController(rootViewController: controller)
+    let navigationController = UINavigationController(rootViewController: controller)
+    
+    navigationController.navigationBar.shadowImage = UIImage()
+    
+    return navigationController
   }
   
   func conversation(_ conversation: Conversation, with session: MCSession) -> UIViewController {
@@ -82,7 +86,7 @@ extension PresentationAssembly: IPresentationAssembly {
     return controller
   }
   
-  func profile() -> ProfileViewController {
+  func profile() -> UINavigationController {
     let controller = ProfileViewController()
     let router = ProfileRouter(view: controller)
     let presenter = ProfilePresenter(output: controller,
@@ -91,7 +95,12 @@ extension PresentationAssembly: IPresentationAssembly {
     controller.output = presenter
     controller.router = router
     
-    return controller
+    let navigationController = UINavigationController(rootViewController: controller)
+    
+    navigationController.navigationBar.shadowImage = UIImage()
+    navigationController.modalPresentationStyle = .fullScreen
+    
+    return navigationController
   }
   
   // TODO: - Refactoring

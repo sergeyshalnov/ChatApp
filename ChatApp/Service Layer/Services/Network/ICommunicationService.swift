@@ -12,10 +12,10 @@ import MultipeerConnectivity
 protocol ICommunicationService {
   
   var delegate: ICommunicationServiceDelegate? { get set }
-  var session: MCSession { get }
+  var session: MCSession? { get }
   
   func invite(peer: MCPeerID)
-  func start()
+  func start(completion: @escaping Closure<Bool, ()>)
   func stop()
   
 }

@@ -43,7 +43,7 @@ class ServiceAssembly: IServiceAssembly {
   }
   
   func communicationService(username: String) -> ICommunicationService {
-    return CommunicationService(username: username, dataParser: coreAssembly.dataParser())
+    return CommunicationService(profileStorageService: profileStorageService(), dataParser: coreAssembly.dataParser())
   }
   
   func profileStorageService() -> IProfileStorageService {

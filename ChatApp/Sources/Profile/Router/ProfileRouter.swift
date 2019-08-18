@@ -39,4 +39,8 @@ extension ProfileRouter: IProfileRouter {
     }
   }
   
+  func close(animated: Bool) {
+    view?.dismiss(animated: animated, completion: nil)
+  }
+  
 }

@@ -41,7 +41,7 @@ extension MessageCell: ITableViewModelRepresentable {
     messageLabel.textColor = message.isIncoming ? .black : .white
     
     DispatchQueue.main.async {
-      self.containerView.cornerRadius(15)
+      self.containerView.cornerRadius(10)
     }
   }
   

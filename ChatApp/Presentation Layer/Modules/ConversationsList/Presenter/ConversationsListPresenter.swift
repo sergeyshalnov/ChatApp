@@ -34,7 +34,12 @@ final class ConversationsListPresenter {
 
 extension ConversationsListPresenter: IConversationsListPresenterInput {
   
+  func startCommunicationService() {
+    communicationController.start()
+  }
+  
   func performFetch() {
+    CoreDataManager().terminate()
     fetchedResultsController.performFetch()
   }
   
@@ -46,8 +51,8 @@ extension ConversationsListPresenter: IConversationsListPresenterInput {
         return
     }
     
-    if user.isConfirmed {
-      output?.display(conversation: conversation, with: communicationController.session)
+    if user.isConfirmed, let session = communicationController.session {
+      output?.display(conversation: conversation, with: session)
     } else if let peer = user.peer {
       communicationController.invite(peer: peer)
     }

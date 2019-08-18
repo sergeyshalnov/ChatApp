@@ -15,23 +15,15 @@ extension Decorator {
     struct Send: Decorable {
       typealias View = UIButton
       
-      // MARK: - Variables
-      
-      private let tintColor: UIColor
-      
-      // MARK: - Init
-      init(tintColor: UIColor) {
-        self.tintColor = tintColor
-      }
-      
       // MARK: - Decorable
       
       func decorate(view: UIButton) {
-        view.contentHorizontalAlignment = .center
+        view.setTitleColor(.white, for: .normal)
         
-        view.setTitleColor(tintColor, for: .normal)
+        view.contentHorizontalAlignment = .center
+        view.backgroundColor = .black
+        view.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         view.xibLocalizableKey = "SEND_WORD".localized()
-        view.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .light)
       }
       
     }
