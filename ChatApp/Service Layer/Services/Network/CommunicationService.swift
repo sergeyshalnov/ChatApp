@@ -62,8 +62,7 @@ extension CommunicationService: ICommunicationService {
       self.peer = MCPeerID(displayName: username)
       
       guard let peer = self.peer else {
-        completion(false)
-        return
+        fatalError("It's impossible")
       }
       
       self.session = MCSession(peer: peer, securityIdentity: nil, encryptionPreference: .none)
@@ -74,9 +73,7 @@ extension CommunicationService: ICommunicationService {
       self.browser?.delegate = self
       self.advertiser?.delegate = self
       
-      DispatchQueue.main.async {
-        CoreDataManager().terminate()
-      }
+      CoreDataManager().terminate()
       
       self.browser?.startBrowsingForPeers()
       self.advertiser?.startAdvertisingPeer()

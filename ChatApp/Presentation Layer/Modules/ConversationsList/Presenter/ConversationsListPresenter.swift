@@ -11,7 +11,10 @@ import MultipeerConnectivity.MCPeerID
 
 final class ConversationsListPresenter {
   
+  // MARK: - Variables
+  
   private weak var output: IConversationsListPresenterOutput?
+  
   private let fetchedResultsController: CAFetchedResultsController
   private let communicationController: CACommunicationController
   
@@ -35,7 +38,20 @@ final class ConversationsListPresenter {
 extension ConversationsListPresenter: IConversationsListPresenterInput {
   
   func startCommunicationService() {
-    communicationController.start()
+    guard !communicationController.isRunning else {
+      return
+    }
+    
+    communicationController.stop()
+    communicationController.start { [weak self] (isRunning) -> () in
+      if isRunning {
+        #if DEBUG
+        print("Communication service is running...")
+        #endif
+      } else {
+        self?.output?.noProfile()
+      }
+    }
   }
   
   func performFetch() {
@@ -60,7 +76,7 @@ extension ConversationsListPresenter: IConversationsListPresenterInput {
   
 }
 
-// MARK: -
+// MARK: - ICACommunicationControllerDelegate
 
 extension ConversationsListPresenter: ICACommunicationControllerDelegate {
   

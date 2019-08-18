@@ -63,7 +63,8 @@ private extension ConversationView {
   func makeSendButton() -> UIButton {
     let button = UIButton()
     
-    button.decorate(with: Decorator.Button.Send())
+    button.decorate(with: Decorator.Button.Regular())
+    button.setTitle("SEND_WORD".localized(), for: .normal)
     
     return button
   }

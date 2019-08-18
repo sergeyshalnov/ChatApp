@@ -11,7 +11,8 @@ import MultipeerConnectivity.MCSession
 
 protocol IConversationsListRouter {
   
-  func navigate(to conversation: Conversation, with session: MCSession, animated: Bool)
   func profile(animated: Bool)
+  func onboarding(animated: Bool)
+  func navigate(to conversation: Conversation, with session: MCSession, animated: Bool)
   
 }

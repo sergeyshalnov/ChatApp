@@ -11,6 +11,8 @@ import UIKit
 protocol IProfilePresenterOutput: class {
   
   func display(profile: ProfileData)
-  func display(message: String, with actions: [UIAlertAction])
+  func display(title: String?, message: String, with actions: [UIAlertAction])
+  
+  func saveSuccess()
   
 }

@@ -18,6 +18,18 @@ final class OnboardingViewController: UIViewController, CustomViewController {
   
   private var username: String?
   
+  // MARK: - Lifecycle
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    navigationItem.title = "Let's chat!"
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.navigationBar.prefersLargeTitles = true
+  }
+  
 }
 
 // MARK: - IBActions

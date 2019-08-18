@@ -27,7 +27,7 @@ class PresentationAssembly {
 
 extension PresentationAssembly: IPresentationAssembly {
   
-  func onboarding() -> UIViewController {
+  func onboarding() -> UINavigationController {
     let controller = OnboardingViewController()
     let userDefaultsService = serviceAssembly.userDefaultsService()
     let profileStorageService = serviceAssembly.profileStorageService()
@@ -40,7 +40,11 @@ extension PresentationAssembly: IPresentationAssembly {
     controller.output = presenter
     controller.router = router
     
-    return controller
+    let navigationController = UINavigationController(rootViewController: controller)
+    
+    navigationController.navigationBar.shadowImage = UIImage()
+    
+    return navigationController
   }
   
   func conversationsList() -> UINavigationController {
@@ -48,7 +52,7 @@ extension PresentationAssembly: IPresentationAssembly {
     let fetchedResultsController = CAFetchedResultsController(CoreDataManager().conversationFetchResultsController(),
                                                               for: controller.view().conversationsTableView)
     
-    let communicationService = serviceAssembly.communicationService(username: "TEST")
+    let communicationService = serviceAssembly.communicationService()
     let communicationController = CACommunicationController(communicationService: communicationService,
                                                             storageService: serviceAssembly.storageService())
     let router = ConversationsListRouter(view: controller, presentationAssembly: self)
@@ -98,7 +102,6 @@ extension PresentationAssembly: IPresentationAssembly {
     let navigationController = UINavigationController(rootViewController: controller)
     
     navigationController.navigationBar.shadowImage = UIImage()
-    navigationController.modalPresentationStyle = .fullScreen
     
     return navigationController
   }

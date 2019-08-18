@@ -42,11 +42,16 @@ extension ProfilePresenter: IProfilePresenterInput {
   
   func save(profile: ProfileData) {
     profileStorageService.save(profile: profile) { [weak self] (isSuccess) in
+      let title = isSuccess ? "ACCOUNT_SUCCESS_SAVE_TITLE_WORD".localized(): nil
       let message = isSuccess ? "ACCOUNT_SUCCESS_SAVE_WORD".localized() : "ACCOUNT_FAILURE_SAVE_WORD".localized()
       let action = UIAlertAction(title: "OK_WORD".localized(), style: .default, handler: nil)
       
       DispatchQueue.main.async {
-        self?.output?.display(message: message, with: [action])
+        if isSuccess {
+          self?.output?.saveSuccess()
+        }
+        
+        self?.output?.display(title: title, message: message, with: [action])
       }
     }
   }

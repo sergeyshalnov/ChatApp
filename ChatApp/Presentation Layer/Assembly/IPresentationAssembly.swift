@@ -11,7 +11,7 @@ import MultipeerConnectivity.MCSession
 
 protocol IPresentationAssembly {
   
-  func onboarding() -> UIViewController
+  func onboarding() -> UINavigationController
   func conversationsList() -> UINavigationController
   func conversation(_ conversation: Conversation, with session: MCSession) -> UIViewController
   func profile() -> UINavigationController

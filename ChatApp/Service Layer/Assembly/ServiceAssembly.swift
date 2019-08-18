@@ -11,8 +11,7 @@ import MultipeerConnectivity.MCSession
 
 protocol IServiceAssembly {
   
-  func communicationService(username: String) -> ICommunicationService
-//  func communicationStorageService() -> ICommunicationStorageService
+  func communicationService() -> ICommunicationService
   func profileStorageService() -> IProfileStorageService
   func pixabayService() -> IImageManager
   func userDefaultsService() -> IUserDefaultsService
@@ -42,7 +41,7 @@ class ServiceAssembly: IServiceAssembly {
     return storageService
   }
   
-  func communicationService(username: String) -> ICommunicationService {
+  func communicationService() -> ICommunicationService {
     return CommunicationService(profileStorageService: profileStorageService(), dataParser: coreAssembly.dataParser())
   }
   

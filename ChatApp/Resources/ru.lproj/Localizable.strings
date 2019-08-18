@@ -26,7 +26,8 @@
 "BIO_PLACEHOLDER_WORD" = "О себе";
 "BIO_LABEL_WORD" = "Любые подробности, наример: возраст, род занятий или город.";
 "UPDATE_PROFILE_IMAGE_WORD" = "Обновить";
-"ACCOUNT_SUCCESS_SAVE_WORD" = "Аккаунт успешно сохранен";
+"ACCOUNT_SUCCESS_SAVE_TITLE_WORD" = "Сохранение успешно";
+"ACCOUNT_SUCCESS_SAVE_WORD" = "Для того, чтобы собеседники увидели обновленную информацию, перезапустите приложение";
 "ACCOUNT_FAILURE_SAVE_WORD" = "Аккаунт не был сохранен, повторите попытку позднее";
 "SAVE_BUTTON_WORD" = "Сохранить";
 "CAMERA_WORD" = "Камера";

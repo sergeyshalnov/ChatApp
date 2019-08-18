@@ -22,6 +22,8 @@ final class CACommunicationController {
     return communicationService.session
   }
   
+  var isRunning: Bool = false
+  
   // MARK: - Init 
   
   init(communicationService: ICommunicationService,
@@ -45,12 +47,16 @@ extension CACommunicationController {
     communicationService.invite(peer: peer)
   }
   
-  func start() {
-    communicationService.start { (isRunning) -> () in
-      #if DEBUG
-      print("Communication service is running...")
-      #endif
+  func start(completion: @escaping Closure<Bool,()>) {
+    communicationService.start { [weak self] (isRunning) -> () in
+      self?.isRunning = isRunning
+      completion(isRunning)
     }
+  }
+  
+  func stop() {
+    isRunning = false
+    communicationService.stop()
   }
   
 }

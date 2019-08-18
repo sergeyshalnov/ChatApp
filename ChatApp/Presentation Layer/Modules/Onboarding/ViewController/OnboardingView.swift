@@ -12,7 +12,6 @@ final class OnboardingView: UIView {
   
   // MARK: - Outlets
   
-  @IBOutlet private weak var containerView: UIView!
   @IBOutlet private weak var signInButton: UIButton!
   
   // MARK: - Variables
@@ -31,8 +30,11 @@ final class OnboardingView: UIView {
   override func layoutSubviews() {
     super.layoutSubviews()
     
-    containerView.backgroundColor = .init(hex: "#f2f2f2")
-    containerView.cornerRadius(16)
+    signInButton.decorate(with: Decorator.Button.Regular())
+    
+    DispatchQueue.main.async { [weak self] in
+      self?.signInButton.cornerRadius(10)
+    }
   }
   
 }

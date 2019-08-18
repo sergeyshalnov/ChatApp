@@ -36,8 +36,14 @@ extension ConversationsListRouter: IConversationsListRouter {
   
   func profile(animated: Bool) {
     let controller = presentationAssembly.profile()
+    controller.modalPresentationStyle = .fullScreen
     view?.present(controller, animated: animated)
-//    view?.navigationController?.pushViewController(controller, animated: animated)
+  }
+  
+  func onboarding(animated: Bool) {
+    let controller = presentationAssembly.onboarding()
+    controller.modalPresentationStyle = .fullScreen
+    view?.present(controller, animated: animated)
   }
   
 }

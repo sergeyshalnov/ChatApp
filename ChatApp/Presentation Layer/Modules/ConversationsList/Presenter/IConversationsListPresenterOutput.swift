@@ -14,4 +14,6 @@ protocol IConversationsListPresenterOutput: class {
   func invite(from peer: MCPeerID, with actions: [UIAlertAction])
   func display(conversation: Conversation, with session: MCSession)
   
+  func noProfile()
+  
 }

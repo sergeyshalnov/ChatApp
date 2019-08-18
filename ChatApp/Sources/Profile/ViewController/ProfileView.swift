@@ -9,17 +9,21 @@
 import UIKit
 
 final class ProfileView: UIView {
-
+  
   // MARK: - Outlets
   
   @IBOutlet private(set) weak var activityIndicator: UIActivityIndicatorView!
-  @IBOutlet private(set) weak var profileImageView: UIImageView!
-  
+
   @IBOutlet private weak var containerScrollView: UIScrollView!
+  @IBOutlet private weak var profileImageView: UIImageView!
   @IBOutlet private weak var updateProfileImageButton: UIButton!
   @IBOutlet private weak var usernameTextField: CATextField!
   @IBOutlet private weak var statusTextField: CATextField!
   @IBOutlet private weak var saveProfileButton: UIButton!
+  
+  // MARK: - Variables
+  
+  private var temporaryProfile: ProfileData?
   
 }
 
@@ -28,11 +32,11 @@ final class ProfileView: UIView {
 extension ProfileView {
   
   func setup() {
-    setupSendButton()
+    setupUpdateButton()
     setupSaveButton()
   }
   
-  private func setupSendButton() {
+  private func setupUpdateButton() {
     guard let size = updateProfileImageButton.titleLabel?.size() else {
       return
     }
@@ -49,6 +53,7 @@ extension ProfileView {
       return
     }
     
+    saveProfileButton.decorate(with: Decorator.Button.Regular())
     saveProfileButton.translatesAutoresizingMaskIntoConstraints = false
     saveProfileButton.heightAnchor.constraint(equalToConstant: size.height + 20).isActive = true
   }
@@ -68,10 +73,17 @@ extension ProfileView {
   }
   
   func updateContent(profile: ProfileData) {
+    temporaryProfile = profile
     activityIndicator.stopAnimating()
     profileImageView.image = profile.image
     usernameTextField.text = profile.username
     statusTextField.text = profile.information
+    saveProfileButton.isEnabled = false
+  }
+  
+  func updateAccountImage(image: UIImage) {
+    profileImageView.image = image
+    saveProfileButton.isEnabled = true
   }
   
 }
@@ -97,6 +109,20 @@ extension ProfileView {
   
   @objc func keyboardWillHide(_ notification: NSNotification) {
     containerScrollView.contentInset = .zero
+  }
+  
+}
+
+// MARK: - IBActions
+
+private extension ProfileView {
+  
+  @IBAction func usernameTextFieldEditingChanged(_ sender: Any) {
+    saveProfileButton.isEnabled = profile() != temporaryProfile
+  }
+  
+  @IBAction func statusTextFieldEditingChanged(_ sender: Any) {
+    saveProfileButton.isEnabled = profile() != temporaryProfile
   }
   
 }

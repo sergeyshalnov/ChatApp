@@ -143,10 +143,14 @@ extension ProfileViewController: IProfileViewInput {
     view().updateContent(profile: profile)
   }
   
-  func display(message: String, with actions: [UIAlertAction]) {
-    alert(title: nil, message: message, actions: actions)
+  func display(title: String?, message: String, with actions: [UIAlertAction]) {
+    alert(title: title, message: message, actions: actions)
   }
 
+  func saveSuccess() {
+    view().updateContent(profile: view().profile())
+  }
+  
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -155,10 +159,9 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                              didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
     
     if let pickedImage = (info[.editedImage] ?? info[.originalImage]) as? UIImage {
-      view().profileImageView.image = pickedImage
+      view().updateAccountImage(image: pickedImage)
     } else {
-//      let alert = Alert.controller(type: .imageError)
-//      self.present(alert, animated: true, completion: nil)
+      //
     }
     
     picker.dismiss(animated: true, completion: nil)

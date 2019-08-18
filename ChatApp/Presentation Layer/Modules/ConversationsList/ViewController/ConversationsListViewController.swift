@@ -18,7 +18,6 @@ final class ConversationsListViewController: UIViewController, CustomViewControl
   var output: IConversationsListViewOutput? {
     didSet {
       output?.performFetch()
-      output?.startCommunicationService()
     }
   }
   
@@ -31,6 +30,7 @@ final class ConversationsListViewController: UIViewController, CustomViewControl
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    output?.startCommunicationService()
     navigationController?.navigationBar.prefersLargeTitles = true
   }
   
@@ -92,6 +92,10 @@ extension ConversationsListViewController: IConversationsListViewInput {
   
   func display(conversation: Conversation, with session: MCSession) {
     router?.navigate(to: conversation, with: session, animated: true)
+  }
+  
+  func noProfile() {
+    router?.onboarding(animated: true)
   }
   
 }

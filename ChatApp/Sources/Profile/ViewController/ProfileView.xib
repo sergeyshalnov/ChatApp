@@ -73,6 +73,9 @@
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="xibPlaceholderLocalizableKey" value="PROFILE_NAME_PLACEHOLDER_WORD"/>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="usernameTextFieldEditingChanged:" destination="i5M-Pr-FkT" eventType="editingChanged" id="Hi2-FK-udH"/>
+                                    </connections>
                                 </textField>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HXx-P2-XTe">
                                     <rect key="frame" x="0.0" y="458" width="374" height="71"/>
@@ -87,6 +90,9 @@
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="xibPlaceholderLocalizableKey" value="BIO_PLACEHOLDER_WORD"/>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="statusTextFieldEditingChanged:" destination="i5M-Pr-FkT" eventType="editingChanged" id="WH9-J9-zNj"/>
+                                            </connections>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COJ-WR-hcO">
                                             <rect key="frame" x="0.0" y="54" width="374" height="17"/>
@@ -101,7 +107,7 @@
                                 </stackView>
                             </subviews>
                         </stackView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pvW-rN-qQX">
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pvW-rN-qQX">
                             <rect key="frame" x="20" y="569" width="374" height="30"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button">

@@ -26,7 +26,8 @@
 "BIO_PLACEHOLDER_WORD" = "Bio";
 "BIO_LABEL_WORD" = "Any details such as age, occupation or city.";
 "UPDATE_PROFILE_IMAGE_WORD" = "Update";
-"ACCOUNT_SUCCESS_SAVE_WORD" = "Account successfully saved";
+"ACCOUNT_SUCCESS_SAVE_TITLE_WORD" = "Account successfully saved";
+"ACCOUNT_SUCCESS_SAVE_WORD" = "Restart the app so that your contacts can see the updated information";
 "ACCOUNT_FAILURE_SAVE_WORD" = "Account has not been saved, try again later";
 "SAVE_BUTTON_WORD" = "Save";
 "CAMERA_WORD" = "Camera";

@@ -12,18 +12,21 @@ extension Decorator {
   
   struct Button {
     
-    struct Send: Decorable {
+    struct Regular: Decorable {
       typealias View = UIButton
       
       // MARK: - Decorable
       
       func decorate(view: UIButton) {
+        view.backgroundColor = .clear
+        
         view.setTitleColor(.white, for: .normal)
+        view.setTitleColor(.lightGray, for: .disabled)
         
         view.contentHorizontalAlignment = .center
-        view.backgroundColor = .black
+        view.setBackgroundImage(UIImage(color: .black), for: .normal)
+        view.setBackgroundImage(UIImage(color: UIColor.Palette.Grey.textField), for: .disabled)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        view.xibLocalizableKey = "SEND_WORD".localized()
       }
       
     }

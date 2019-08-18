@@ -9,7 +9,7 @@
 import UIKit
 
 
-struct ProfileData {
+struct ProfileData: Equatable {
   
   let username: String?
   let information: String?
