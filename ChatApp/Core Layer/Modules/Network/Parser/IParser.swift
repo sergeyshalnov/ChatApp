@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol IParser {
   associatedtype Model
   

@@ -18,12 +18,24 @@ class MessageCell: UITableViewCell {
   private var leadingConstraint: NSLayoutConstraint?
   private var trailingConstraint: NSLayoutConstraint?
   
+  // MARK: - Overriden
+  
   override func awakeFromNib() {
+    super.awakeFromNib()
     leadingConstraint = containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5)
     trailingConstraint = containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5)
   }
   
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    DispatchQueue.main.async {
+      self.containerView.cornerRadius(10)
+    }
+  }
+  
 }
+
+// MARK: - ITableViewModelRepresentable
 
 extension MessageCell: ITableViewModelRepresentable {
   
@@ -39,10 +51,6 @@ extension MessageCell: ITableViewModelRepresentable {
     
     containerView.backgroundColor = message.isIncoming ? UIColor.Palette.Grey.bubble : UIColor.Palette.Blue.bubble
     messageLabel.textColor = message.isIncoming ? .black : .white
-    
-    DispatchQueue.main.async {
-      self.containerView.cornerRadius(10)
-    }
   }
   
 }

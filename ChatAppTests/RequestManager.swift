@@ -10,34 +10,34 @@ import UIKit
 @testable import ChatApp
 
 protocol IRequestManagerMock: IRequestLoader  {
-    
-    var isLoadCalled: Bool { set get }
-    var testImage: UIImage {set get }
-    
+  
+  var isLoadCalled: Bool { set get }
+  var testImage: UIImage {set get }
+  
 }
 
 
 // MARK: - Mock & Stub for RequestManager
 
 class RequestManagerMock: IRequestManagerMock {
+  
+  var isLoadCalled: Bool = false
+  var testImage: UIImage
+  
+  init(testImage: UIImage) {
+    self.testImage = testImage
+  }
+  
+  func load(url: String, completion: @escaping (Data?) -> Void) {
+    isLoadCalled = true
     
-    var isLoadCalled: Bool = false
-    var testImage: UIImage
+    let imageData = testImage.pngData()!
     
-    init(testImage: UIImage) {
-        self.testImage = testImage
-    }
-    
-    func load(url: String, completion: @escaping (Data?) -> Void) {
-        isLoadCalled = true
-        
-        let imageData = testImage.pngData()!
-
-        completion(imageData)
-    }
-    
-    func cancel() {
-        //
-    }
-    
+    completion(imageData)
+  }
+  
+  func cancel() {
+    //
+  }
+  
 }

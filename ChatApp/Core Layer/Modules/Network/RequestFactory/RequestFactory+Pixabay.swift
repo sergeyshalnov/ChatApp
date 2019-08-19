@@ -8,9 +8,6 @@
 
 import Foundation
 
-
-// MARK: - Pixabay extension
-
 extension RequestFactory {
   
   struct Pixabay {

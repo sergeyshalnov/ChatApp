@@ -57,6 +57,7 @@ private extension PixabayViewController {
                                          target: self,
                                          action: #selector(cancelButtonTouch(_:)))
     
+    navigationItem.title = "PIXABAY"
     navigationItem.rightBarButtonItem = rightBarButton
   }
   

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DataParser<Model: Codable>: IParser {
+final class DataParser<Model: Codable>: IParser {
   
   func parse(data: Data) -> Model? {
     return try? JSONDecoder().decode(Model.self, from: data)

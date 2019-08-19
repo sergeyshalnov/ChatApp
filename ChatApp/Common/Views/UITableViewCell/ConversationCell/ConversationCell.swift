@@ -27,6 +27,26 @@ final class ConversationCell: UITableViewCell {
     }
   }
   
+  // MARK: - Overriden
+  
+  override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+    super.setHighlighted(highlighted, animated: animated)
+    
+    let animation = { [weak self] in
+      if highlighted {
+        self?.containerView.backgroundColor = UIColor.Palette.Grey.bubble
+      } else {
+        self?.containerView.backgroundColor = UIColor.Palette.Blue.online
+      }
+    }
+    
+    UIView.animate(withDuration: 0.1,
+                   delay: 0,
+                   options: .transitionCrossDissolve,
+                   animations: animation,
+                   completion: nil)
+  }
+  
 }
 
 // MARK: - ITableViewModelRepresentable
@@ -37,6 +57,8 @@ extension ConversationCell: ITableViewModelRepresentable {
     guard let conversation = model as? Conversation else {
       return
     }
+    
+    selectionStyle = .none
     
     updateUsername(with: conversation.user)
     updateDate(with: conversation)
@@ -66,12 +88,7 @@ private extension ConversationCell {
     if let message = conversation.preview {
       messageLabel.font = UIFont.systemFont(ofSize: 17, weight: conversation.isUnread ? .bold : .regular)
       messageLabel.textColor = conversation.isUnread ? .black : .darkGray
-      
-      if let text = message.text {
-        messageLabel.text = prefix(isIncoming: message.isIncoming) + text
-      } else {
-        messageLabel.text = "NO_MESSAGES_WORD".localized()
-      }
+      messageLabel.text = prefix(isIncoming: message.isIncoming) + message.text
     } else {
       messageLabel.font = UIFont.italicSystemFont(ofSize: 17.0)
       messageLabel.text = "NO_MESSAGES_WORD".localized()

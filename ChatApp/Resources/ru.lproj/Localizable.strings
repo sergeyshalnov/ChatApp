@@ -10,6 +10,9 @@
 
 "SIGN_IN_WORD" = "Войти";
 "USERNAME_PLACEHOLDER_WORD" = "Логин";
+"ERROR_WORD" = "Ошибка";
+"SAVE_FAILURE_WORD" = "Сохранение не удалось, повторите попытку позднее";
+
 "ACCEPT_INVITE_WORD" = "Принять";
 "CANCEL_INVITE_WORD" = "Отклонить";
 "NO_MESSAGES_WORD" = "Нет сообщений";
@@ -34,3 +37,4 @@
 "PHOTO_LIBRARY_WORD" = "Галерея";
 "DOWNLOAD_WORD" = "Загрузить";
 "CANCEL_WORD" = "Отмена";
+"IMAGE_ERROR_WORD" = "Изображение не было выбрано, повторите попытку позднее";

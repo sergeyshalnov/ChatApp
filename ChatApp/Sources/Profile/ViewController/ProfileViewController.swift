@@ -36,8 +36,6 @@ final class ProfileViewController: UIViewController, CustomViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.navigationBar.prefersLargeTitles = true
-    navigationItem.largeTitleDisplayMode = .always
-    navigationController?.navigationBar.shadowImage = UIImage()
   }
   
   override func viewWillLayoutSubviews() {
@@ -163,7 +161,8 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     if let pickedImage = (info[.editedImage] ?? info[.originalImage]) as? UIImage {
       view().update(image: pickedImage)
     } else {
-      //
+      let action = UIAlertAction(title: "OK_WORD".localized(), style: .default, handler: nil)
+      alert(title: "ERROR_WORD".localized(), message: "IMAGE_ERROR_WORD".localized(), actions: [action])
     }
     
     picker.dismiss(animated: true, completion: nil)
@@ -175,7 +174,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
   
 }
 
-// MARK: -
+// MARK: - IImagePickerDelegate
 
 extension ProfileViewController: IImagePickerDelegate {
   

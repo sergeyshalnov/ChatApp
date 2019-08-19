@@ -8,16 +8,8 @@
 
 import Foundation
 
-
-class PixabayParser {
+final class PixabayParser: IParser {
   typealias Model = [PixabayImageModel]
-  
-}
-
-
-// MARK: IParser extension 
-
-extension PixabayParser: IParser {
   
   func parse(data: Data) -> [PixabayImageModel]? {
     do {
@@ -29,3 +21,4 @@ extension PixabayParser: IParser {
   }
   
 }
+

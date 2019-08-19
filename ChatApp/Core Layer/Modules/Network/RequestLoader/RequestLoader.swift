@@ -8,16 +8,16 @@
 
 import Foundation
 
-
-class RequestLoader { 
+final class RequestLoader {
+  
+  // MARK: - Variables
   
   private let session = URLSession.shared
   private var task: URLSessionDataTask?
   
 }
 
-
-// MARK: - IRequestLoader extension
+// MARK: - IRequestLoader
 
 extension RequestLoader: IRequestLoader {
   
@@ -30,7 +30,11 @@ extension RequestLoader: IRequestLoader {
     }
     
     task = session.dataTask(with: url) { (data, _, error) in
-      completion(error != nil ? nil : data)
+      if error == nil {
+        completion(data)
+      } else {
+        completion(nil)
+      }
     }
     
     task?.resume()

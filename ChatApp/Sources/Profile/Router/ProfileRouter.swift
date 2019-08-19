@@ -37,9 +37,6 @@ extension ProfileRouter: IProfileRouter {
       imagePicker.modalPresentationStyle = presentationStyle
       
       view?.present(imagePicker, animated: animated, completion: nil)
-    } else {
-//      let alert = Alert.controller(type: .cameraError)
-//      view?.present(alert, animated: animated, completion: nil)
     }
   }
   
@@ -50,7 +47,6 @@ extension ProfileRouter: IProfileRouter {
   func navigateToPixabay(animated: Bool) {
     let controller = presentationAssembly.pixabay(for: view)
     controller.modalPresentationStyle = .fullScreen
-//    let controller = presentationAssembly.imagesViewController(imageDelegate: view)
     view?.present(controller, animated: animated)
   }
   

@@ -9,9 +9,9 @@
 import UIKit
 import MultipeerConnectivity.MCSession
 
-class PresentationAssembly {
+final class PresentationAssembly {
   
-  // MARK: - Assembly
+  // MARK: - Variables
   
   private let serviceAssembly: IServiceAssembly
   
@@ -45,12 +45,13 @@ extension PresentationAssembly: IPresentationAssembly {
   
   func conversationsList() -> UINavigationController {
     let controller = ConversationsListViewController()
-    let fetchedResultsController = CAFetchedResultsController(CoreDataManager().conversationFetchResultsController(),
+    let fetchedResultsController = CAFetchedResultsController(CoreDataManager().conversationFetchedResultsController(),
                                                               for: controller.view().conversationsTableView)
     
     let communicationService = serviceAssembly.communicationService()
     let communicationController = CACommunicationController(communicationService: communicationService,
                                                             storageService: serviceAssembly.storageService())
+    
     let router = ConversationsListRouter(view: controller, presentationAssembly: self)
     let presenter = ConversationsListPresenter(output: controller,
                                                fetchedResultsController: fetchedResultsController,
@@ -69,7 +70,7 @@ extension PresentationAssembly: IPresentationAssembly {
   func conversation(_ conversation: Conversation, with session: MCSession) -> UIViewController {
     let controller = ConversationViewController()
     let messageService = serviceAssembly.messageService(session: session)
-    let messageFetchResultsController = CoreDataManager().messageFetchResultsController(conversation: conversation)
+    let messageFetchResultsController = CoreDataManager().messageFetchedResultsController(conversation: conversation)
     let fetchedResultsController = CAFetchedResultsController(messageFetchResultsController, for: controller.view().tableView)
     
     let router = ConversationRouter(view: controller)
@@ -110,7 +111,6 @@ extension PresentationAssembly: IPresentationAssembly {
     controller.output = presenter
     controller.router = router
     
-    controller.navigationItem.title = "PIXABAY"
     controller.view().imagesCollectionView.delegate = presenter
     controller.view().imagesCollectionView.dataSource = presenter
     controller.delegate = delegate

@@ -10,6 +10,8 @@ import Foundation
 
 final class ConversationRouter {
   
+  // MARK: - Variables
+  
   weak var view: ConversationViewController?
   
   // MARK: - Init

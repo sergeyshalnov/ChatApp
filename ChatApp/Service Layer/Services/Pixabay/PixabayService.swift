@@ -8,17 +8,26 @@
 
 import UIKit
 
-
-class PixabayService: IImageManager {
+final class PixabayService {
+  
+  // MARK: - Variables
   
   private let requestSender: IRequestSender
   private let requestLoader: IRequestLoader
   private var images: [PixabayImageModel]?
   
+  // MARK: - Init
+  
   init(requestSender: IRequestSender, requestLoader: IRequestLoader) {
     self.requestSender = requestSender
     self.requestLoader = requestLoader
   }
+  
+}
+
+// MARK: - IImageManager
+
+extension PixabayService: IImageManager {
   
   func performRequest(completion: @escaping (Int) -> Void) {
     let requestConfig = RequestFactory.Pixabay.images()
@@ -44,17 +53,16 @@ class PixabayService: IImageManager {
   
   func load(url: String, completion: @escaping (UIImage?) -> Void) {
     requestLoader.load(url: url) { (data) in
-      guard let data = data else {
-        completion(nil)
-        return
+      guard
+        let data = data,
+        let image = UIImage(data: data)
+        else {
+          completion(nil)
+          return
       }
       
-      let image = UIImage(data: data, scale: 1.0)!
-      
       completion(image)
-      
     }
   }
-  
   
 }

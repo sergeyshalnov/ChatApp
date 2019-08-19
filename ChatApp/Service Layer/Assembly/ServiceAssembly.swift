@@ -9,18 +9,7 @@
 import Foundation
 import MultipeerConnectivity.MCSession
 
-protocol IServiceAssembly {
-  
-  func communicationService() -> ICommunicationService
-  func profileStorageService() -> IProfileStorageService
-  func pixabayService() -> IImageManager
-  
-  func storageService() -> IStorageService
-  func messageService(session: MCSession) -> IMessageService
-  
-}
-
-class ServiceAssembly: IServiceAssembly {
+final class ServiceAssembly: IServiceAssembly {
   
   private let coreAssembly: ICoreAssembly
   
@@ -33,15 +22,14 @@ class ServiceAssembly: IServiceAssembly {
   }
   
   func storageService() -> IStorageService {
-    let storageService = StorageService(userStorage: coreAssembly.userStorage,
-                                        conversationStorage: coreAssembly.conversationStorage,
-                                        messageStorage: coreAssembly.messageStorage)
-    
-    return storageService
+    return StorageService(userStorage: coreAssembly.userStorage,
+                          conversationStorage: coreAssembly.conversationStorage,
+                          messageStorage: coreAssembly.messageStorage)
   }
   
   func communicationService() -> ICommunicationService {
-    return CommunicationService(profileStorageService: profileStorageService(), dataParser: coreAssembly.dataParser())
+    return CommunicationService(profileStorageService: profileStorageService(),
+                                dataParser: coreAssembly.dataParser())
   }
   
   func profileStorageService() -> IProfileStorageService {
@@ -49,7 +37,8 @@ class ServiceAssembly: IServiceAssembly {
   }
   
   func pixabayService() -> IImageManager {
-    return PixabayService(requestSender: coreAssembly.requestSender, requestLoader: coreAssembly.requestLoader)
+    return PixabayService(requestSender: coreAssembly.requestSender,
+                          requestLoader: coreAssembly.requestLoader)
   }
   
 }

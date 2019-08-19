@@ -39,9 +39,13 @@ class EmblemGenerator {
   // MARK: - Functions
   
   func start(with touch: UITouch) {
-    if timer != nil { return }
+    if timer != nil {
+      return
+    }
     
-    guard let view = touch.view?.superview else { return }
+    guard let view = touch.view?.superview else {
+      return
+    }
     
     let position = touch.location(in: view)
     

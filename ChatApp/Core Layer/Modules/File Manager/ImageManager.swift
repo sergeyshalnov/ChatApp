@@ -8,21 +8,13 @@
 
 import UIKit
 
-
-
-protocol IImageLoader {
-  
-  func load(filename: String) -> UIImage?
+final class ImageManager {
   
 }
 
-protocol IImageSaver {
-  
-  func save(image: UIImage, filename: String) -> Bool
-  
-}
+// MARK: - IImageLoader
 
-class ImageManager: IImageLoader {
+extension ImageManager: IImageLoader {
   
   func load(filename: String) -> UIImage? {
     let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -31,10 +23,14 @@ class ImageManager: IImageLoader {
     do {
       let data = try Data(contentsOf: url)
       return UIImage(data: data)
-    } catch { return nil }
+    } catch {
+      return nil
+    }
   }
   
 }
+
+// MARK: - IImageSaver
 
 extension ImageManager: IImageSaver {
   
@@ -45,7 +41,9 @@ extension ImageManager: IImageSaver {
     if let data = image.pngData() {
       do {
         try data.write(to: url)
-      } catch { return false }
+      } catch {
+        return false
+      }
     } else {
       return false
     }

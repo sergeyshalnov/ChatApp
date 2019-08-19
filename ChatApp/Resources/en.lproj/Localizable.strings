@@ -10,6 +10,9 @@
 
 "SIGN_IN_WORD" = "Sign in";
 "USERNAME_PLACEHOLDER_WORD" = "Username";
+"ERROR_WORD" = "Error";
+"SAVE_FAILURE_WORD" = "Saving failed, try again later";
+
 "ACCEPT_INVITE_WORD" = "Accept";
 "CANCEL_INVITE_WORD" = "Cancel";
 "NO_MESSAGES_WORD" = "No messages";
@@ -34,4 +37,4 @@
 "PHOTO_LIBRARY_WORD" = "Photo Library";
 "DOWNLOAD_WORD" = "Download";
 "CANCEL_WORD" = "Cancel";
-
+"IMAGE_ERROR_WORD" = "The image was not selected, try again later";

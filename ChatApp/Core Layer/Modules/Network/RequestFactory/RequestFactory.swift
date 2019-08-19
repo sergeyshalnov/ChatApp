@@ -8,9 +8,6 @@
 
 import Foundation
 
-
-// MARK: - Request factory
-
 struct RequestFactory {
   
 }

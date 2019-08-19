@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol IRequestSender {
   
   func send<Parser>(

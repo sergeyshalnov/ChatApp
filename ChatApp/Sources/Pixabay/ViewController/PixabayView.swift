@@ -10,6 +10,8 @@ import UIKit
 
 final class PixabayView: UIView {
   
+  // MARK: - Outlets
+  
   @IBOutlet private(set) weak var imagesCollectionView: UICollectionView!
   @IBOutlet private(set) weak var activityIndicator: UIActivityIndicatorView!
   

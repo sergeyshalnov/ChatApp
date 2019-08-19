@@ -59,7 +59,8 @@ extension OnboardingViewController: IOnboardingViewInput {
     if isSuccess {
       router?.close(animated: true)
     } else {
-      // TODO: - Add alert 
+      let action = UIAlertAction(title: "OK_WORD".localized(), style: .default, handler: nil)
+      alert(title: "ERROR_WORD".localized(), message: "SAVE_FAILURE_WORD".localized(), actions: [action])
     }
   }
   

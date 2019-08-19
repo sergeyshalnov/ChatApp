@@ -36,6 +36,8 @@ final class ConversationPresenter {
     setup()
   }
   
+  // MARK: - Deinit
+  
   deinit {
     for observer in observers {
       NotificationCenter.default.removeObserver(observer)

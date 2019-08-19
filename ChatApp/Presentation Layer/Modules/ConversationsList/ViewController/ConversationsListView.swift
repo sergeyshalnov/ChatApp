@@ -10,9 +10,13 @@ import UIKit
 
 final class ConversationsListView: UIView {
   
+  // MARK: - Outlets
+  
   @IBOutlet private(set) weak var conversationsTableView: UITableView!
   
 }
+
+// MARK: - Setup
 
 extension ConversationsListView {
   

@@ -8,19 +8,21 @@
 
 import Foundation
 
-
-class RequestSender {
+final class RequestSender {
+  
+  // MARK: - Variables
   
   private let session = URLSession.shared
   
 }
 
-
-// MARK: - IRequestSender extension
+// MARK: - IRequestSender
 
 extension RequestSender: IRequestSender {
   
-  func send<Parser>(requestConfig: RequestConfig<Parser>, completion: @escaping (Parser.Model?) -> Void) where Parser : IParser {
+  func send<Parser>(requestConfig: RequestConfig<Parser>,
+                    completion: @escaping (Parser.Model?) -> Void) where Parser : IParser {
+    
     guard let urlRequest = requestConfig.request.urlRequest else {
       completion(nil)
       return
@@ -28,19 +30,19 @@ extension RequestSender: IRequestSender {
     
     let task = session.dataTask(with: urlRequest) { (data, _, error) in
       if let error = error {
+        #if DEBUG
         print("Error in RequestSender: \(error.localizedDescription)")
+        #endif
+        
         completion(nil)
       }
       
-      guard
-        let data = data,
-        let model = requestConfig.parser.parse(data: data)
-        else {
-          completion(nil)
-          return
+      guard let data = data else {
+        completion(nil)
+        return
       }
       
-      completion(model)
+      completion(requestConfig.parser.parse(data: data))
     }
     
     task.resume()

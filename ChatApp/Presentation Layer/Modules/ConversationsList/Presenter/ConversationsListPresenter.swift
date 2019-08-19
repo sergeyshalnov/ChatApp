@@ -25,7 +25,9 @@ final class ConversationsListPresenter {
        communicationController: CACommunicationController) {
     
     self.output = output
+    
     self.fetchedResultsController = fetchedResultsController
+    self.fetchedResultsController.accessoryType = .disclosureIndicator
     
     self.communicationController = communicationController
     self.communicationController.delegate = self

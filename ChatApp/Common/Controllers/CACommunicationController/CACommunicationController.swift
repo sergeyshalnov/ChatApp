@@ -18,6 +18,8 @@ final class CACommunicationController {
   
   weak var delegate: ICACommunicationControllerDelegate?
   
+  // MARK: - Public
+  
   var session: MCSession? {
     return communicationService.session
   }

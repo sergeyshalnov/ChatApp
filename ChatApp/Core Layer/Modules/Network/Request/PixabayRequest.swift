@@ -8,16 +8,13 @@
 
 import Foundation
 
-
-class PixabayRequest {
+final class PixabayRequest {
   
-  // MARK: - Private variables
+  // MARK: - Variables
   
   private var baseUrl: String = "https://pixabay.com/api/"
   private var question: String
   private let apiKey: String
-  
-  // MARK: - Private computed variables
   
   private var parameters: [String: String] {
     return [
@@ -32,8 +29,7 @@ class PixabayRequest {
     return baseUrl + "?" + params.joined(separator: "&")
   }
   
-  
-  // MARK: - Initialization
+  // MARK: - Init
   
   init(apiKey: String, question: String = "") {
     self.apiKey = apiKey
@@ -42,8 +38,7 @@ class PixabayRequest {
   
 }
 
-
-// MARK: - IRequest extension
+// MARK: - IRequest
 
 extension PixabayRequest: IRequest {
   
@@ -51,6 +46,7 @@ extension PixabayRequest: IRequest {
     if let url = URL(string: url) {
       return URLRequest(url: url)
     }
+    
     return nil
   }
   

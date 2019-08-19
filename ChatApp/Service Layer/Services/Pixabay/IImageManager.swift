@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol IImageManager: IImageDownloader {
   
   func performRequest(completion: @escaping (Int) -> Void)

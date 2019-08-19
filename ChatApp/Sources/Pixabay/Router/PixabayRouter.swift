@@ -10,6 +10,8 @@ import Foundation
 
 final class PixabayRouter {
   
+  // MARK: - Variables
+  
   weak var view: PixabayViewController?
   
   // MARK: - Init

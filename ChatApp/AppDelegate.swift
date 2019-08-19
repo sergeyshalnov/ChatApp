@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
   
   // MARK: - Variables
   
@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   private let rootAssembly = RootAssembly()
   private lazy var coreData: ICoreDataManager = CoreDataManager()
-  
   
   // MARK: - Main
   
@@ -37,5 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func applicationWillTerminate(_ application: UIApplication) {
     coreData.terminate()
   }
+  
 }
 

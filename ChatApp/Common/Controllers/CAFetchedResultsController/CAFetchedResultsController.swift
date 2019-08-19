@@ -11,18 +11,20 @@ import CoreData
 
 final class CAFetchedResultsController: NSObject {
   
-  // MARK: - Private variables
+  // MARK: - Variables
   
   private let fetchedResultsController: NSFetchedResultsController<NSManagedObject>
   private let tableView: UITableView
   
-  // MARK: - Public variables
+  // MARK: - Public
   
   var transform: CGAffineTransform = .identity {
     didSet {
       tableView.transform = transform
     }
   }
+  
+  var accessoryType: UITableViewCell.AccessoryType = .none
   
   // MARK: - Init
   
@@ -85,7 +87,9 @@ extension CAFetchedResultsController: UITableViewDataSource {
     }
     
     let cell = model.cell(tableView, for: indexPath)
+    
     cell.transform = transform
+    cell.accessoryType = accessoryType
     
     return cell
   }

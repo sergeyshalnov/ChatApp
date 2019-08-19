@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct RequestConfig<Parser> where Parser: IParser {
   
   let request: IRequest
