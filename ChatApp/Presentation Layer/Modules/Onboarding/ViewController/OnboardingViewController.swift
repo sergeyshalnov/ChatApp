@@ -22,7 +22,7 @@ final class OnboardingViewController: UIViewController, CustomViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    navigationItem.title = "Let's chat!"
+    navigationItem.title = String.onboardingTitleWord
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -34,7 +34,7 @@ final class OnboardingViewController: UIViewController, CustomViewController {
 
 // MARK: - IBActions
 
-extension OnboardingViewController {
+private extension OnboardingViewController {
   
   @IBAction func signInButtonTouch(_ sender: Any) {
     guard let username = username else {
@@ -59,9 +59,20 @@ extension OnboardingViewController: IOnboardingViewInput {
     if isSuccess {
       router?.close(animated: true)
     } else {
-      let action = UIAlertAction(title: "OK_WORD".localized(), style: .default, handler: nil)
-      alert(title: "ERROR_WORD".localized(), message: "SAVE_FAILURE_WORD".localized(), actions: [action])
+      let action = UIAlertAction(title: String.okWord, style: .default, handler: nil)
+      alert(title: String.errorWord, message: String.saveErrorWord, actions: [action])
     }
   }
+  
+}
+
+// MARK: - Private String
+
+private extension String {
+  
+  static let onboardingTitleWord = "ONBOARDING_TITLE_WORD".localized()
+  static let okWord = "OK_WORD".localized()
+  static let errorWord = "ERROR_WORD".localized()
+  static let saveErrorWord = "SAVE_ERROR_WORD".localized()
   
 }

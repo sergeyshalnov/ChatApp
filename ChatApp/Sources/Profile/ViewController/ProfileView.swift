@@ -41,11 +41,12 @@ extension ProfileView {
       return
     }
     
-    let constraints = [updateProfileImageButton.widthAnchor.constraint(equalToConstant: size.width + 20),
-                       updateProfileImageButton.heightAnchor.constraint(equalToConstant: size.height + 20)]
-    
     updateProfileImageButton.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate(constraints)
+    
+    NSLayoutConstraint.activate([
+      updateProfileImageButton.widthAnchor.constraint(equalToConstant: size.width + 20),
+      updateProfileImageButton.heightAnchor.constraint(equalToConstant: size.height + 20)
+    ])
   }
   
   private func setupSaveButton() {
@@ -92,7 +93,15 @@ extension ProfileView {
 
 extension ProfileView {
   
-  @objc func keyboardWillShow(_ notification: NSNotification) {
+  var keyboardWillShow: Selector {
+    return #selector(keyboardWillShow(_:))
+  }
+  
+  var keyboardWillHide: Selector {
+    return #selector(keyboardWillHide(_:))
+  }
+  
+  @objc private func keyboardWillShow(_ notification: NSNotification) {
     guard
       let userInfo = notification.userInfo,
       let keyboardSize = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
@@ -107,7 +116,7 @@ extension ProfileView {
     }
   }
   
-  @objc func keyboardWillHide(_ notification: NSNotification) {
+  @objc private func keyboardWillHide(_ notification: NSNotification) {
     containerScrollView.contentInset = .zero
   }
   

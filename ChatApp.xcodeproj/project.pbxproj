@@ -824,10 +824,6 @@
 		1A8448A9219DD6300033D7E9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				1A006584230018320056B916 /* IProfileStorage.swift */,
-				1A0065862300183C0056B916 /* IUserStorage.swift */,
-				1A0065882300184B0056B916 /* IConversationStorage.swift */,
-				1A00658A230018550056B916 /* IMessageStorage.swift */,
 				1A72875921A739B900EAA0C1 /* Network */,
 				1A8448D1219DFE910033D7E9 /* DataStructures */,
 				1A8448C8219DF66E0033D7E9 /* CoreData */,
@@ -848,13 +844,14 @@
 		1A8448C8219DF66E0033D7E9 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				FB87FF9C230AB8F400CEBE18 /* StorageProtocols */,
+				1A9CFFA9218CF110007D3EE0 /* Data */,
 				1A8448D2219E02D50033D7E9 /* ICoreDataManager.swift */,
 				1A8448C6219DECF60033D7E9 /* CoreDataManager.swift */,
 				1A2AD3A822B6C5C400501EE1 /* CoreDataManager+IProfileStorage.swift */,
 				1A2AD3AA22B6C69100501EE1 /* CoreDataManager+IUserStorage.swift */,
 				1A2AD3AC22B6C6E200501EE1 /* CoreDataManager+IConversationStorage.swift */,
 				1A2AD3AE22B6C76800501EE1 /* CoreDataManager+IMessageStorage.swift */,
-				1A9CFFA9218CF110007D3EE0 /* Data */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -1158,6 +1155,17 @@
 				1A8448CF219DFBA80033D7E9 /* MessageModel.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		FB87FF9C230AB8F400CEBE18 /* StorageProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				1A006584230018320056B916 /* IProfileStorage.swift */,
+				1A0065862300183C0056B916 /* IUserStorage.swift */,
+				1A0065882300184B0056B916 /* IConversationStorage.swift */,
+				1A00658A230018550056B916 /* IMessageStorage.swift */,
+			);
+			path = StorageProtocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

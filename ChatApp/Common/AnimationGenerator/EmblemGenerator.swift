@@ -50,7 +50,7 @@ class EmblemGenerator {
     let position = touch.location(in: view)
     
     timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { [weak self] _ in
-      let image = UIImage(named: "Emblem")
+      let image = Images.emblemImage
       let imageView = UIImageView(image: image)
       
       imageView.contentMode = .scaleAspectFill
@@ -70,5 +70,13 @@ class EmblemGenerator {
     }
     
   }
+  
+}
+
+// MARK: - Private Images
+
+private struct Images {
+  
+  static let emblemImage = UIImage(named: "Emblem")
   
 }

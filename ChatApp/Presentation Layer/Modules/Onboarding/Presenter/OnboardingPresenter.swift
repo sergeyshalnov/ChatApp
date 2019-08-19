@@ -31,9 +31,7 @@ final class OnboardingPresenter {
 extension OnboardingPresenter: IOnboardingPresenterInput {
   
   func save(username: String) {
-    let profile = ProfileData(username: username,
-                              information: nil,
-                              image: UIImage(named: "profileImage"))
+    let profile = ProfileData(username: username, information: nil, image: nil)
     
     profileStorageService.save(profile: profile) { [weak self] (isSuccess) in
       DispatchQueue.main.async {

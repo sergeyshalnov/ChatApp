@@ -91,13 +91,21 @@ private extension ConversationCell {
       messageLabel.text = prefix(isIncoming: message.isIncoming) + message.text
     } else {
       messageLabel.font = UIFont.italicSystemFont(ofSize: 17.0)
-      messageLabel.text = "NO_MESSAGES_WORD".localized()
+      messageLabel.text = String.noMessagesWord
     }
   }
   
   func prefix(isIncoming: Bool) -> String {
-    return isIncoming ? "" : "CONVERSATION_PREVIEW_PREFIX".localized()
+    return isIncoming ? "" : String.conversationPreviewPrefixWord
   }
   
 }
 
+// MARK: - Private String
+
+private extension String {
+  
+  static let noMessagesWord = "NO_MESSAGES_WORD".localized()
+  static let conversationPreviewPrefixWord = "CONVERSATION_PREVIEW_PREFIX".localized()
+  
+}

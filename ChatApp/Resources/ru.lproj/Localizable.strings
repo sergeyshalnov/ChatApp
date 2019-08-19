@@ -8,10 +8,11 @@
 
 // MARK: - Global
 
+"ONBOARDING_TITLE_WORD" = "Let's chat!";
 "SIGN_IN_WORD" = "Войти";
 "USERNAME_PLACEHOLDER_WORD" = "Логин";
 "ERROR_WORD" = "Ошибка";
-"SAVE_FAILURE_WORD" = "Сохранение не удалось, повторите попытку позднее";
+"SAVE_ERROR_WORD" = "Сохранение не удалось, повторите попытку позднее";
 
 "ACCEPT_INVITE_WORD" = "Принять";
 "CANCEL_INVITE_WORD" = "Отклонить";
@@ -38,3 +39,5 @@
 "DOWNLOAD_WORD" = "Загрузить";
 "CANCEL_WORD" = "Отмена";
 "IMAGE_ERROR_WORD" = "Изображение не было выбрано, повторите попытку позднее";
+
+"PIXABAY_WORD" = "PIXABAY";

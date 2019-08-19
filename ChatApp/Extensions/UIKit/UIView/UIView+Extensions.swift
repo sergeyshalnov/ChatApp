@@ -20,14 +20,16 @@ extension UIView {
   }
   
   func addSubview(_ view: UIView, insets: UIEdgeInsets) {
-    let constraints = [view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left),
-                       view.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: insets.top),
-                       view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -insets.right),
-                       view.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -insets.bottom)]
-    
     addSubview(view)
+    
     view.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate(constraints)
+    
+    NSLayoutConstraint.activate([
+      view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left),
+      view.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: insets.top),
+      view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -insets.right),
+      view.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -insets.bottom)
+      ])
   }
   
 }

@@ -29,7 +29,7 @@ extension CAImageView {
   func load(url: String) {
     self.url = url
     
-    image = UIImage(named: "ImagePlaceholder")
+    image = Images.imagePlaceholder
     
     loaderService.cancel()
     loaderService.load(url: url) { (data) in
@@ -46,3 +46,12 @@ extension CAImageView {
   }
   
 }
+
+// MARK: - Private Images
+
+private struct Images {
+  
+  static let imagePlaceholder = UIImage(named: "ImagePlaceholder")
+  
+}
+

@@ -44,10 +44,18 @@ private extension ImageCell {
   func makeImageView() -> CAImageView {
     let imageView = CAImageView()
     
-    imageView.image = UIImage(named: "ImagePlaceholder")
+    imageView.image = Images.imagePlaceholder
     imageView.contentMode = .scaleAspectFill
     
     return imageView
   }
+  
+}
+
+// MARK: - Private Images
+
+private struct Images {
+  
+  static let imagePlaceholder = UIImage(named: "ImagePlaceholder")
   
 }

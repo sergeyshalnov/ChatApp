@@ -11,7 +11,16 @@ import UIKit
 class Generator {
   
   static func id() -> String {
-    guard let string = "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)+\(arc4random_uniform(UINT32_MAX))".data(using: .utf8)?.base64EncodedString() else { fatalError("Can't generate identifier") }
+    let firstPart = arc4random_uniform(UINT32_MAX)
+    let date = Date.timeIntervalSinceReferenceDate
+    let secondPart = arc4random_uniform(UINT32_MAX)
+    
+    guard
+      let string = "\(firstPart)+\(date)+\(secondPart)".data(using: .utf8)?.base64EncodedString()
+      else {
+        fatalError("Can't generate identifier")
+    }
+    
     return string
   }
   

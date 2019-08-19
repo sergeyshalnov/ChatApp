@@ -52,12 +52,12 @@ private extension PixabayViewController {
   }
   
   func setupNavigationBar() {
-    let rightBarButton = UIBarButtonItem(title: "CANCEL_WORD".localized(),
+    let rightBarButton = UIBarButtonItem(title: String.cancelWord,
                                          style: .done,
                                          target: self,
                                          action: #selector(cancelButtonTouch(_:)))
     
-    navigationItem.title = "PIXABAY"
+    navigationItem.title = String.pixabayWord
     navigationItem.rightBarButtonItem = rightBarButton
   }
   
@@ -86,6 +86,15 @@ extension PixabayViewController: IPixabayViewInput {
     delegate?.update(with: image)
     router?.close(animated: true)
   }
+  
+}
+
+// MARK: - Private String
+
+private extension String {
+  
+  static let cancelWord = "CANCEL_WORD".localized()
+  static let pixabayWord = "PIXABAY_WORD".localized()
   
 }
 

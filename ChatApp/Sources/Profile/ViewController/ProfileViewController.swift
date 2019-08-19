@@ -61,13 +61,13 @@ private extension ProfileViewController {
                                              target: self,
                                              action: #selector(closeButtonTouch(_:)))
     
-    navigationItem.title = "ACCOUNT_TITLE_WORD".localized()
+    navigationItem.title = String.accountTitleWord
     navigationItem.rightBarButtonItem = rightBarButtonItem
   }
   
   func setupKeyboardAppearance() {
-    let willShow = #selector(view().keyboardWillShow(_:))
-    let willHide = #selector(view().keyboardWillHide(_:))
+    let willShow = view().keyboardWillShow
+    let willHide = view().keyboardWillHide
     let showName = UIResponder.keyboardWillShowNotification
     let hideName = UIResponder.keyboardWillHideNotification
     
@@ -86,10 +86,10 @@ private extension ProfileViewController {
   }
   
   @IBAction func updateAccountImageButtonTouch(_ sender: Any) {
-    var actions = [UIAlertAction(title: "CANCEL_WORD".localized(), style: .cancel)]
+    var actions = [UIAlertAction(title: String.cancelWord, style: .cancel)]
     
     if UIImagePickerController.isSourceTypeAvailable(.camera) {
-      let action = UIAlertAction(title: "CAMERA_WORD".localized(), style: .default) { [weak self] _ in
+      let action = UIAlertAction(title: String.cameraWord, style: .default) { [weak self] _ in
         self?.router?.open(sourceType: .camera, presentationStyle: .fullScreen, animated: true)
       }
       
@@ -97,14 +97,14 @@ private extension ProfileViewController {
     }
     
     if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-      let action = UIAlertAction(title: "PHOTO_LIBRARY_WORD".localized(), style: .default) { [weak self] _ in
+      let action = UIAlertAction(title: String.photoLibraryWord, style: .default) { [weak self] _ in
         self?.router?.open(sourceType: .photoLibrary, presentationStyle: .fullScreen, animated: true)
       }
       
       actions.append(action)
     }
     
-    actions.append(UIAlertAction(title: "DOWNLOAD_WORD".localized(), style: .default) { [weak self] _ in
+    actions.append(UIAlertAction(title: String.downloadWord, style: .default) { [weak self] _ in
       self?.router?.navigateToPixabay(animated: true)
     })
     
@@ -161,8 +161,8 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     if let pickedImage = (info[.editedImage] ?? info[.originalImage]) as? UIImage {
       view().update(image: pickedImage)
     } else {
-      let action = UIAlertAction(title: "OK_WORD".localized(), style: .default, handler: nil)
-      alert(title: "ERROR_WORD".localized(), message: "IMAGE_ERROR_WORD".localized(), actions: [action])
+      let action = UIAlertAction(title: String.okWord, style: .default, handler: nil)
+      alert(title: String.errorWord, message: String.imageErrorWord, actions: [action])
     }
     
     picker.dismiss(animated: true, completion: nil)
@@ -181,5 +181,20 @@ extension ProfileViewController: IImagePickerDelegate {
   func update(with image: UIImage?) {
     view().update(image: image)
   }
+  
+}
+
+// MARK: - Private String
+
+private extension String {
+
+  static let accountTitleWord = "ACCOUNT_TITLE_WORD".localized()
+  static let cancelWord = "CANCEL_WORD".localized()
+  static let cameraWord = "CAMERA_WORD".localized()
+  static let photoLibraryWord = "PHOTO_LIBRARY_WORD".localized()
+  static let downloadWord = "DOWNLOAD_WORD".localized()
+  static let okWord = "OK_WORD".localized()
+  static let errorWord = "ERROR_WORD".localized()
+  static let imageErrorWord = "IMAGE_ERROR_WORD".localized()
   
 }

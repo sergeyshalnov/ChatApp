@@ -61,8 +61,8 @@ private extension ConversationViewController {
   }
   
   func setupKeyboardAppearance() {
-    let willShow = #selector(view().keyboardWillShow(_:))
-    let willHide = #selector(view().keyboardWillHide(_:))
+    let willShow = view().keyboardWillShow
+    let willHide = view().keyboardWillHide
     let showName = UIResponder.keyboardWillShowNotification
     let hideName = UIResponder.keyboardWillHideNotification
     
@@ -100,11 +100,20 @@ private extension ConversationViewController {
 extension ConversationViewController: IConversationViewInput {
   
   func disconnected(from conversation: Conversation) {
-    let action = UIAlertAction(title: "OK_WORD".localized(), style: .default) { [weak self] _ in
+    let action = UIAlertAction(title: String.okWord, style: .default) { [weak self] _ in
       self?.router?.close(animated: true)
     }
     
-    alert(title: conversation.user?.peer?.displayName, message: "DISCONNECTED_WORD".localized(), actions: [action])
+    alert(title: conversation.user?.peer?.displayName, message: String.disconnectedWord, actions: [action])
   }
+  
+}
+
+// MARK: - Private String
+
+private extension String {
+  
+  static let okWord = "OK_WORD".localized()
+  static let disconnectedWord = "DISCONNECTED_WORD".localized()
   
 }

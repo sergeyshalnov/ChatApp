@@ -42,9 +42,9 @@ extension ProfilePresenter: IProfilePresenterInput {
   
   func save(profile: ProfileData) {
     profileStorageService.save(profile: profile) { [weak self] (isSuccess) in
-      let title = isSuccess ? "ACCOUNT_SUCCESS_SAVE_TITLE_WORD".localized(): nil
-      let message = isSuccess ? "ACCOUNT_SUCCESS_SAVE_WORD".localized() : "ACCOUNT_FAILURE_SAVE_WORD".localized()
-      let action = UIAlertAction(title: "OK_WORD".localized(), style: .default, handler: nil)
+      let title = isSuccess ? String.accountSuccessSaveTitleWord : nil
+      let message = isSuccess ? String.accountSuccessSaveWord : String.accountFailureSaveWord
+      let action = UIAlertAction(title: String.okWord, style: .default, handler: nil)
       
       DispatchQueue.main.async {
         if isSuccess {
@@ -55,5 +55,16 @@ extension ProfilePresenter: IProfilePresenterInput {
       }
     }
   }
+  
+}
+
+// MARK: - Private String
+
+private extension String {
+  
+  static let accountSuccessSaveTitleWord = "ACCOUNT_SUCCESS_SAVE_TITLE_WORD".localized()
+  static let accountSuccessSaveWord = "ACCOUNT_SUCCESS_SAVE_WORD".localized()
+  static let accountFailureSaveWord = "ACCOUNT_FAILURE_SAVE_WORD".localized()
+  static let okWord = "OK_WORD".localized()
   
 }

@@ -50,8 +50,10 @@ extension ConversationView {
     messageTextField.padding.right = size.width + 20
     sendButton.translatesAutoresizingMaskIntoConstraints = false
     
-    NSLayoutConstraint.activate([sendButton.heightAnchor.constraint(equalTo: messageTextField.heightAnchor),
-                                 sendButton.widthAnchor.constraint(equalToConstant: size.width + 20)])
+    NSLayoutConstraint.activate([
+      sendButton.heightAnchor.constraint(equalTo: messageTextField.heightAnchor),
+      sendButton.widthAnchor.constraint(equalToConstant: size.width + 20
+    )])
   }
   
 }
@@ -64,7 +66,7 @@ private extension ConversationView {
     let button = UIButton()
     
     button.decorate(with: Decorator.Button.Regular())
-    button.setTitle("SEND_WORD".localized(), for: .normal)
+    button.setTitle(String.sendWord, for: .normal)
     
     return button
   }
@@ -75,7 +77,15 @@ private extension ConversationView {
 
 extension ConversationView {
   
-  @objc func keyboardWillShow(_ notification: NSNotification) {
+  var keyboardWillShow: Selector {
+    return #selector(keyboardWillShow(_:))
+  }
+  
+  var keyboardWillHide: Selector {
+    return #selector(keyboardWillHide(_:))
+  }
+  
+  @objc private func keyboardWillShow(_ notification: NSNotification) {
     guard
       let userInfo = notification.userInfo,
       let keyboardSize = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
@@ -90,7 +100,7 @@ extension ConversationView {
     }
   }
   
-  @objc func keyboardWillHide(_ notification: NSNotification) {
+  @objc private func keyboardWillHide(_ notification: NSNotification) {
     messageContainerBottomConstraint.constant = 0
     layoutIfNeeded()
   }
@@ -106,5 +116,13 @@ extension ConversationView {
       self?.sendButton.cornerRadius(10)
     }
   }
+  
+}
+
+// MARK: - Private String
+
+private extension String {
+  
+  static let sendWord = "SEND_WORD".localized()
   
 }

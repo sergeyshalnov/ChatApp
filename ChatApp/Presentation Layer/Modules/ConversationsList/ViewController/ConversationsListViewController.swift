@@ -52,8 +52,8 @@ private extension ConversationsListViewController {
   }
   
   func setupNavigationBar() {
-    navigationItem.title = "CHATS_WORD".localized()
-    navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Contact"),
+    navigationItem.title = String.chatsWord
+    navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.contact,
                                                         style: .done,
                                                         target: self,
                                                         action: #selector(profileButtonTouch))
@@ -65,7 +65,7 @@ private extension ConversationsListViewController {
 
 private extension ConversationsListViewController {
   
-  @objc dynamic func profileButtonTouch(_ sender: UIBarButtonItem) {
+  @objc func profileButtonTouch(_ sender: UIBarButtonItem) {
     router?.profile(animated: true)
   }
   
@@ -87,7 +87,7 @@ extension ConversationsListViewController: UITableViewDelegate {
 extension ConversationsListViewController: IConversationsListViewInput {
   
   func invite(from peer: MCPeerID, with actions: [UIAlertAction]) {
-    alert(title: peer.displayName, message: "INVITE_WORD".localized(), actions: actions)
+    alert(title: peer.displayName, message: String.inviteWord, actions: actions)
   }
   
   func display(conversation: Conversation, with session: MCSession) {
@@ -97,5 +97,22 @@ extension ConversationsListViewController: IConversationsListViewInput {
   func noProfile() {
     router?.onboarding(animated: true)
   }
+  
+}
+
+// MARK: - Private String
+
+private extension String {
+  
+  static let chatsWord = "CHATS_WORD".localized()
+  static let inviteWord = "INVITE_WORD".localized()
+  
+}
+
+// MARK: - Private Images
+
+private struct Images {
+  
+  static let contact = UIImage(named: "Contact")
   
 }
