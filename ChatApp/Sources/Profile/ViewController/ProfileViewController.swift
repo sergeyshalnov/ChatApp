@@ -106,8 +106,8 @@ private extension ProfileViewController {
       actions.append(action)
     }
     
-    actions.append(UIAlertAction(title: "DOWNLOAD_WORD".localized(), style: .default) { _ in
-      //
+    actions.append(UIAlertAction(title: "DOWNLOAD_WORD".localized(), style: .default) { [weak self] _ in
+      self?.router?.navigateToPixabay(animated: true)
     })
     
     alert(title: nil, message: nil, preferredStyle: .actionSheet, actions: actions)
@@ -140,7 +140,7 @@ private extension ProfileViewController {
 extension ProfileViewController: IProfileViewInput {
   
   func display(profile: ProfileData) {
-    view().updateContent(profile: profile)
+    view().update(profile: profile)
   }
   
   func display(title: String?, message: String, with actions: [UIAlertAction]) {
@@ -148,10 +148,12 @@ extension ProfileViewController: IProfileViewInput {
   }
 
   func saveSuccess() {
-    view().updateContent(profile: view().profile())
+    view().update(profile: view().profile())
   }
   
 }
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
@@ -159,7 +161,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                              didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
     
     if let pickedImage = (info[.editedImage] ?? info[.originalImage]) as? UIImage {
-      view().updateAccountImage(image: pickedImage)
+      view().update(image: pickedImage)
     } else {
       //
     }
@@ -169,6 +171,16 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
   
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
     picker.dismiss(animated: true, completion: nil)
+  }
+  
+}
+
+// MARK: -
+
+extension ProfileViewController: IImagePickerDelegate {
+  
+  func update(with image: UIImage?) {
+    view().update(image: image)
   }
   
 }

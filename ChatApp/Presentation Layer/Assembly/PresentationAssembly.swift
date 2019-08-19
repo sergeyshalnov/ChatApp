@@ -28,14 +28,10 @@ class PresentationAssembly {
 extension PresentationAssembly: IPresentationAssembly {
   
   func onboarding() -> UINavigationController {
-    let controller = OnboardingViewController()
-    let userDefaultsService = serviceAssembly.userDefaultsService()
     let profileStorageService = serviceAssembly.profileStorageService()
-    
+    let controller = OnboardingViewController()
     let router = OnboardingRouter(view: controller)
-    let presenter = OnboardingPresenter(output: controller,
-                                        userDefaultsService: userDefaultsService,
-                                        profileStorageService: profileStorageService)
+    let presenter = OnboardingPresenter(output: controller, profileStorageService: profileStorageService)
     
     controller.output = presenter
     controller.router = router
@@ -92,7 +88,7 @@ extension PresentationAssembly: IPresentationAssembly {
   
   func profile() -> UINavigationController {
     let controller = ProfileViewController()
-    let router = ProfileRouter(view: controller)
+    let router = ProfileRouter(view: controller, presentationAssembly: self)
     let presenter = ProfilePresenter(output: controller,
                                      profileStorageService: serviceAssembly.profileStorageService())
     
@@ -106,24 +102,24 @@ extension PresentationAssembly: IPresentationAssembly {
     return navigationController
   }
   
-  // TODO: - Refactoring
-  
-  func profileViewController() -> ProfileViewController1 {
-    let controller = ProfileViewController1(presentationAssembly: self, profileStorageService: serviceAssembly.profileStorageService())
+  func pixabay(for delegate: IImagePickerDelegate?) -> UIViewController {
+    let controller = PixabayViewController()
+    let presenter = PixabayPresenter(output: controller, imageManager: serviceAssembly.pixabayService())
+    let router = PixabayRouter(view: controller)
     
-    return controller
-  }
-  
-  func editProfileViewController(temporaryProfileImage: UIImage?) -> EditProfileViewController {
-    let controller = EditProfileViewController(presentationAssembly: self, profileStorageService: serviceAssembly.profileStorageService(), temporaryProfileImage: temporaryProfileImage)
+    controller.output = presenter
+    controller.router = router
     
-    return controller
-  }
-  
-  func imagesViewController(imageDelegate: ImageDelegate) -> ImagesViewController {
-    let controller = ImagesViewController(presentationAssembly: self, pixabayService: serviceAssembly.pixabayService(), imageDelegate: imageDelegate)
+    controller.navigationItem.title = "PIXABAY"
+    controller.view().imagesCollectionView.delegate = presenter
+    controller.view().imagesCollectionView.dataSource = presenter
+    controller.delegate = delegate
     
-    return controller
+    let navigationController = UINavigationController(rootViewController: controller)
+    
+    navigationController.navigationBar.shadowImage = UIImage()
+    
+    return navigationController
   }
   
 }

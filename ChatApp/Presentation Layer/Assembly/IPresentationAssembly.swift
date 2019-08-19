@@ -15,9 +15,6 @@ protocol IPresentationAssembly {
   func conversationsList() -> UINavigationController
   func conversation(_ conversation: Conversation, with session: MCSession) -> UIViewController
   func profile() -> UINavigationController
-  
-  func profileViewController() -> ProfileViewController1
-  func editProfileViewController(temporaryProfileImage: UIImage?) -> EditProfileViewController
-  func imagesViewController(imageDelegate: ImageDelegate) -> ImagesViewController
+  func pixabay(for delegate: IImagePickerDelegate?) -> UIViewController 
   
 }

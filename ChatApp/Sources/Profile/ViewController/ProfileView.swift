@@ -72,7 +72,7 @@ extension ProfileView {
     }
   }
   
-  func updateContent(profile: ProfileData) {
+  func update(profile: ProfileData) {
     temporaryProfile = profile
     activityIndicator.stopAnimating()
     profileImageView.image = profile.image
@@ -81,7 +81,7 @@ extension ProfileView {
     saveProfileButton.isEnabled = false
   }
   
-  func updateAccountImage(image: UIImage) {
+  func update(image: UIImage?) {
     profileImageView.image = image
     saveProfileButton.isEnabled = true
   }

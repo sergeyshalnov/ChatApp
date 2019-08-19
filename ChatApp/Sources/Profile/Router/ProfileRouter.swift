@@ -10,12 +10,16 @@ import UIKit.UIImagePickerController
 
 final class ProfileRouter {
   
+  // MARK: - Variables
+  
+  private var presentationAssembly: IPresentationAssembly
   weak var view: ProfileViewController?
   
   // MARK: - Init
   
-  init(view: ProfileViewController) {
+  init(view: ProfileViewController, presentationAssembly: IPresentationAssembly) {
     self.view = view
+    self.presentationAssembly = presentationAssembly
   }
   
 }
@@ -41,6 +45,13 @@ extension ProfileRouter: IProfileRouter {
   
   func close(animated: Bool) {
     view?.dismiss(animated: animated, completion: nil)
+  }
+  
+  func navigateToPixabay(animated: Bool) {
+    let controller = presentationAssembly.pixabay(for: view)
+    controller.modalPresentationStyle = .fullScreen
+//    let controller = presentationAssembly.imagesViewController(imageDelegate: view)
+    view?.present(controller, animated: animated)
   }
   
 }

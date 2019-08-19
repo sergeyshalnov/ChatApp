@@ -15,5 +15,6 @@ protocol IProfileRouter {
             animated: Bool)
   
   func close(animated: Bool)
+  func navigateToPixabay(animated: Bool)
   
 }

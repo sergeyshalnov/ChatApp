@@ -19,9 +19,10 @@ extension ConversationsListView {
   func setup() {
     let identifier = Conversation.TableViewCell().reuseIdentifier
     
+    conversationsTableView.separatorStyle = .none
     conversationsTableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
     conversationsTableView.separatorInset = .zero
-    conversationsTableView.rowHeight = 74
+    conversationsTableView.rowHeight = UITableView.automaticDimension
   }
   
 }

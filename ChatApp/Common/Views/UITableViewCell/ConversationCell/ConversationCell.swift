@@ -12,9 +12,20 @@ final class ConversationCell: UITableViewCell {
   
   // MARK: - Outlets
   
-  @IBOutlet weak var titleLabel: UILabel!
-  @IBOutlet weak var messageLabel: UILabel!
-  @IBOutlet weak var timeLabel: UILabel!
+  @IBOutlet private weak var containerView: UIView!
+  @IBOutlet private weak var titleLabel: UILabel!
+  @IBOutlet private weak var messageLabel: UILabel!
+  @IBOutlet private weak var timeLabel: UILabel!
+  
+  // MARK: - Lifecycle
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    DispatchQueue.main.async { [weak self] in
+      self?.containerView.cornerRadius(10)
+    }
+  }
   
 }
 
@@ -39,7 +50,7 @@ extension ConversationCell: ITableViewModelRepresentable {
 private extension ConversationCell {
   
   func updateUsername(with user: User?) {
-    backgroundColor = user?.isOnline ?? false ? UIColor.Palette.Blue.online : .white
+    containerView.backgroundColor = UIColor.Palette.Blue.online
     titleLabel.text = user?.peer?.displayName
   }
   

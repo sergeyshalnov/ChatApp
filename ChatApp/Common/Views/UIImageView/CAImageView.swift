@@ -26,11 +26,12 @@ class CAImageView: UIImageView {
 
 extension CAImageView {
   
-  func pixabayLoader(url: String) {
+  func load(url: String) {
     self.url = url
     
     image = UIImage(named: "ImagePlaceholder")
     
+    loaderService.cancel()
     loaderService.load(url: url) { (data) in
       guard let data = data else {
         return

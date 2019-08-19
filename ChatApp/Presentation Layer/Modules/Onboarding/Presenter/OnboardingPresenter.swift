@@ -13,19 +13,14 @@ final class OnboardingPresenter {
   // MARK: - Variables
   
   private weak var output: IOnboardingPresenterOutput?
-  
-  // TODO: - Remove UserDefaults service
-  private let userDefaultsService: IUserDefaultsService
   private let profileStorageService: IProfileStorageService
   
   // MARK: - Init
   
   init(output: IOnboardingPresenterOutput,
-       userDefaultsService: IUserDefaultsService,
        profileStorageService: IProfileStorageService) {
     
     self.output = output
-    self.userDefaultsService = userDefaultsService
     self.profileStorageService = profileStorageService
   }
   
@@ -40,7 +35,6 @@ extension OnboardingPresenter: IOnboardingPresenterInput {
                               information: nil,
                               image: UIImage(named: "profileImage"))
     
-    userDefaultsService.set(value: username, for: .username)
     profileStorageService.save(profile: profile) { [weak self] (isSuccess) in
       DispatchQueue.main.async {
         self?.output?.saveResult(isSuccess: isSuccess)
