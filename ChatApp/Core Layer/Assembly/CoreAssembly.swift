@@ -8,21 +8,22 @@
 
 import Foundation
 
-protocol ICoreAssembly {
-    
-    var communicationStorageManager: ICommunicationStorage { get }
-    var profileStorageManager: IProfileStorage { get }
-    
-    var requestSender: IRequestSender { get }
-    var requestLoader: IRequestLoader { get }
-    
-}
-
-class CoreAssembly: ICoreAssembly {
-    
-    lazy var communicationStorageManager: ICommunicationStorage = CoreDataManager()
-    lazy var profileStorageManager: IProfileStorage = CoreDataManager()
-    lazy var requestSender: IRequestSender = RequestSender()
-    lazy var requestLoader: IRequestLoader = RequestLoader()
-    
+final class CoreAssembly: ICoreAssembly {
+  
+  // MARK: - Variables
+  
+  lazy var conversationStorage: IConversationStorage = CoreDataManager()
+  lazy var profileStorageManager: IProfileStorage = CoreDataManager()
+  lazy var messageStorage: IMessageStorage = CoreDataManager()
+  lazy var userStorage: IUserStorage = CoreDataManager()
+  
+  lazy var requestSender: IRequestSender = RequestSender()
+  lazy var requestLoader: IRequestLoader = RequestLoader()
+  
+  // MARK: - Functions
+  
+  func dataParser<Model: Codable>() -> DataParser<Model> {
+    return DataParser<Model>()
+  }
+  
 }

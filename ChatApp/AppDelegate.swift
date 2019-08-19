@@ -9,29 +9,33 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
+final class AppDelegate: UIResponder, UIApplicationDelegate {
+  
+  // MARK: - Variables
+  
+  var window: UIWindow?
+  
+  // MARK: - Private variables
+  
+  private let rootAssembly = RootAssembly()
+  private lazy var coreData: ICoreDataManager = CoreDataManager()
+  
+  // MARK: - Main
+  
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
-    private let rootAssembly = RootAssembly()
-    private lazy var coreData: ICoreDataManager = CoreDataManager()
+    UINavigationBar.appearance().barTintColor = .white
     
+    window?.rootViewController = rootAssembly.presentationAssembly.conversationsList()
+    window?.makeKeyAndVisible()
     
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        let controller = rootAssembly.presentationAssembly.conversationsListViewController()
-    
-        window?.rootViewController = controller
-        window?.makeKeyAndVisible()
-        
-        coreData.terminate()
-        
-        return true
-    }
-    
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Application will terminate
-    }
+    return true
+  }
+  
+  func applicationWillTerminate(_ application: UIApplication) {
+    coreData.terminate()
+  }
+  
 }
 

@@ -7,64 +7,119 @@
 //
 
 import UIKit
+import MultipeerConnectivity.MCSession
 
-protocol IPresentationAssembly {
-    
-    func conversationsListViewController() -> UINavigationController
-    
-    func conversationViewController(title: String?, conversationId: String, conversationListDelegate: ConversationListDelegate) -> ConversationViewController
-    
-    func profileViewController() -> ProfileViewController
-    
-    func editProfileViewController(temporaryProfileImage: UIImage?) -> EditProfileViewController
-    
-    func imagesViewController(imageDelegate: ImageDelegate) -> ImagesViewController 
-    
+final class PresentationAssembly {
+  
+  // MARK: - Variables
+  
+  private let serviceAssembly: IServiceAssembly
+  
+  // MARK: - Init
+  
+  init(serviceAssembly: IServiceAssembly) {
+    self.serviceAssembly = serviceAssembly
+  }
+  
 }
 
-class PresentationAssembly: IPresentationAssembly {
-    
-    private let serviceAssembly: IServiceAssembly
-    
-    init(serviceAssembly: IServiceAssembly) {
-        self.serviceAssembly = serviceAssembly
-    }
-    
-    func conversationsListViewController() -> UINavigationController {
-        let coreData: ICoreDataManager = CoreDataManager()
-        let navigator = UINavigationController()
-        let controller = ConversationsListViewController(presentationAssembly: self, communicationService: serviceAssembly.communicationService(username: "Sergey Shalnov"), communicationStorageService: serviceAssembly.communicationStorageService(), profileStorageService: serviceAssembly.profileStorageService(), conversationFetchResultsController: coreData.conversationFetchResultsController())
-        
-        navigator.viewControllers = [controller]
-        
-        return navigator
-    }
-    
-    func conversationViewController(title: String?, conversationId: String, conversationListDelegate: ConversationListDelegate) -> ConversationViewController {
+// MARK: - IPresentationAssembly
 
-        let coreData: ICoreDataManager = CoreDataManager()
-        
-        let controller = ConversationViewController(title: title, currentConversation: conversationId, conversationListDelegate: conversationListDelegate, presentationAssembly: self, communicationStorageService: serviceAssembly.communicationStorageService(), messageFetchResultsController: coreData.messageFetchResultsController(conversationId: conversationId))
+extension PresentationAssembly: IPresentationAssembly {
+  
+  func onboarding() -> UINavigationController {
+    let profileStorageService = serviceAssembly.profileStorageService()
+    let controller = OnboardingViewController()
+    let router = OnboardingRouter(view: controller)
+    let presenter = OnboardingPresenter(output: controller, profileStorageService: profileStorageService)
     
-        return controller
-    }
+    controller.output = presenter
+    controller.router = router
     
-    func profileViewController() -> ProfileViewController {
-        let controller = ProfileViewController(presentationAssembly: self, profileStorageService: serviceAssembly.profileStorageService())
-        
-        return controller
-    }
+    let navigationController = UINavigationController(rootViewController: controller)
     
-    func editProfileViewController(temporaryProfileImage: UIImage?) -> EditProfileViewController {
-        let controller = EditProfileViewController(presentationAssembly: self, profileStorageService: serviceAssembly.profileStorageService(), temporaryProfileImage: temporaryProfileImage)
-        
-        return controller
-    }
+    navigationController.navigationBar.shadowImage = UIImage()
     
-    func imagesViewController(imageDelegate: ImageDelegate) -> ImagesViewController {
-        let controller = ImagesViewController(presentationAssembly: self, pixabayService: serviceAssembly.pixabayService(), imageDelegate: imageDelegate)
-        
-        return controller
-    }
-
+    return navigationController
+  }
+  
+  func conversationsList() -> UINavigationController {
+    let controller = ConversationsListViewController()
+    let fetchedResultsController = CAFetchedResultsController(CoreDataManager().conversationFetchedResultsController(),
+                                                              for: controller.view().conversationsTableView)
+    
+    let communicationService = serviceAssembly.communicationService()
+    let communicationController = CACommunicationController(communicationService: communicationService,
+                                                            storageService: serviceAssembly.storageService())
+    
+    let router = ConversationsListRouter(view: controller, presentationAssembly: self)
+    let presenter = ConversationsListPresenter(output: controller,
+                                               fetchedResultsController: fetchedResultsController,
+                                               communicationController: communicationController)
+    
+    controller.output = presenter
+    controller.router = router
+    
+    let navigationController = UINavigationController(rootViewController: controller)
+    
+    navigationController.navigationBar.shadowImage = UIImage()
+    
+    return navigationController
+  }
+  
+  func conversation(_ conversation: Conversation, with session: MCSession) -> UIViewController {
+    let controller = ConversationViewController()
+    let messageService = serviceAssembly.messageService(session: session)
+    let messageFetchResultsController = CoreDataManager().messageFetchedResultsController(conversation: conversation)
+    let fetchedResultsController = CAFetchedResultsController(messageFetchResultsController, for: controller.view().tableView)
+    
+    let router = ConversationRouter(view: controller)
+    let presenter = ConversationPresenter(output: controller,
+                                          conversation: conversation,
+                                          fetchedResultsController: fetchedResultsController,
+                                          messageService: messageService)
+    
+    
+    controller.navigationItem.title = conversation.user?.peer?.displayName
+    controller.output = presenter
+    controller.router = router
+    
+    return controller
+  }
+  
+  func profile() -> UINavigationController {
+    let controller = ProfileViewController()
+    let router = ProfileRouter(view: controller, presentationAssembly: self)
+    let presenter = ProfilePresenter(output: controller,
+                                     profileStorageService: serviceAssembly.profileStorageService())
+    
+    controller.output = presenter
+    controller.router = router
+    
+    let navigationController = UINavigationController(rootViewController: controller)
+    
+    navigationController.navigationBar.shadowImage = UIImage()
+    
+    return navigationController
+  }
+  
+  func pixabay(for delegate: IImagePickerDelegate?) -> UIViewController {
+    let controller = PixabayViewController()
+    let presenter = PixabayPresenter(output: controller, imageManager: serviceAssembly.pixabayService())
+    let router = PixabayRouter(view: controller)
+    
+    controller.output = presenter
+    controller.router = router
+    
+    controller.view().imagesCollectionView.delegate = presenter
+    controller.view().imagesCollectionView.dataSource = presenter
+    controller.delegate = delegate
+    
+    let navigationController = UINavigationController(rootViewController: controller)
+    
+    navigationController.navigationBar.shadowImage = UIImage()
+    
+    return navigationController
+  }
+  
 }

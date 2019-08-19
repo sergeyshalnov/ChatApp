@@ -1,0 +1,20 @@
+### Headers settings
+company: Sergey Shalnov
+
+### Xcode project settings
+project_name: ChatApp
+xcodeproj_path: ChatApp.xcodeproj
+
+### Code generation settings section
+# The main project target name
+project_target: ChatApp
+
+# The file path for new modules
+project_file_path: ChatApp/Sources
+
+# The Xcode group path to new modules
+project_group_path: ChatApp/Presentation Layer/Modules
+
+### Templates
+templates:
+- {name: GenerambaSwiftMVP, git: 'https://github.com/sergeyshalnov/MVPGenerambaTemplate'}

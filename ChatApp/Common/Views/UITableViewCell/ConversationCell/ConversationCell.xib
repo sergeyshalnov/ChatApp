@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="110" id="KGk-i7-Jjw" customClass="ConversationCell" customModule="ChatApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="109.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aMG-hH-uxb">
+                        <rect key="frame" x="20" y="10.5" width="295" height="93"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Person name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dze-q6-PyN">
+                                <rect key="frame" x="20" y="20" width="104" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="Qhm-86-wax"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:41" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jot-1J-dMB">
+                                <rect key="frame" x="239" y="23" width="36" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Last message from that person" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Def-Jp-tgG">
+                                <rect key="frame" x="20" y="49" width="255" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="GJv-DX-cGw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Jot-1J-dMB" firstAttribute="centerY" secondItem="dze-q6-PyN" secondAttribute="centerY" id="Bua-gl-JUi"/>
+                            <constraint firstAttribute="trailing" secondItem="Def-Jp-tgG" secondAttribute="trailing" constant="20" id="CmF-pm-ZLf"/>
+                            <constraint firstItem="Jot-1J-dMB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dze-q6-PyN" secondAttribute="trailing" constant="20" id="F2m-93-MAd"/>
+                            <constraint firstAttribute="trailing" secondItem="Jot-1J-dMB" secondAttribute="trailing" constant="20" id="TBG-sY-0Ze"/>
+                            <constraint firstItem="dze-q6-PyN" firstAttribute="top" secondItem="aMG-hH-uxb" secondAttribute="top" constant="20" id="Ul4-ZZ-rlG"/>
+                            <constraint firstAttribute="height" constant="93" id="V9y-ra-7kX"/>
+                            <constraint firstAttribute="bottom" secondItem="Def-Jp-tgG" secondAttribute="bottom" constant="20" id="aQ1-VE-kX1"/>
+                            <constraint firstItem="Def-Jp-tgG" firstAttribute="top" secondItem="dze-q6-PyN" secondAttribute="bottom" constant="5" id="fiv-CT-tKz"/>
+                            <constraint firstItem="dze-q6-PyN" firstAttribute="leading" secondItem="aMG-hH-uxb" secondAttribute="leading" constant="20" id="mEw-NX-zbB"/>
+                            <constraint firstItem="Def-Jp-tgG" firstAttribute="leading" secondItem="aMG-hH-uxb" secondAttribute="leading" constant="20" id="tyI-v2-V4W"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="aMG-hH-uxb" secondAttribute="trailing" constant="5" id="CWT-98-8qy"/>
+                    <constraint firstItem="aMG-hH-uxb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="QeN-nt-jRf"/>
+                    <constraint firstItem="aMG-hH-uxb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Sde-Lv-HQA"/>
+                    <constraint firstAttribute="bottom" secondItem="aMG-hH-uxb" secondAttribute="bottom" constant="10" id="r3N-oo-6Yz"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="containerView" destination="aMG-hH-uxb" id="xJc-1Z-Zas"/>
+                <outlet property="messageLabel" destination="Def-Jp-tgG" id="SBn-6p-ygp"/>
+                <outlet property="timeLabel" destination="Jot-1J-dMB" id="ggV-P8-1KX"/>
+                <outlet property="titleLabel" destination="dze-q6-PyN" id="9zN-Lf-N08"/>
+            </connections>
+            <point key="canvasLocation" x="33.600000000000001" y="125.03748125937032"/>
+        </tableViewCell>
+    </objects>
+</document>

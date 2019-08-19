@@ -7,38 +7,38 @@
 //
 
 import Foundation
+import MultipeerConnectivity.MCSession
 
-protocol IServiceAssembly {
-    
-    func communicationService(username: String) -> ICommunicationService
-    func communicationStorageService() -> ICommunicationStorageService
-    func profileStorageService() -> IProfileStorageService
-    func pixabayService() -> IImageManager
-    
-}
-
-class ServiceAssembly: IServiceAssembly {
-    
-    private let coreAssembly: ICoreAssembly
-    
-    init(coreAssembly: ICoreAssembly) {
-        self.coreAssembly = coreAssembly
-    }
-    
-    func communicationService(username: String) -> ICommunicationService {
-        return CommunicationService(username: username)
-    }
-    
-    func communicationStorageService() -> ICommunicationStorageService {
-        return CommunicationStorageService(coreDataStorageManager: coreAssembly.communicationStorageManager)
-    }
-    
-    func profileStorageService() -> IProfileStorageService {
-        return ProfileStorageService(coreDataStorageManager: coreAssembly.profileStorageManager)
-    }
-    
-    func pixabayService() -> IImageManager {
-        return PixabayService(requestSender: coreAssembly.requestSender, requestLoader: coreAssembly.requestLoader)
-    }
-    
+final class ServiceAssembly: IServiceAssembly {
+  
+  private let coreAssembly: ICoreAssembly
+  
+  init(coreAssembly: ICoreAssembly) {
+    self.coreAssembly = coreAssembly
+  }
+  
+  func messageService(session: MCSession) -> IMessageService {
+    return MessageService(session: session, messageStorage: coreAssembly.messageStorage)
+  }
+  
+  func storageService() -> IStorageService {
+    return StorageService(userStorage: coreAssembly.userStorage,
+                          conversationStorage: coreAssembly.conversationStorage,
+                          messageStorage: coreAssembly.messageStorage)
+  }
+  
+  func communicationService() -> ICommunicationService {
+    return CommunicationService(profileStorageService: profileStorageService(),
+                                dataParser: coreAssembly.dataParser())
+  }
+  
+  func profileStorageService() -> IProfileStorageService {
+    return ProfileStorageService(coreDataStorageManager: coreAssembly.profileStorageManager)
+  }
+  
+  func pixabayService() -> IImageManager {
+    return PixabayService(requestSender: coreAssembly.requestSender,
+                          requestLoader: coreAssembly.requestLoader)
+  }
+  
 }

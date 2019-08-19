@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  ChatApp
+
+  Created by Sergey Shalnov on 30/06/2019.
+  Copyright © 2019 Sergey Shalnov. All rights reserved.
+*/
+
+// MARK: - Global
+
+"SIGN_IN_WORD" = "Sign in";
+"USERNAME_PLACEHOLDER_WORD" = "Username";
+"ERROR_WORD" = "Error";
+"SAVE_FAILURE_WORD" = "Saving failed, try again later";
+
+"ACCEPT_INVITE_WORD" = "Accept";
+"CANCEL_INVITE_WORD" = "Cancel";
+"NO_MESSAGES_WORD" = "No messages";
+"CONVERSATION_PREVIEW_PREFIX" = "You: ";
+"CHATS_WORD" = "Chats";
+"INVITE_WORD" = "Sent an invitation";
+"DISCONNECTED_WORD" = "User disconnected";
+"OK_WORD" = "Ok";
+"SEND_WORD" = "Send";
+"MESSAGE_PLACEHOLDER_WORD" = "Message";
+
+"ACCOUNT_TITLE_WORD" = "Account";
+"PROFILE_NAME_PLACEHOLDER_WORD" = "Enter your name";
+"BIO_PLACEHOLDER_WORD" = "Bio";
+"BIO_LABEL_WORD" = "Any details such as age, occupation or city.";
+"UPDATE_PROFILE_IMAGE_WORD" = "Update";
+"ACCOUNT_SUCCESS_SAVE_TITLE_WORD" = "Account successfully saved";
+"ACCOUNT_SUCCESS_SAVE_WORD" = "Restart the app so that your contacts can see the updated information";
+"ACCOUNT_FAILURE_SAVE_WORD" = "Account has not been saved, try again later";
+"SAVE_BUTTON_WORD" = "Save";
+"CAMERA_WORD" = "Camera";
+"PHOTO_LIBRARY_WORD" = "Photo Library";
+"DOWNLOAD_WORD" = "Download";
+"CANCEL_WORD" = "Cancel";
+"IMAGE_ERROR_WORD" = "The image was not selected, try again later";

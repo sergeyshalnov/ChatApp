@@ -8,29 +8,42 @@
 
 import Foundation
 
+final class RequestLoader {
+  
+  // MARK: - Variables
+  
+  private let session = URLSession.shared
+  private var task: URLSessionDataTask?
+  
+}
 
-class RequestLoader: NSObject, IRequestLoader {
+// MARK: - IRequestLoader
+
+extension RequestLoader: IRequestLoader {
+  
+  func load(url: String, completion: @escaping (Data?) -> Void) {
+    task?.cancel()
     
-    private let session = URLSession.shared
-    private var task: URLSessionDataTask?
-
-    func load(url: String, completion: @escaping (Data?) -> Void) {
-        guard let url = URL(string: url) else {
-            completion(nil)
-            return
-        }
-        
-        task = session.dataTask(with: url) { (data, _, error) in
-            completion(error != nil ? nil : data)
-        }
-
-        task?.resume()
+    guard let url = URL(string: url) else {
+      completion(nil)
+      return
     }
     
-    func cancel() {
-        task?.cancel()
+    task = session.dataTask(with: url) { (data, _, error) in
+      if error == nil {
+        completion(data)
+      } else {
+        completion(nil)
+      }
     }
     
+    task?.resume()
+  }
+  
+  func cancel() {
+    task?.cancel()
+  }
+  
 }
 
 

@@ -10,7 +10,7 @@ import Foundation
 
 
 protocol IRequest {
-    
-    var urlRequest: URLRequest? { get }
-    
+  
+  var urlRequest: URLRequest? { get }
+  
 }

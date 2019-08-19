@@ -8,8 +8,6 @@
 
 import UIKit
 
-// MARK: - Filenames
-
 enum FileName: String {
-    case image = "profileImage.png"
+  case image = "profileImage.png"
 }
