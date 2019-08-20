@@ -11,8 +11,6 @@ import MultipeerConnectivity.MCPeerID
 
 protocol IStorageService {
   
-  func users() -> [User]
-  
   func add(user peer: MCPeerID)
   func edit(user: UserModel)
   func delete(user peer: MCPeerID)

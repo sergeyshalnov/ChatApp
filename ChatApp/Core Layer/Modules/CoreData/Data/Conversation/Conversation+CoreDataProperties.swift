@@ -20,6 +20,7 @@ extension Conversation {
   @NSManaged public var id: String
   @NSManaged public var user: User?
   @NSManaged public var preview: MessageModel?
+  @NSManaged public var date: NSDate?
   @NSManaged public var messages: NSSet?
   @NSManaged public var isUnread: Bool
   
@@ -49,7 +50,8 @@ extension Conversation {
   
   static var defaultSortDescriptors: [NSSortDescriptor] {
     let onlineDescriptor = NSSortDescriptor(key: "user.isOnline", ascending: false)
-    return [onlineDescriptor]
+    let dateDescriptor = NSSortDescriptor(key: "date", ascending: false)
+    return [onlineDescriptor, dateDescriptor]
   }
   
 }

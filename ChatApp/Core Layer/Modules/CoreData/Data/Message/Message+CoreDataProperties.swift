@@ -15,11 +15,11 @@ extension Message {
     return NSFetchRequest<Message>(entityName: "Message")
   }
   
-  @NSManaged public var conversation: Conversation?
   @NSManaged public var id: String?
   @NSManaged public var date: NSDate?
   @NSManaged public var text: String?
   @NSManaged public var isIncoming: Bool
+  @NSManaged public var conversation: Conversation?
   
 }
 

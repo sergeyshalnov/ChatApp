@@ -25,18 +25,6 @@ extension User {
   
 }
 
-// MARK: - SortDescriptors
-
-extension User {
-  
-  static var defaultSortDescriptors: [NSSortDescriptor] {
-    let onlineSort = NSSortDescriptor(key: "isOnline", ascending: false)
-//    let dateSort = NSSortDescriptor(key: "conversation", ascending: false)
-    return [onlineSort]
-  }
-  
-}
-
 // MARK: - Predicates
 
 extension User {

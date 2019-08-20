@@ -30,6 +30,7 @@ extension CoreDataManager: IMessageStorage {
         
         conversation?.addToMessages(entity)
         conversation?.preview = message
+        conversation?.date = message.date as NSDate
         
         try context.save()
       } catch {

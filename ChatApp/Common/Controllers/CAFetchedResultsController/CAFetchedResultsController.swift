@@ -123,7 +123,14 @@ extension CAFetchedResultsController: NSFetchedResultsControllerDelegate {
           return
       }
       
+      CATransaction.begin()
+      CATransaction.setCompletionBlock { [weak self] in
+        self?.tableView.reloadRows(at: [newIndexPath], with: .automatic)
+      }
+      
       tableView.moveRow(at: indexPath, to: newIndexPath)
+      
+      CATransaction.commit()
     case .update:
       tableView.reloadRows(at: [indexPath ?? []], with: .automatic)
     @unknown default:

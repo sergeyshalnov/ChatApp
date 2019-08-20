@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18G87" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Conversation" representedClassName="Conversation" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
@@ -66,7 +67,7 @@
     <fetchRequest name="getOnlineUsers" entity="User" predicateString="online == 1"/>
     <fetchRequest name="getUser" entity="User" predicateString="userId == $userId"/>
     <elements>
-        <element name="Conversation" positionX="-54" positionY="-249" width="128" height="120"/>
+        <element name="Conversation" positionX="-54" positionY="-249" width="128" height="135"/>
         <element name="Message" positionX="162" positionY="-279" width="128" height="118"/>
         <element name="Profile" positionX="-279" positionY="-279" width="128" height="88"/>
         <element name="User" positionX="-243" positionY="-126" width="128" height="118"/>

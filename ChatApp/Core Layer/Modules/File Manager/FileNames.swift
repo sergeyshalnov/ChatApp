@@ -10,4 +10,8 @@ import UIKit
 
 enum FileName: String {
   case image = "profileImage.png"
+  
+  var value: String {
+    return self.rawValue
+  }
 }

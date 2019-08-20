@@ -34,9 +34,6 @@ final class StorageService {
 
 extension StorageService: IStorageService {
   
-  func users() -> [User] {
-    return userStorage.users()
-  }
   func add(user peer: MCPeerID) {
     userStorage.add(user: peer)
   }

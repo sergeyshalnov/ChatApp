@@ -55,26 +55,26 @@ extension CoreDataManager: IProfileStorage {
             let imageSaver: IImageSaver = ImageManager()
             
             isSuccess = imageSaver.save(image: image, filename: FileName.image.rawValue)
-            entity.image = isSuccess ? FileName.image.rawValue : nil
+            entity.image = isSuccess ? FileName.image.value : nil
           }
         } else {
           let entity = result.first
           
           if let username = profile.username {
-            entity?.setValue(username, forKey: "username")
+            entity?.username = username
           }
           
           if let information = profile.information {
-            entity?.setValue(information, forKey: "information")
+            entity?.information = information
           }
           
           if let image = profile.image {
             let imageSaver: IImageSaver = ImageManager()
             
             isSuccess = imageSaver.save(image: image, filename: FileName.image.rawValue)
-            entity?.setValue(FileName.image.rawValue, forKey: "image")
+            entity?.image = FileName.image.value
           } else {
-            entity?.setValue(nil, forKey: "image")
+            entity?.image = nil
           }
         }
         

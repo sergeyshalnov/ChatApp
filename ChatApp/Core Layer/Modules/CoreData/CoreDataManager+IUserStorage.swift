@@ -12,29 +12,6 @@ import MultipeerConnectivity
 
 extension CoreDataManager: IUserStorage {
   
-  func user(by peer: MCPeerID) -> User? {
-    let context = CoreDataManager.container.newBackgroundContext()
-    let request = NSFetchRequest<User>(entityName: "User")
-    let predicate = User.predicate(peer: peer)
-    
-    request.predicate = predicate
-    
-    do {
-      let items = try context.fetch(request)
-      
-      return items.first
-    } catch {
-      return nil
-    }
-  }
-  
-  func users() -> [User] {
-    let context = CoreDataManager.container.newBackgroundContext()
-    let request = NSFetchRequest<User>(entityName: "User")
-    
-    return (try? context.fetch(request)) ?? []
-  }
-  
   func add(user peer: MCPeerID) {
     let context = CoreDataManager.container.viewContext
     
@@ -67,8 +44,8 @@ extension CoreDataManager: IUserStorage {
         return
       }
       
-      item.setValue(user.isOnline, forKey: "isOnline")
-      item.setValue(user.isConfirmed, forKey: "isConfirmed")
+      item.isOnline = user.isOnline
+      item.isConfirmed = user.isConfirmed
       
       try context.save()
     } catch {
