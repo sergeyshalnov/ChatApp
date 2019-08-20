@@ -21,7 +21,7 @@ extension Decorator {
         view.backgroundColor = .clear
         
         view.setTitleColor(.white, for: .normal)
-        view.setTitleColor(.lightGray, for: .disabled)
+        view.setTitleColor(UIColor.Palette.Grey.placeholder, for: .disabled)
         
         view.contentHorizontalAlignment = .center
         view.setBackgroundImage(UIImage(color: .black), for: .normal)

@@ -31,10 +31,7 @@ final class OnboardingView: UIView {
     super.layoutSubviews()
     
     signInButton.decorate(with: Decorator.Button.Regular())
-    
-    DispatchQueue.main.async { [weak self] in
-      self?.signInButton.cornerRadius(10)
-    }
+    signInButton.cornerRadius(10)
   }
   
 }

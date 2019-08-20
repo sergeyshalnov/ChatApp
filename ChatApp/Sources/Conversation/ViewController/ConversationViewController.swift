@@ -42,11 +42,6 @@ final class ConversationViewController: UIViewController, CustomViewController {
     navigationController?.navigationBar.prefersLargeTitles = false
   }
   
-  override func viewWillLayoutSubviews() {
-    super.viewWillLayoutSubviews()
-    view().updateLayout()
-  }
-  
 }
 
 // MARK: - Setup
@@ -80,17 +75,13 @@ private extension ConversationViewController {
 
 private extension ConversationViewController {
   
-  @IBAction func messageTextFieldValueChanged(_ sender: UITextField) {
-    view().sendButton.isEnabled = !sender.text.isEmpty()
-  }
-  
   @objc func sendButtonTouch(_ sender: Any) {
-    guard let message = view().messageTextField.text else {
+    guard let message = view().message() else {
       return
     }
     
     output?.send(message: message)
-    view().messageTextField.text = nil
+//    view().messageTextField.text = nil
   }
   
 }

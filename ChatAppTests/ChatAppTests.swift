@@ -34,7 +34,6 @@ class ChatAppTests: XCTestCase {
     super.tearDown()
   }
   
-  
   // MARK: - Test: That ImageLoader called RequestManager.load
   
   func testOnImageLoaderCalledRequestManagerLoad() {
@@ -48,20 +47,15 @@ class ChatAppTests: XCTestCase {
     XCTAssert(requestManager.isLoadCalled)
   }
   
+  // MARK: - Test: That ImageLoader called RequestManager which load testImage
   
-  // MARK: - Image compresss
-  // This method preparing image for compare with compressed image
-  
-  private func imageCompress(image: UIImage) -> Data {
+  func imageCompress(image: UIImage) -> Data {
     let dataCompression_1 = image.pngData()!
     let imageFromData = UIImage(data: dataCompression_1)!
     let dataCompression_2 = imageFromData.pngData()!
     
     return dataCompression_2
   }
-  
-  
-  // MARK: - Test: That ImageLoader called RequestManager which load testImage
   
   func testOnImageLoaderCalledRequestManagerAndLoadImage() {
     // given
@@ -85,44 +79,8 @@ class ChatAppTests: XCTestCase {
     
     waitForExpectations(timeout: 5, handler: nil)
     
-    // MARK: - Image compresss
-    // This method preparing image for compare with compressed image
-    
-    private func imageCompress(image: UIImage) -> Data {
-        let dataCompression_1 = image.pngData()!
-        let imageFromData = UIImage(data: dataCompression_1)!
-        let dataCompression_2 = imageFromData.pngData()!
-        
-        return dataCompression_2
-    }
-    
-    
-    // MARK: - Test: That ImageLoader called RequestManager which load testImage
-    
-    func testOnImageLoaderCalledRequestManagerAndLoadImage() {
-        // given
-        let expectation = self.expectation(description: "Loading")
-        var isEqual = false
-        
-        // when
-        imageLoader.load(url: "http://google.com/") { image in
-            guard let image = image else {
-                XCTAssert(false)
-                return
-            }
-            
-            let dataOfLoadImage = image.pngData()!
-            let dataOfTestImage = self.imageCompress(image: self.testImage)
-            
-            isEqual = dataOfLoadImage == dataOfTestImage
-            
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 5, handler: nil)
-        
-        // then
-        XCTAssert(isEqual)
-    }
-    
+    // then
+    XCTAssert(isEqual)
+  }
+  
 }

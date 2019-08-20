@@ -20,6 +20,7 @@ extension UIColor {
     }
     enum Grey {
       static let textField = UIColor.init(hex: "#8E8E93", alpha: 0.12)
+      static let placeholder = UIColor.init(hex: "#B4B4BA")
       static let bubble = UIColor.init(hex: "#D2D2D6")
     }
   }

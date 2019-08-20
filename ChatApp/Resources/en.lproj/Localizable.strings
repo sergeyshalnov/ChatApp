@@ -37,7 +37,9 @@
 "CAMERA_WORD" = "Camera";
 "PHOTO_LIBRARY_WORD" = "Photo Library";
 "DOWNLOAD_WORD" = "Download";
+"CLEAR_WORD" = "Clear account photo";
 "CANCEL_WORD" = "Cancel";
 "IMAGE_ERROR_WORD" = "The image was not selected, try again later";
 
 "PIXABAY_WORD" = "PIXABAY";
+"NO_IMAGE_WORD" = "No photo";

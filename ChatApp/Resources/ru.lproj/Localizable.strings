@@ -37,7 +37,9 @@
 "CAMERA_WORD" = "Камера";
 "PHOTO_LIBRARY_WORD" = "Галерея";
 "DOWNLOAD_WORD" = "Загрузить";
+"CLEAR_WORD" = "Очистить фото профиля";
 "CANCEL_WORD" = "Отмена";
 "IMAGE_ERROR_WORD" = "Изображение не было выбрано, повторите попытку позднее";
 
 "PIXABAY_WORD" = "PIXABAY";
+"NO_IMAGE_WORD" = "Фото отсутствует";

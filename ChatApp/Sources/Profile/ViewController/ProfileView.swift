@@ -20,10 +20,21 @@ final class ProfileView: UIView {
   @IBOutlet private weak var usernameTextField: CATextField!
   @IBOutlet private weak var statusTextField: CATextField!
   @IBOutlet private weak var saveProfileButton: UIButton!
+  @IBOutlet private weak var noPhotoLabel: UILabel!
   
   // MARK: - Variables
   
   private var temporaryProfile: ProfileData?
+  
+  // MARK: - Lifecycle
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    profileImageView.cornerRadius(10)
+    updateProfileImageButton.cornerRadius(10)
+    saveProfileButton.cornerRadius(10)
+  }
   
 }
 
@@ -34,6 +45,7 @@ extension ProfileView {
   func setup() {
     setupUpdateButton()
     setupSaveButton()
+    setupNoPhotoLabel()
   }
   
   private func setupUpdateButton() {
@@ -59,19 +71,15 @@ extension ProfileView {
     saveProfileButton.heightAnchor.constraint(equalToConstant: size.height + 20).isActive = true
   }
   
+  private func setupNoPhotoLabel() {
+    noPhotoLabel.textColor = UIColor.Palette.Grey.placeholder
+  }
+  
 }
 
 // MARK: - Layout
 
 extension ProfileView {
-  
-  func updateLayout() {
-    DispatchQueue.main.async { [weak self] in
-      self?.profileImageView.cornerRadius(10)
-      self?.updateProfileImageButton.cornerRadius(10)
-      self?.saveProfileButton.cornerRadius(10)
-    }
-  }
   
   func update(profile: ProfileData) {
     temporaryProfile = profile
@@ -80,11 +88,13 @@ extension ProfileView {
     usernameTextField.text = profile.username
     statusTextField.text = profile.information
     saveProfileButton.isEnabled = false
+    noPhotoLabel.isHidden = profile.image != nil
   }
   
   func update(image: UIImage?) {
     profileImageView.image = image
     saveProfileButton.isEnabled = true
+    noPhotoLabel.isHidden = image != nil
   }
   
 }
@@ -104,7 +114,7 @@ extension ProfileView {
   @objc private func keyboardWillShow(_ notification: NSNotification) {
     guard
       let userInfo = notification.userInfo,
-      let keyboardSize = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
+      let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
       let keyboardDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
       else {
         return

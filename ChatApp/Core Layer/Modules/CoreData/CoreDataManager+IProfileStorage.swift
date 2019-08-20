@@ -73,6 +73,8 @@ extension CoreDataManager: IProfileStorage {
             
             isSuccess = imageSaver.save(image: image, filename: FileName.image.rawValue)
             entity?.setValue(FileName.image.rawValue, forKey: "image")
+          } else {
+            entity?.setValue(nil, forKey: "image")
           }
         }
         

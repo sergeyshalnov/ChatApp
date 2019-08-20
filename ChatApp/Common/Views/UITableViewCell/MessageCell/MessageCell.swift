@@ -22,8 +22,8 @@ class MessageCell: UITableViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    leadingConstraint = containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5)
-    trailingConstraint = containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5)
+    leadingConstraint = containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10)
+    trailingConstraint = containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
   }
   
   override func layoutSubviews() {

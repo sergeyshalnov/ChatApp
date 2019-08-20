@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14810.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14766.15"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -50,11 +52,23 @@
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="D62-f4-EDS">
                                             <rect key="frame" x="177" y="177" width="20" height="20"/>
                                         </activityIndicatorView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CrZ-dM-KAq">
+                                            <rect key="frame" x="20" y="177" width="334" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLabelLocalizableKey" value="NO_IMAGE_WORD"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
                                     </subviews>
-                                    <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="LhZ-NH-ExE" secondAttribute="bottom" id="2yL-XI-Xhx"/>
+                                        <constraint firstItem="CrZ-dM-KAq" firstAttribute="centerY" secondItem="SA8-le-gjX" secondAttribute="centerY" id="5Mk-nj-jKO"/>
+                                        <constraint firstItem="CrZ-dM-KAq" firstAttribute="leading" secondItem="SA8-le-gjX" secondAttribute="leading" constant="20" id="5Xd-MN-cTq"/>
                                         <constraint firstItem="LhZ-NH-ExE" firstAttribute="leading" secondItem="SA8-le-gjX" secondAttribute="leading" id="Ei6-8j-2Ng"/>
+                                        <constraint firstAttribute="trailing" secondItem="CrZ-dM-KAq" secondAttribute="trailing" constant="20" id="I9y-by-ugY"/>
                                         <constraint firstAttribute="trailing" secondItem="nQd-og-NhT" secondAttribute="trailing" id="Maa-Ft-7Mq"/>
                                         <constraint firstAttribute="bottom" secondItem="nQd-og-NhT" secondAttribute="bottom" id="Okn-gd-XkK"/>
                                         <constraint firstAttribute="trailing" secondItem="LhZ-NH-ExE" secondAttribute="trailing" id="SxO-E6-oM6"/>
@@ -144,6 +158,7 @@
             <connections>
                 <outlet property="activityIndicator" destination="D62-f4-EDS" id="LWq-g0-XAe"/>
                 <outlet property="containerScrollView" destination="Zd0-lP-nGc" id="IRh-44-tYY"/>
+                <outlet property="noPhotoLabel" destination="CrZ-dM-KAq" id="btR-Nz-YKp"/>
                 <outlet property="profileImageView" destination="LhZ-NH-ExE" id="0il-ME-JtU"/>
                 <outlet property="saveProfileButton" destination="pvW-rN-qQX" id="wsA-Ar-PE8"/>
                 <outlet property="statusTextField" destination="8XM-ms-ToS" id="cCh-Md-J1t"/>

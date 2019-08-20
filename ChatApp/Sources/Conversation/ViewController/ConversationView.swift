@@ -13,11 +13,18 @@ final class ConversationView: UIView {
   // MARK: - Outlets
   
   @IBOutlet private(set) weak var tableView: UITableView!
-  @IBOutlet private(set) weak var messageTextField: CATextField!
+  @IBOutlet private weak var messageTextField: CATextField!
   @IBOutlet private weak var messageContainerView: UIView!
   @IBOutlet private weak var messageContainerBottomConstraint: NSLayoutConstraint!
   
   private(set) lazy var sendButton = makeSendButton()
+  
+  // MARK: - Overriden
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    sendButton.cornerRadius(10)
+  }
   
 }
 
@@ -48,7 +55,9 @@ extension ConversationView {
     messageTextField.rightView = sendButton
     messageTextField.rightViewMode = .always
     messageTextField.padding.right = size.width + 20
+    
     sendButton.translatesAutoresizingMaskIntoConstraints = false
+    sendButton.isEnabled = false
     
     NSLayoutConstraint.activate([
       sendButton.heightAnchor.constraint(equalTo: messageTextField.heightAnchor),
@@ -73,6 +82,31 @@ private extension ConversationView {
   
 }
 
+// MARK: - IBActions
+
+private extension ConversationView {
+  
+  @IBAction func messageTextFieldEditingChanged(_ sender: UITextField) {
+    sendButton.isEnabled = !sender.text.isEmpty()
+  }
+  
+}
+
+// MARK: - Public
+
+extension ConversationView {
+  
+  func message() -> String? {
+    defer {
+      messageTextField.text = nil
+      sendButton.isEnabled = false
+    }
+    
+    return messageTextField.text
+  }
+  
+}
+
 // MARK: - Keyboard Appearance
 
 extension ConversationView {
@@ -88,33 +122,25 @@ extension ConversationView {
   @objc private func keyboardWillShow(_ notification: NSNotification) {
     guard
       let userInfo = notification.userInfo,
-      let keyboardSize = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
+      let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
       let keyboardDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
       else {
         return
     }
     
     UIView.animate(withDuration: keyboardDuration) { [weak self] in
-      self?.messageContainerBottomConstraint.constant = keyboardSize.height
-      self?.layoutIfNeeded()
+      guard let self = self else {
+        return
+      }
+      
+      self.messageContainerBottomConstraint.constant = keyboardSize.height - self.safeAreaInsets.bottom
+      self.layoutIfNeeded()
     }
   }
   
   @objc private func keyboardWillHide(_ notification: NSNotification) {
     messageContainerBottomConstraint.constant = 0
     layoutIfNeeded()
-  }
-  
-}
-
-// MARK: - Update
-
-extension ConversationView {
-  
-  func updateLayout() {
-    DispatchQueue.main.async { [weak self] in
-      self?.sendButton.cornerRadius(10)
-    }
   }
   
 }

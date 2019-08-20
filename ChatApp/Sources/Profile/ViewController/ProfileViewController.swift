@@ -38,11 +38,6 @@ final class ProfileViewController: UIViewController, CustomViewController {
     navigationController?.navigationBar.prefersLargeTitles = true
   }
   
-  override func viewWillLayoutSubviews() {
-    super.viewWillLayoutSubviews()
-    view().updateLayout()
-  }
-  
 }
 
 // MARK: - Setup
@@ -108,6 +103,10 @@ private extension ProfileViewController {
       self?.router?.navigateToPixabay(animated: true)
     })
     
+    actions.append(UIAlertAction(title: String.clearWord, style: .default) { [weak self] _ in
+      self?.view().update(image: nil)
+    })
+    
     alert(title: nil, message: nil, preferredStyle: .actionSheet, actions: actions)
   }
   
@@ -143,6 +142,7 @@ extension ProfileViewController: IProfileViewInput {
   
   func display(title: String?, message: String, with actions: [UIAlertAction]) {
     alert(title: title, message: message, actions: actions)
+    view().activityIndicator.stopAnimating()
   }
 
   func saveSuccess() {
@@ -193,6 +193,7 @@ private extension String {
   static let cameraWord = "CAMERA_WORD".localized()
   static let photoLibraryWord = "PHOTO_LIBRARY_WORD".localized()
   static let downloadWord = "DOWNLOAD_WORD".localized()
+  static let clearWord = "CLEAR_WORD".localized()
   static let okWord = "OK_WORD".localized()
   static let errorWord = "ERROR_WORD".localized()
   static let imageErrorWord = "IMAGE_ERROR_WORD".localized()
