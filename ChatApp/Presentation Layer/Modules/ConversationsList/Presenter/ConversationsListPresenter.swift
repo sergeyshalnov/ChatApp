@@ -73,6 +73,7 @@ extension ConversationsListPresenter: IConversationsListPresenterInput {
       output?.display(conversation: conversation, with: session)
     } else if let peer = user.peer {
       communicationController.invite(peer: peer)
+      output?.display(title: peer.displayName, message: String.inviteSentMessageWord)
     }
   }
   
@@ -104,6 +105,7 @@ extension ConversationsListPresenter: ICACommunicationControllerDelegate {
 
 private extension String {
   
+  static let inviteSentMessageWord = "INVITE_SENT_MESSAGE_WORD".localized()
   static let acceptInviteWord = "ACCEPT_INVITE_WORD".localized()
   static let cancelInviteWord = "CANCEL_INVITE_WORD".localized()
   

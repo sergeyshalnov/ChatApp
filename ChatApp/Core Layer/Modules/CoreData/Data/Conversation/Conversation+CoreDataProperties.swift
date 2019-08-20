@@ -77,7 +77,9 @@ extension Conversation {
   static func fetchRequest(id: String) -> NSFetchRequest<Conversation> {
     let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
     let predicate = Conversation.predicate(id: id)
+    
     request.predicate = predicate
+    
     return request
   }
   

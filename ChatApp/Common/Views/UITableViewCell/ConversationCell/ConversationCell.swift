@@ -78,6 +78,7 @@ private extension ConversationCell {
   
   func updateDate(with conversation: Conversation) {
     guard let date = (conversation.messages?.allObjects as? [Message])?.last?.date else {
+      timeLabel.text = nil 
       return
     }
     

@@ -94,6 +94,12 @@ extension ConversationsListViewController: IConversationsListViewInput {
     router?.navigate(to: conversation, with: session, animated: true)
   }
   
+  func display(title: String, message: String) {
+    alert(title: title, message: message, actions: [
+      UIAlertAction(title: String.okWord, style: .default, handler: nil)
+    ])
+  }
+  
   func noProfile() {
     router?.onboarding(animated: true)
   }
@@ -106,6 +112,7 @@ private extension String {
   
   static let chatsWord = "CHATS_WORD".localized()
   static let inviteWord = "INVITE_WORD".localized()
+  static let okWord = "OK_WORD".localized()
   
 }
 

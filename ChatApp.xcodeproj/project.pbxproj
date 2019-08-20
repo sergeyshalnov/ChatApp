@@ -593,6 +593,7 @@
 		1A2AD39A22B64CA000501EE1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FB87FF9D230BFE6600CEBE18 /* Formatters */,
 				1A214B3E2304A3DE00F1C63A /* Decorators */,
 				1A7FF02822FEEBF4005B8C81 /* Controllers */,
 				1A2AD39422B64AD200501EE1 /* Views */,
@@ -963,7 +964,6 @@
 			children = (
 				1A2AD39622B64BAB00501EE1 /* Foundation */,
 				1AFCF30B22B562D100858EDE /* UIKit */,
-				1A7FF02322FEE7A4005B8C81 /* TodayDateFormatter.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -971,14 +971,14 @@
 		1AFCF30B22B562D100858EDE /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				1A0718E322F7692600C8CFB4 /* UIView */,
+				1AFCF30D22B562DD00858EDE /* UIColor */,
 				1AE9089222FB5F33000C9EFD /* UIButton+Extensions.swift */,
 				1A214B452305920B00F1C63A /* UIEdgeInsets+Extensions.swift */,
 				1A2059132309B3620056ED4C /* UIImage+Extensions.swift */,
 				1A09694523082DB200067834 /* UILabel+Extensions.swift */,
 				1AE9089822FB60C4000C9EFD /* UITextField+Extensions.swift */,
 				1A0969422308202500067834 /* UIViewController+Extensions.swift */,
-				1A0718E322F7692600C8CFB4 /* UIView */,
-				1AFCF30D22B562DD00858EDE /* UIColor */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1166,6 +1166,14 @@
 				1A00658A230018550056B916 /* IMessageStorage.swift */,
 			);
 			path = StorageProtocols;
+			sourceTree = "<group>";
+		};
+		FB87FF9D230BFE6600CEBE18 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				1A7FF02322FEE7A4005B8C81 /* TodayDateFormatter.swift */,
+			);
+			path = Formatters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
